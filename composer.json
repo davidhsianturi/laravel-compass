@@ -1,0 +1,43 @@
+{
+    "name": "davidhsianturi/laravel-compass",
+    "description": "REST assistant for building APIs in Laravel.",
+    "keywords": ["laravel", "API", "debugging", "documentation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David H. Sianturi",
+            "email": "davidhsianturi@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1.3",
+        "illuminate/routing": "5.7.*",
+        "illuminate/support": "5.7.*",
+        "illuminate/console": "5.7.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Davidhs\\Compass\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Davidhs\\Compass\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Davidhs\\Compass\\CompassServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
