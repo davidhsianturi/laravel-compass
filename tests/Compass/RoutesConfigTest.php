@@ -1,9 +1,9 @@
 <?php
 
-namespace Davidhs\Compass\Tests\Compass;
+namespace Davidhsianturi\Compass\Tests\Compass;
 
-use Davidhs\Compass\Compass;
-use Davidhs\Compass\Tests\TestCase;
+use Davidhsianturi\Compass\Compass;
+use Davidhsianturi\Compass\Tests\TestCase;
 
 class RoutesConfigTest extends TestCase
 {

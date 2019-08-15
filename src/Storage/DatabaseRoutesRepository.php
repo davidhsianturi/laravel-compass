@@ -1,13 +1,13 @@
 <?php
 
-namespace Davidhs\Compass\Storage;
+namespace Davidhsianturi\Compass\Storage;
 
 use Illuminate\Support\Str;
-use Davidhs\Compass\Compass;
+use Davidhsianturi\Compass\Compass;
 use Illuminate\Support\Carbon;
-use Davidhs\Compass\RouteResult;
+use Davidhsianturi\Compass\RouteResult;
 use Illuminate\Support\Facades\DB;
-use Davidhs\Compass\Contracts\RoutesRepository;
+use Davidhsianturi\Compass\Contracts\RoutesRepository;
 
 class DatabaseRoutesRepository implements RoutesRepository
 {
@@ -32,7 +32,7 @@ class DatabaseRoutesRepository implements RoutesRepository
     /**
      * Return all the routes.
      *
-     * @return \Illuminate\Support\Collection|Davidhs\Compass\RouteResult[]
+     * @return \Illuminate\Support\Collection|Davidhsianturi\Compass\RouteResult[]
      */
     public function get()
     {
@@ -47,7 +47,7 @@ class DatabaseRoutesRepository implements RoutesRepository
      * find the route with the given ID.
      *
      * @param  string  $id
-     * @return \Davidhs\Compass\RouteResult
+     * @return \Davidhsianturi\Compass\RouteResult
      */
     public function find($id): RouteResult
     {
@@ -62,7 +62,7 @@ class DatabaseRoutesRepository implements RoutesRepository
      * Update or insert the given route.
      *
      * @param  array  $route
-     * @return \Davidhs\Compass\RouteResult
+     * @return \Davidhsianturi\Compass\RouteResult
      */
     public function save(array $route)
     {
@@ -84,7 +84,7 @@ class DatabaseRoutesRepository implements RoutesRepository
      * The route result.
      *
      * @param  array  $route
-     * @return \Davidhs\Compass\RouteResult
+     * @return \Davidhsianturi\Compass\RouteResult
      */
     protected function routeResult(array $route)
     {

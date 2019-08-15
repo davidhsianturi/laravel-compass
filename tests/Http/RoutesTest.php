@@ -1,12 +1,12 @@
 <?php
 
-namespace Davidhs\Compass\Tests\Http;
+namespace Davidhsianturi\Compass\Tests\Http;
 
-use Davidhs\Compass\Compass;
-use Davidhs\Compass\Tests\TestCase;
-use Davidhs\Compass\Storage\RouteModel;
+use Davidhsianturi\Compass\Compass;
+use Davidhsianturi\Compass\Tests\TestCase;
+use Davidhsianturi\Compass\Storage\RouteModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Davidhs\Compass\Storage\DatabaseRoutesRepository;
+use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
 
 class RoutesTest extends TestCase
 {

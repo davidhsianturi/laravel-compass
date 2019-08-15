@@ -1,6 +1,6 @@
 <?php
 
-namespace Davidhs\Compass;
+namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Str;
 use Illuminate\Routing\Route;
@@ -91,8 +91,8 @@ class Compass
     /**
      * Group the routes with the first word in route URI.
      *
-     * @param  Illuminate\Support\Collection|\Davidhs\Compass\RouteResult[]  $routes
-     * @return Illuminate\Support\Collection|\Davidhs\Compass\RouteResult[]
+     * @param  Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]  $routes
+     * @return Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]
      */
     public static function groupingRoutes(Collection $routes)
     {

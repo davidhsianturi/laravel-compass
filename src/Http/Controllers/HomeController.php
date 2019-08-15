@@ -1,6 +1,6 @@
 <?php
 
-namespace Davidhs\Compass\Http\Controllers;
+namespace Davidhsianturi\Compass\Http\Controllers;
 
 use Compass\Compass;
 

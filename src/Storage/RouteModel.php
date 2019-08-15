@@ -1,6 +1,6 @@
 <?php
 
-namespace Davidhs\Compass\Storage;
+namespace Davidhsianturi\Compass\Storage;
 
 use Illuminate\Database\Eloquent\Model;
 

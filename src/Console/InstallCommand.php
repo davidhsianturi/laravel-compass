@@ -1,6 +1,6 @@
 <?php
 
-namespace Davidhs\Compass\Console;
+namespace Davidhsianturi\Compass\Console;
 
 use Illuminate\Console\Command;
 

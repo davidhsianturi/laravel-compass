@@ -1,11 +1,11 @@
 <?php
 
-namespace Davidhs\Compass;
+namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Davidhs\Compass\Contracts\RoutesRepository;
-use Davidhs\Compass\Storage\DatabaseRoutesRepository;
+use Davidhsianturi\Compass\Contracts\RoutesRepository;
+use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
 
 class CompassServiceProvider extends ServiceProvider
 {
@@ -32,7 +32,7 @@ class CompassServiceProvider extends ServiceProvider
      */
     private function registerRoutes()
     {
-        Route::namespace('Davidhs\Compass\Http\Controllers')
+        Route::namespace('Davidhsianturi\Compass\Http\Controllers')
             ->as('compass.')
             ->prefix(config('compass.path'))
             ->group(function () {

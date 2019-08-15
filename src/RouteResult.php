@@ -1,6 +1,6 @@
 <?php
 
-namespace Davidhs\Compass;
+namespace Davidhsianturi\Compass;
 
 use JsonSerializable;
 

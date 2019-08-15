@@ -20,18 +20,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Davidhs\\Compass\\": "src/"
+            "Davidhsianturi\\Compass\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Davidhs\\Compass\\Tests\\": "tests/"
+            "Davidhsianturi\\Compass\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Davidhs\\Compass\\CompassServiceProvider"
+                "Davidhsianturi\\Compass\\CompassServiceProvider"
             ]
         }
     },

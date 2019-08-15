@@ -1,11 +1,11 @@
 <?php
 
-namespace Davidhs\Compass\Tests;
+namespace Davidhsianturi\Compass\Tests;
 
-use Davidhs\Compass\CompassServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Davidhsianturi\Compass\CompassServiceProvider;
 use Illuminate\Support\Facades\Route as RouteFacade;
-use Davidhs\Compass\Storage\DatabaseRoutesRepository;
+use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
 
 class TestCase extends Orchestra
 {

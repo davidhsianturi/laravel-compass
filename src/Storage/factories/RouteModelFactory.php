@@ -1,6 +1,6 @@
 <?php
 
-use Davidhs\Compass\Storage\RouteModel;
+use Davidhsianturi\Compass\Storage\RouteModel;
 
 /* @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(RouteModel::class, function (Faker\Generator $faker) {

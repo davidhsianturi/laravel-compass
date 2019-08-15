@@ -1,8 +1,8 @@
 <?php
 
-namespace Davidhs\Compass\Contracts;
+namespace Davidhsianturi\Compass\Contracts;
 
-use Davidhs\Compass\RouteResult;
+use Davidhsianturi\Compass\RouteResult;
 use Illuminate\Support\Collection;
 
 interface RoutesRepository
@@ -10,7 +10,7 @@ interface RoutesRepository
     /**
      * Return all the routes.
      *
-     * @return \Illuminate\Support\Collection|\Davidhs\Compass\RouteResult[]
+     * @return \Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]
      */
     public function get();
 
@@ -18,7 +18,7 @@ interface RoutesRepository
      * find the route with the given ID.
      *
      * @param  string  $id
-     * @return \Davidhs\Compass\RouteResult
+     * @return \Davidhsianturi\Compass\RouteResult
      */
     public function find($id): RouteResult;
 

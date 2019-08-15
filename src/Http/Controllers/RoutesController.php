@@ -1,23 +1,23 @@
 <?php
 
-namespace Davidhs\Compass\Http\Controllers;
+namespace Davidhsianturi\Compass\Http\Controllers;
 
-use Davidhs\Compass\Compass;
-use Davidhs\Compass\Contracts\RoutesRepository;
+use Davidhsianturi\Compass\Compass;
+use Davidhsianturi\Compass\Contracts\RoutesRepository;
 
 class RoutesController
 {
     /**
      * The routes repository.
      *
-     * @var \Davidhs\Compass\Contracts\RoutesRepository
+     * @var \Davidhsianturi\Compass\Contracts\RoutesRepository
      */
     protected $routes;
 
     /**
      * Create a new RoutesController instance.
      *
-     * @param  \Davidhs\Compass\Contracts\RoutesRepository  $routes
+     * @param  \Davidhsianturi\Compass\Contracts\RoutesRepository  $routes
      * @return void
      */
     public function __construct(RoutesRepository $routes)
