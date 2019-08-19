@@ -3,10 +3,10 @@
 namespace Davidhsianturi\Compass\Storage;
 
 use Illuminate\Support\Str;
-use Davidhsianturi\Compass\Compass;
 use Illuminate\Support\Carbon;
-use Davidhsianturi\Compass\RouteResult;
 use Illuminate\Support\Facades\DB;
+use Davidhsianturi\Compass\Compass;
+use Davidhsianturi\Compass\RouteResult;
 use Davidhsianturi\Compass\Contracts\RoutesRepository;
 
 class DatabaseRoutesRepository implements RoutesRepository
@@ -36,10 +36,8 @@ class DatabaseRoutesRepository implements RoutesRepository
      */
     public function get()
     {
-        $routes = RouteModel::on($this->connection)->get()->toArray();
-
-        return Compass::syncRoute($routes)->map(function ($route) {
-            return $this->routeResult($route);
+        return Compass::syncRoute($this->routesInStorage())->map(function ($route) {
+            return $this->routeResult($route, []);
         });
     }
 
@@ -49,31 +47,35 @@ class DatabaseRoutesRepository implements RoutesRepository
      * @param  string  $id
      * @return \Davidhsianturi\Compass\RouteResult
      */
-    public function find($id): RouteResult
+    public function find(string $id): RouteResult
     {
-        $routes = RouteModel::on($this->connection)->whereRouteId($id)->get()->toArray();
+        $route = Compass::syncRoute($this->routesInStorage())->whereStrict('route_hash', $id)->first();
 
-        $route = Compass::syncRoute($routes)->where('route_id', $id)->first();
+        $docs = $this->table('compass_routeables')
+            ->where('docs', true)
+            ->where('route_hash', $id)
+            ->get()
+            ->toArray();
 
-        return $this->routeResult($route);
+        return $this->routeResult($route, $docs);
     }
 
     /**
      * Update or insert the given route.
      *
      * @param  array  $route
-     * @return \Davidhsianturi\Compass\RouteResult
+     * @return mixed
      */
     public function save(array $route)
     {
         $storageId = $route['storageId'] ?? Str::uuid();
 
         $this->table('compass_routeables')->updateOrInsert(
-            ['route_id' => $route['id'], 'storage_id' => $storageId],
+            ['route_hash' => $route['id'], 'uuid' => $storageId],
             [
                 'title' => $route['title'],
                 'description' => $route['description'],
-                'network' => json_encode($route['network'])
+                'content' => json_encode($route['content']),
             ]
         );
 
@@ -86,14 +88,14 @@ class DatabaseRoutesRepository implements RoutesRepository
      * @param  array  $route
      * @return \Davidhsianturi\Compass\RouteResult
      */
-    protected function routeResult(array $route)
+    protected function routeResult(array $route, ?array $docs)
     {
         return new RouteResult(
-            $route['route_id'],
-            $route['storage_id'],
+            $route['route_hash'],
+            $route['uuid'],
             $route['title'],
             $route['description'],
-            $route['network'],
+            $route['content'],
             [
                 'domain' => $route['domain'],
                 'method' => $route['method'],
@@ -102,8 +104,22 @@ class DatabaseRoutesRepository implements RoutesRepository
                 'action' => $route['action'],
             ],
             Carbon::parse($route['created_at']),
-            Carbon::parse($route['updated_at'])
+            Carbon::parse($route['updated_at']),
+            $docs
         );
+    }
+
+    /**
+     * Get routes from storage.
+     *
+     * @return array
+     */
+    protected function routesInStorage()
+    {
+        return RouteModel::on($this->connection)
+            ->whereDocs(false)
+            ->get()
+            ->toArray();
     }
 
     /**

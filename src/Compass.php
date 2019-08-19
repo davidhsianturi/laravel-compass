@@ -39,11 +39,11 @@ class Compass
         $methods = array_diff($route->methods(), ['HEAD']);
 
         return static::filterRoute([
-            "storage_id" => null,
+            "uuid" => null,
             "title" => $route->uri(),
             "description" => null,
-            "network" => [],
-            'route_id' => md5($route->uri().':'.implode($methods)),
+            "content" => [],
+            'route_hash' => md5($route->uri().':'.implode($methods)),
             'domain' => $route->domain(),
             'method' => implode($methods),
             'uri' => $route->uri(),
@@ -76,13 +76,13 @@ class Compass
     /**
      * Sync route from storage with app routes.
      *
-     * @param  array  $storage
+     * @param  array  $routeInStorage
      * @return Illuminate\Support\Collection
      */
-    public static function syncRoute(array $storage)
+    public static function syncRoute(array $routeInStorage)
     {
-        return static::getAppRoutes()->map(function ($appRoute) use ($storage) {
-            $route = collect($storage)->where('route_id', $appRoute['route_id'])->collapse()->toArray();
+        return static::getAppRoutes()->map(function ($appRoute) use ($routeInStorage) {
+            $route = collect($routeInStorage)->where('route_hash', $appRoute['route_hash'])->collapse()->toArray();
 
             return array_merge($appRoute, $route);
         })->values();

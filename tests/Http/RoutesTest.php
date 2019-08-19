@@ -52,12 +52,8 @@ class RoutesTest extends TestCase
         $this->getJson(route('compass.routes.show', $route['id']))
             ->assertSuccessful()
             ->assertJsonStructure(['route' => []])
-            ->assertJson([
-                'route' => [
-                    'id' => $route['id'],
-                    'storageId' => $route['storageId'],
-                    'title' => $route['title'],
-                ],
+            ->assertExactJson([
+                'route' => $route,
             ]);
     }
 
@@ -75,7 +71,7 @@ class RoutesTest extends TestCase
                 'route' => [
                     'id' => $appRoute['id'],
                     'title' => $appRoute['title'],
-                    'network' => $appRoute['network'],
+                    'content' => $appRoute['content'],
                 ],
             ]);
 
@@ -84,12 +80,11 @@ class RoutesTest extends TestCase
 
     public function test_update_existing_route_from_storage()
     {
-        $route = $this->repository->find($this->routeFactory()->route_id)->jsonSerialize();
+        $route = $this->repository->find($this->routeFactory()->route_hash)->jsonSerialize();
 
         $updateAttribute = array_merge($route, ['title' => 'List All Invoices']);
 
-        $response = $this->postJson(route('compass.routes.store'), $updateAttribute);
-        $response
+        $this->postJson(route('compass.routes.store'), $updateAttribute)
             ->assertSuccessful()
             ->assertJsonStructure(['route' => []])
             ->assertJson([
@@ -97,7 +92,7 @@ class RoutesTest extends TestCase
                     'id' => $updateAttribute['id'],
                     'storageId' => $updateAttribute['storageId'],
                     'title' => 'List All Invoices',
-                    'network' => $updateAttribute['network'],
+                    'content' => $updateAttribute['content'],
                 ],
             ]);
     }
@@ -109,9 +104,9 @@ class RoutesTest extends TestCase
         $route = $this->repository->get()->random()->jsonSerialize();
 
         return factory(RouteModel::class)->create([
-            'route_id' => md5($route['info']['uri'].':'.$route['info']['method']),
+            'route_hash' => $route['id'],
             'title' => $route['title'],
-            'network' => [],
+            'content' => [],
         ]);
     }
 }

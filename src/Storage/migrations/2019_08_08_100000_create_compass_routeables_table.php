@@ -33,14 +33,15 @@ class CreateCompassRouteablesTable extends Migration
     public function up()
     {
         $this->schema->create('compass_routeables', function (Blueprint $table) {
-            $table->uuid('storage_id')->unique();
-            $table->string('route_id');
+            $table->uuid('uuid')->unique();
+            $table->string('route_hash');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->longText('network')->nullable(); // params, headers, body, etc.
+            $table->longText('content')->nullable();
+            $table->boolean('docs')->default(false);
             $table->timestamps();
 
-            $table->index(['route_id', 'title']);
+            $table->index(['route_hash', 'title']);
         });
     }
 

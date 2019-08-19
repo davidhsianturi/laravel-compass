@@ -31,38 +31,38 @@ class DatabaseRoutesRepositoryTest extends TestCase
         $routeInStorage = $this->saveRoute($appRoutes->random());
         $result = $this->repository->get();
 
-        $this->assertNull($appRoutes->random()['storage_id']);
-        $this->assertTrue($result->contains('storageId', $appRoutes->random()['storage_id']));
+        $this->assertNull($appRoutes->random()['uuid']);
+        $this->assertTrue($result->contains('storageId', $appRoutes->random()['uuid']));
 
-        $this->assertNotNull($routeInStorage->storage_id);
-        $this->assertTrue($result->contains('storageId', $routeInStorage->storage_id));
+        $this->assertNotNull($routeInStorage->uuid);
+        $this->assertTrue($result->contains('storageId', $routeInStorage->uuid));
 
         $this->assertSameSize($appRoutes, $result);
     }
 
-    public function test_find_route_by_route_id()
+    public function test_find_route_by_route_hash()
     {
         $this->registerAppRoutes();
 
         $appRoute = Compass::getAppRoutes()->random();
-        $result = $this->repository->find($appRoute['route_id'])->jsonSerialize();
+        $result = $this->repository->find($appRoute['route_hash'])->jsonSerialize();
 
-        $this->assertSame($appRoute['route_id'], $result['id']);
-        $this->assertSame($appRoute['storage_id'], $result['storageId']);
+        $this->assertSame($appRoute['route_hash'], $result['id']);
+        $this->assertSame($appRoute['uuid'], $result['storageId']);
 
         $routeInStorage = $this->saveRoute($appRoute);
-        $result = $this->repository->find($routeInStorage->route_id)->jsonSerialize();
+        $result = $this->repository->find($routeInStorage->route_hash)->jsonSerialize();
 
-        $this->assertSame($routeInStorage->route_id, $result['id']);
-        $this->assertSame($routeInStorage->storage_id, $result['storageId']);
+        $this->assertSame($routeInStorage->route_hash, $result['id']);
+        $this->assertSame($routeInStorage->uuid, $result['storageId']);
     }
 
     protected function saveRoute(array $attribute)
     {
         return factory(RouteModel::class)->create([
-            'route_id' => md5($attribute['uri'].':'.$attribute['method']),
+            'route_hash' => $attribute['route_hash'],
             'title' => $attribute['uri'],
-            'network' => [],
+            'content' => [],
         ]);
     }
 }

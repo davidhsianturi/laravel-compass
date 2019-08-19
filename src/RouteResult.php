@@ -7,14 +7,14 @@ use JsonSerializable;
 class RouteResult implements JsonSerializable
 {
     /**
-     * The route's ID.
+     * The route's hash ID.
      *
      * @var string
      */
     public $id;
 
     /**
-     * The route storage id primary key.
+     * The routeable primary key.
      *
      * @var mixed
      */
@@ -35,11 +35,11 @@ class RouteResult implements JsonSerializable
     public $description;
 
     /**
-     * The routeables network.
+     * The routeables content.
      *
      * @var array|null
      */
-    public $network;
+    public $content;
 
     /**
      * The datetime that the route was created.
@@ -63,25 +63,34 @@ class RouteResult implements JsonSerializable
     public $info;
 
     /**
+     * The documentation of route.
+     *
+     * @var array
+     */
+    public $docs;
+
+    /**
      * Create a new route result instance.
      *
      * @param  string  $id
      * @param  mixed  $storageId
      * @param  string|null  $title
      * @param  string|null  $description
-     * @param  array|null  $network
+     * @param  array|null  $content
      * @param  array  $info
      * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $createdAt
      * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $updatedAt
+     * @param  array  $docs
      */
-    public function __construct(string $id, $storageId, ?string $title, ?string $description, ?array $network, array $info, $createdAt, $updatedAt)
+    public function __construct(string $id, $storageId, ?string $title, ?string $description, ?array $content, array $info, $createdAt, $updatedAt, $docs = [])
     {
         $this->id = $id;
         $this->storageId = $storageId;
         $this->title = $title;
         $this->description = $description;
-        $this->network = $network;
+        $this->content = $content;
         $this->info = $info;
+        $this->docs = $docs;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -98,8 +107,9 @@ class RouteResult implements JsonSerializable
             "storageId" => $this->storageId,
             "title" => $this->title,
             "description" => $this->description,
-            "network" => $this->network,
+            "content" => $this->content,
             "info" => $this->info,
+            "docs" => $this->docs,
             "createdAt" => $this->createdAt->toDateTimeString(),
             "updatedAt" => $this->updatedAt->toDateTimeString(),
         ];

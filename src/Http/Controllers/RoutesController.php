@@ -18,7 +18,6 @@ class RoutesController
      * Create a new RoutesController instance.
      *
      * @param  \Davidhsianturi\Compass\Contracts\RoutesRepository  $routes
-     * @return void
      */
     public function __construct(RoutesRepository $routes)
     {
@@ -79,7 +78,7 @@ class RoutesController
             'storageId' => 'nullable',
             'title' => 'string|required',
             'description' => 'nullable',
-            'network' => 'nullable|array',
+            'content' => 'nullable|array',
         ]);
     }
 }

@@ -4,7 +4,9 @@ namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Davidhsianturi\Compass\Contracts\DocsRepository;
 use Davidhsianturi\Compass\Contracts\RoutesRepository;
+use Davidhsianturi\Compass\Storage\DatabaseDocsRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
 
 class CompassServiceProvider extends ServiceProvider
@@ -126,6 +128,10 @@ class CompassServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             RoutesRepository::class, DatabaseRoutesRepository::class
+        );
+
+        $this->app->singleton(
+            DocsRepository::class, DatabaseDocsRepository::class
         );
 
         $this->app->when(DatabaseRoutesRepository::class)

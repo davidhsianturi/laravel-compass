@@ -25,7 +25,7 @@ class RouteModel extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'storage_id';
+    protected $primaryKey = 'uuid';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -47,7 +47,8 @@ class RouteModel extends Model
      * @var array
      */
     protected $casts = [
-        'network' => 'array',
+        'content' => 'array',
+        'docs' => 'boolean',
     ];
 
     /**

@@ -20,7 +20,7 @@ interface RoutesRepository
      * @param  string  $id
      * @return \Davidhsianturi\Compass\RouteResult
      */
-    public function find($id): RouteResult;
+    public function find(string $id): RouteResult;
 
     /**
      * Update or insert the given route.
