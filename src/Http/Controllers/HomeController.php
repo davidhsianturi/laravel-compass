@@ -2,7 +2,7 @@
 
 namespace Davidhsianturi\Compass\Http\Controllers;
 
-use Compass\Compass;
+use Davidhsianturi\Compass\Compass;
 
 class HomeController
 {

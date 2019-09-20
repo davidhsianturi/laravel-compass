@@ -4,7 +4,7 @@ return [
     // This is the URI path where Compass will be accessible from.
     'path' => env('COMPASS_PATH', 'compass'),
 
-    // The routes should be listed for the endpoint.
+    // The routes should be listed for the request.
     'routes' => [
         'domains' => [
             '*',

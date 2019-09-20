@@ -82,7 +82,10 @@ class Compass
     public static function syncRoute(array $routeInStorage)
     {
         return static::getAppRoutes()->map(function ($appRoute) use ($routeInStorage) {
-            $route = collect($routeInStorage)->where('route_hash', $appRoute['route_hash'])->collapse()->toArray();
+            $route = collect($routeInStorage)
+                ->where('route_hash', $appRoute['route_hash'])
+                ->collapse()
+                ->toArray();
 
             return array_merge($appRoute, $route);
         })->values();
@@ -110,6 +113,11 @@ class Compass
     {
         return [
             'path' => config('compass.path'),
+            'app' => [
+                'name' => config('app.name'),
+                'base_url' => config('app.url'),
+                'laravel_version' => app()->version(),
+            ],
         ];
     }
 }

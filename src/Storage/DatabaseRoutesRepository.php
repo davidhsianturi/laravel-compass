@@ -86,6 +86,7 @@ class DatabaseRoutesRepository implements RoutesRepository
      * The route result.
      *
      * @param  array  $route
+     * @param  array|null  $docs
      * @return \Davidhsianturi\Compass\RouteResult
      */
     protected function routeResult(array $route, ?array $docs)
