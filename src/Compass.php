@@ -45,7 +45,7 @@ class Compass
             "content" => [],
             'route_hash' => md5($route->uri().':'.implode($methods)),
             'domain' => $route->domain(),
-            'method' => implode($methods),
+            'methods' => $methods,
             'uri' => $route->uri(),
             'name' => $route->getName(),
             'action' => ltrim($route->getActionName(), '\\'),

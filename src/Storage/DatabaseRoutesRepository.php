@@ -99,7 +99,7 @@ class DatabaseRoutesRepository implements RoutesRepository
             $route['content'],
             [
                 'domain' => $route['domain'],
-                'method' => $route['method'],
+                'methods' => $route['methods'],
                 'uri' => $route['uri'],
                 'name' => $route['name'],
                 'action' => $route['action'],

@@ -144,8 +144,8 @@ export default {
                     <thead>
                         <tr>
                             <th class="border-l border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-2/5">Key</th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-3/5">Value</th>
+                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/5">Key</th>
+                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-4/5">Value</th>
                         </tr>
                     </thead>
                     <tbody class="align-baseline">
@@ -193,7 +193,7 @@ export default {
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Method</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.method || '...'}}</td>
+                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.methods.join("|") || '...'}}</td>
                         </tr>
                         <tr>
                             <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">

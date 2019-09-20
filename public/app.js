@@ -2086,6 +2086,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       busy: true,
       id: this.$route.params.id,
+      selectedMethod: null,
       requestErrors: null,
       requestData: {
         id: '',
@@ -2094,7 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
         description: '',
         info: {
           uri: '',
-          method: '',
+          methods: '',
           action: '',
           domain: '',
           name: ''
@@ -2124,13 +2125,14 @@ __webpack_require__.r(__webpack_exports__);
       this.requestData.title = data.title;
       this.requestData.description = data.description;
       this.requestData.info.uri = data.info.uri;
-      this.requestData.info.method = data.info.method;
+      this.requestData.info.methods = data.info.methods;
       this.requestData.info.action = data.info.action;
       this.requestData.info.domain = data.info.domain;
       this.requestData.info.name = data.info.name;
       this.requestData.content.url = data.content.url || data.info.uri;
       this.requestData.content.headers = data.content.headers || this.defaultReqData();
       this.requestData.content.body = data.content.body || this.defaultReqData();
+      this.selectedMethod = data.info.methods[0];
     },
     saveRequest: function saveRequest() {
       var _this2 = this;
@@ -2148,7 +2150,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: this.requestData.content.url,
-        method: this.requestData.info.method,
+        method: this.selectedMethod,
         baseURL: Compass.app.base_url,
         headers: this.customReqData(this.requestData.content.headers),
         data: this.customReqData(this.requestData.content.body)
@@ -4209,7 +4211,11 @@ var render = function() {
                       staticClass:
                         "p-2 border-l border-t border-gray-200 text-xs text-gray-800"
                     },
-                    [_vm._v(_vm._s(_vm.request.info.method || "..."))]
+                    [
+                      _vm._v(
+                        _vm._s(_vm.request.info.methods.join("|") || "...")
+                      )
+                    ]
                   )
                 ]),
                 _vm._v(" "),
@@ -4349,7 +4355,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-2/5"
+              "p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/5"
           },
           [_vm._v("Key")]
         ),
@@ -4358,7 +4364,7 @@ var staticRenderFns = [
           "th",
           {
             staticClass:
-              "p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-3/5"
+              "p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-4/5"
           },
           [_vm._v("Value")]
         )
@@ -4762,7 +4768,11 @@ var render = function() {
                                       staticClass:
                                         "text-xs text-gray-500 uppercase"
                                     },
-                                    [_vm._v(_vm._s(request.info.method))]
+                                    [
+                                      _vm._v(
+                                        _vm._s(request.info.methods.join("|"))
+                                      )
+                                    ]
                                   ),
                                   _vm._v(" "),
                                   _c("span", { staticClass: "ml-2" }, [
@@ -4834,7 +4844,9 @@ var render = function() {
                                             },
                                             [
                                               _vm._v(
-                                                _vm._s(request.info.method)
+                                                _vm._s(
+                                                  request.info.methods.join("|")
+                                                )
                                               )
                                             ]
                                           ),
@@ -5267,6 +5279,76 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "flex justify-between" }, [
+                _c("div", { staticClass: "relative" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedMethod,
+                          expression: "selectedMethod"
+                        }
+                      ],
+                      staticClass:
+                        "block font-semibold appearance-none bg-gray-200 border border-r-0 text-gray-600 py-3 px-4 pr-8 rounded rounded-r-none leading-tight focus:outline-none",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.selectedMethod = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(_vm.requestData.info.methods, function(
+                      method,
+                      index
+                    ) {
+                      return _c("option", { key: index }, [
+                        _vm._v(_vm._s(method))
+                      ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600"
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "fill-current h-4 w-4",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 20 20"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
@@ -5277,7 +5359,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "font-semibold w-full py-2 px-4 rounded border bg-gray-200 text-gray-600 inline-block appearance-none focus:outline-none",
+                    "w-full py-2 px-4 rounded rounded-l-none border bg-gray-200 text-gray-600 inline-block appearance-none focus:outline-none",
                   attrs: { type: "text" },
                   domProps: { value: _vm.requestData.content.url },
                   on: {
@@ -5298,18 +5380,18 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-3 py-2 px-4 rounded text-sm",
+                      "block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm",
                     attrs: { type: "button" },
                     on: { click: _vm.sendRequest }
                   },
-                  [_vm._v(_vm._s(_vm.requestData.info.method))]
+                  [_vm._v("SEND")]
                 ),
                 _vm._v(" "),
                 _c(
                   "button",
                   {
                     staticClass:
-                      "block sm:w-auto sm:inline-block bg-gray-300 hover:bg-gray-400 focus:outline-none font-bold text-gray-600 ml-3 py-2 px-4 rounded text-sm",
+                      "block sm:w-auto sm:inline-block bg-gray-300 hover:bg-gray-400 focus:outline-none font-bold text-gray-600 ml-2 py-2 px-4 rounded text-sm",
                     attrs: { type: "button" },
                     on: { click: _vm.saveRequest }
                   },
