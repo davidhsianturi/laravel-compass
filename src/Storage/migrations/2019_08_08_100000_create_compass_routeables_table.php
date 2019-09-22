@@ -38,7 +38,7 @@ class CreateCompassRouteablesTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->longText('content')->nullable();
-            $table->boolean('docs')->default(false);
+            $table->boolean('example')->default(false);
             $table->timestamps();
 
             $table->index(['route_hash', 'title']);

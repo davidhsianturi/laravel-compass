@@ -7,9 +7,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\RouteResult;
-use Davidhsianturi\Compass\Contracts\RoutesRepository;
+use Davidhsianturi\Compass\Contracts\RequestRepository;
 
-class DatabaseRoutesRepository implements RoutesRepository
+class DatabaseRequestRepository implements RequestRepository
 {
     /**
      * The database connection name that should be used.
@@ -30,7 +30,7 @@ class DatabaseRoutesRepository implements RoutesRepository
     }
 
     /**
-     * Return all the routes.
+     * Return all the route requests.
      *
      * @return \Illuminate\Support\Collection|Davidhsianturi\Compass\RouteResult[]
      */
@@ -51,13 +51,13 @@ class DatabaseRoutesRepository implements RoutesRepository
     {
         $route = Compass::syncRoute($this->routesInStorage())->whereStrict('route_hash', $id)->first();
 
-        $docs = $this->table('compass_routeables')
-            ->where('docs', true)
+        $responses = $this->table('compass_routeables')
+            ->whereExample(true)
             ->where('route_hash', $id)
             ->get()
             ->toArray();
 
-        return $this->routeResult($route, $docs);
+        return $this->routeResult($route, $responses);
     }
 
     /**
@@ -86,10 +86,10 @@ class DatabaseRoutesRepository implements RoutesRepository
      * The route result.
      *
      * @param  array  $route
-     * @param  array|null  $docs
+     * @param  array|null  $responses
      * @return \Davidhsianturi\Compass\RouteResult
      */
-    protected function routeResult(array $route, ?array $docs)
+    protected function routeResult(array $route, ?array $responses)
     {
         return new RouteResult(
             $route['route_hash'],
@@ -106,7 +106,7 @@ class DatabaseRoutesRepository implements RoutesRepository
             ],
             Carbon::parse($route['created_at']),
             Carbon::parse($route['updated_at']),
-            $docs
+            $responses
         );
     }
 
@@ -118,7 +118,7 @@ class DatabaseRoutesRepository implements RoutesRepository
     protected function routesInStorage()
     {
         return RouteModel::on($this->connection)
-            ->whereDocs(false)
+            ->whereExample(false)
             ->get()
             ->toArray();
     }

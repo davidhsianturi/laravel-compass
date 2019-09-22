@@ -4,10 +4,10 @@ namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Davidhsianturi\Compass\Contracts\DocsRepository;
-use Davidhsianturi\Compass\Contracts\RoutesRepository;
-use Davidhsianturi\Compass\Storage\DatabaseDocsRepository;
-use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
+use Davidhsianturi\Compass\Contracts\RequestRepository;
+use Davidhsianturi\Compass\Contracts\ResponseRepository;
+use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
+use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
 
 class CompassServiceProvider extends ServiceProvider
 {
@@ -127,14 +127,14 @@ class CompassServiceProvider extends ServiceProvider
     protected function registerDatabaseDriver()
     {
         $this->app->singleton(
-            RoutesRepository::class, DatabaseRoutesRepository::class
+            RequestRepository::class, DatabaseRequestRepository::class
         );
 
         $this->app->singleton(
-            DocsRepository::class, DatabaseDocsRepository::class
+            ResponseRepository::class, DatabaseResponseRepository::class
         );
 
-        $this->app->when(DatabaseRoutesRepository::class)
+        $this->app->when(DatabaseRequestRepository::class)
             ->needs('$connection')
             ->give(config('compass.storage.database.connection'));
     }

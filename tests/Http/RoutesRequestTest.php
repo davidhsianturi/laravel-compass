@@ -6,9 +6,9 @@ use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\Tests\TestCase;
 use Davidhsianturi\Compass\Storage\RouteModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
+use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 
-class RoutesTest extends TestCase
+class RoutesRequestTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -20,10 +20,10 @@ class RoutesTest extends TestCase
 
         $this->loadFactoriesUsing($this->app, __DIR__.'/../../src/Storage/factories');
 
-        $this->repository = new DatabaseRoutesRepository('testbench');
+        $this->repository = new DatabaseRequestRepository('testbench');
     }
 
-    public function test_index_routes()
+    public function test_get_all_routes_request()
     {
         $this->registerAppRoutes();
 
@@ -31,69 +31,60 @@ class RoutesTest extends TestCase
         $totalList = $routes->count();
         $totalGroup = Compass::groupingRoutes($routes)->count();
 
-        $this->getJson(route('compass.routes'))
+        $this->getJson(route('compass.request'))
             ->assertSuccessful()
             ->assertJsonStructure([
-                'routes' => [
+                'data' => [
                     'list' => [],
                     'group' => [],
                 ],
             ])
-            ->assertJsonCount($totalList, 'routes.list')
-            ->assertJsonCount($totalGroup, 'routes.group');
+            ->assertJsonCount($totalList, 'data.list')
+            ->assertJsonCount($totalGroup, 'data.group');
     }
 
-    public function test_show_route_by_id()
+    public function test_show_route_request_by_id()
     {
         $this->registerAppRoutes();
 
         $route = $this->repository->get()->random()->jsonSerialize();
 
-        $this->getJson(route('compass.routes.show', $route['id']))
+        $this->getJson(route('compass.request.show', $route['id']))
             ->assertSuccessful()
-            ->assertJsonStructure(['route' => []])
-            ->assertExactJson([
-                'route' => $route,
-            ]);
+            ->assertExactJson($route);
     }
 
-    public function test_store_the_app_route_to_storage()
+    public function test_store_the_route_request_to_storage()
     {
         $this->registerAppRoutes();
 
         $appRoute = $this->repository->get()->random()->jsonSerialize();
 
-        $response = $this->postJson(route('compass.routes.store'), $appRoute);
-        $response
-            ->assertSuccessful()
-            ->assertJsonStructure(['route' => []])
+        $response = $this->postJson(route('compass.request.store'), $appRoute);
+
+        $response->assertSuccessful()
             ->assertJson([
-                'route' => [
-                    'id' => $appRoute['id'],
-                    'title' => $appRoute['title'],
-                    'content' => $appRoute['content'],
-                ],
+                'id' => $appRoute['id'],
+                'title' => $appRoute['title'],
+                'content' => $appRoute['content'],
             ]);
 
-        $this->assertNotNull($response->json(['route'])['storageId']);
+        $this->assertNotNull($response->json(['storageId']));
     }
 
-    public function test_update_existing_route_from_storage()
+    public function test_update_existing_route_request_from_storage()
     {
         $route = $this->repository->find($this->routeFactory()->route_hash)->jsonSerialize();
 
         $updateAttribute = array_merge($route, ['title' => 'List All Invoices']);
 
-        $this->postJson(route('compass.routes.store'), $updateAttribute)
+        $this->postJson(route('compass.request.store'), $updateAttribute)
             ->assertSuccessful()
-            ->assertJsonStructure(['route' => []])
             ->assertJson([
-                'route' => [
-                    'id' => $updateAttribute['id'],
-                    'storageId' => $updateAttribute['storageId'],
-                    'title' => 'List All Invoices',
-                    'content' => $updateAttribute['content'],
-                ],
+                'id' => $updateAttribute['id'],
+                'storageId' => $updateAttribute['storageId'],
+                'title' => 'List All Invoices',
+                'content' => $updateAttribute['content'],
             ]);
     }
 

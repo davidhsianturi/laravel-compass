@@ -67,7 +67,7 @@ class RouteResult implements JsonSerializable
      *
      * @var array
      */
-    public $docs;
+    public $examples;
 
     /**
      * Create a new route result instance.
@@ -80,9 +80,9 @@ class RouteResult implements JsonSerializable
      * @param  array  $info
      * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $createdAt
      * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $updatedAt
-     * @param  array  $docs
+     * @param  array  $examples
      */
-    public function __construct(string $id, $storageId, ?string $title, ?string $description, ?array $content, array $info, $createdAt, $updatedAt, $docs = [])
+    public function __construct(string $id, $storageId, ?string $title, ?string $description, ?array $content, array $info, $createdAt, $updatedAt, $examples = [])
     {
         $this->id = $id;
         $this->storageId = $storageId;
@@ -90,7 +90,7 @@ class RouteResult implements JsonSerializable
         $this->description = $description;
         $this->content = $content;
         $this->info = $info;
-        $this->docs = $docs;
+        $this->examples = $examples;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -109,7 +109,7 @@ class RouteResult implements JsonSerializable
             "description" => $this->description,
             "content" => $this->content,
             "info" => $this->info,
-            "docs" => $this->docs,
+            "examples" => $this->examples,
             "createdAt" => $this->createdAt->toDateTimeString(),
             "updatedAt" => $this->updatedAt->toDateTimeString(),
         ];

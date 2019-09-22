@@ -3,67 +3,63 @@
 namespace Davidhsianturi\Compass\Http\Controllers;
 
 use Davidhsianturi\Compass\Compass;
-use Davidhsianturi\Compass\Contracts\RoutesRepository;
+use Davidhsianturi\Compass\Contracts\RequestRepository;
 
-class RoutesController
+class RequestController
 {
     /**
      * The routes repository.
      *
-     * @var \Davidhsianturi\Compass\Contracts\RoutesRepository
+     * @var \Davidhsianturi\Compass\Contracts\RequestRepository
      */
-    protected $routes;
+    protected $request;
 
     /**
      * Create a new RoutesController instance.
      *
-     * @param  \Davidhsianturi\Compass\Contracts\RoutesRepository  $routes
+     * @param  \Davidhsianturi\Compass\Contracts\RequestRepository  $request
      */
-    public function __construct(RoutesRepository $routes)
+    public function __construct(RequestRepository $request)
     {
-        $this->routes = $routes;
+        $this->request = $request;
     }
 
     /**
-     * List the routes.
+     * List the route requests.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        $collections = $this->routes->get();
+        $requests = $this->request->get();
 
         return response()->json([
-            'routes' => [
-                'list' => $collections,
-                'group' => Compass::groupingRoutes($collections),
+            'data' => [
+                'list' => $requests,
+                'group' => Compass::groupingRoutes($requests),
             ],
         ]);
     }
 
     /**
-     * Get route with the given ID.
+     * Get route request with the given ID.
      *
      * @param  string  $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        return response()->json([
-            'route' => $this->routes->find($id),
-        ]);
+        return response()->json($this->request->find($id));
     }
 
     /**
-     * Store the route.
+     * Store the route request.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function store()
     {
-        return response()->json([
-            'route' => $this->routes->save($this->validateRequest()),
-        ]);
+        return response()->json($this->request->save($this->validateRequest()));
     }
 
     /**

@@ -48,7 +48,7 @@ class RouteModel extends Model
      */
     protected $casts = [
         'content' => 'array',
-        'docs' => 'boolean',
+        'example' => 'boolean',
     ];
 
     /**

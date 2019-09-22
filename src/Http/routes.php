@@ -1,13 +1,13 @@
 <?php
 
-// Routes.
-Route::get('/routes', 'RoutesController@index')->name('routes');
-Route::post('/routes', 'RoutesController@store')->name('routes.store');
-Route::get('/routes/{id}', 'RoutesController@show')->name('routes.show');
-// Docs.
-Route::post('/docs', 'DocsController@store')->name('docs.store');
-Route::get('/docs/{uuid}', 'DocsController@show')->name('docs.show');
-Route::delete('/docs/{uuid}', 'DocsController@destroy')->name('docs.destroy');
+// Route request.
+Route::get('/request', 'RequestController@index')->name('request');
+Route::post('/request', 'RequestController@store')->name('request.store');
+Route::get('/request/{id}', 'RequestController@show')->name('request.show');
+// Route response.
+Route::post('/response', 'ResponseController@store')->name('response.store');
+Route::get('/response/{uuid}', 'ResponseController@show')->name('response.show');
+Route::delete('/response/{uuid}', 'ResponseController@destroy')->name('response.destroy');
 
 // Catch-all Route.
 Route::get('/{view?}', 'HomeController')->where('view', '(.*)')->name('home');

@@ -5,7 +5,7 @@ namespace Davidhsianturi\Compass\Tests;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Davidhsianturi\Compass\CompassServiceProvider;
 use Illuminate\Support\Facades\Route as RouteFacade;
-use Davidhsianturi\Compass\Storage\DatabaseRoutesRepository;
+use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 
 class TestCase extends Orchestra
 {
@@ -43,7 +43,7 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        $app->when(DatabaseRoutesRepository::class)
+        $app->when(DatabaseRequestRepository::class)
             ->needs('$connection')
             ->give('testbench');
     }
