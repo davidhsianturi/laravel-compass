@@ -106,6 +106,7 @@ class DatabaseRequestRepository implements RequestRepository
             ],
             Carbon::parse($route['created_at']),
             Carbon::parse($route['updated_at']),
+            $route['example'],
             $responses
         );
     }

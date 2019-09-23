@@ -28,6 +28,7 @@ export default {
                     value: null,
                     description: null,
                     new: true,
+                    type: 'text',
                 },
             ];
         },
@@ -50,11 +51,11 @@ export default {
             }, 100);
         },
 
-        deactivate(val) {
+        deactivate() {
             window.clearTimeout(this.timer);
 
             this.timer = window.setTimeout(() => {
-                this.active = val;
+                this.active = false;
             }, 100);
         }
     }

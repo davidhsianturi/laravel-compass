@@ -3,7 +3,7 @@ export default {
     props: [],
 
     created() {
-        this.$root.title = Compass.app.base_url;
+        this.$root.requestTitle = Compass.app.base_url;
     },
 }
 </script>

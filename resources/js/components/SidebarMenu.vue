@@ -25,8 +25,8 @@ export default {
         loadRequests() {
             this.ready = false;
 
-            axios.get('/' + Compass.path + '/routes').then(response => {
-                this.requests = response.data.routes;
+            axios.get('/' + Compass.path + '/request').then(response => {
+                this.requests = response.data.data;
                 this.ready = true;
             });
         },
@@ -67,10 +67,10 @@ export default {
                             @click.prevent="currentTab='list'">List</a>
                     </li>
                     <li class="mr-3">
-                        <a :class="{'bg-white text-gray-700': currentTab=='resources'}"
+                        <a :class="{'bg-white text-gray-700': currentTab=='group'}"
                             class="inline-block py-2 px-4 text-gray-500 hover:text-gray-700 font-semibold"
                             href="#"
-                            @click.prevent="currentTab='resources'">Resources</a>
+                            @click.prevent="currentTab='group'">Group</a>
                     </li>
                 </ul>
             </div>
@@ -94,7 +94,7 @@ export default {
                         </li>
                     </ul>
 
-                    <div v-if="currentTab=='resources'">
+                    <div v-if="currentTab=='group'">
                         <details class="sm:mb-2 cursor-pointer" v-for="(resources, name) in requests.group" :key="name">
                             <summary class="px-2 -mx-2 py-1 hover:text-orange-600 focus:text-orange-600 text-gray-600 font-medium capitalize">
                                 {{name}}

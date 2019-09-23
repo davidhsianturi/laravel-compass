@@ -43,6 +43,7 @@ final class Compass
             "title" => $route->uri(),
             "description" => null,
             "content" => [],
+            "example" => false,
             'route_hash' => md5($route->uri().':'.implode($methods)),
             'domain' => $route->domain(),
             'methods' => $methods,

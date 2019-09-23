@@ -47,10 +47,13 @@ export default {
 
         <nav :class="{'hidden': !navIsOpen, 'block': navIsOpen}" class="sm:flex sm:items-center sm:px-4 md:flex-1 md:justify-between">
             <div class="hidden md:block md:relative md:max-w-xs md:w-full">
-                <a v-if="this.$root.title===Compass.app.base_url" :href="Compass.app.base_url" target="_blank" class="pr-4 bg-orange-100 font-mono font-medium text-orange-700 rounded p-2 hover:bg-orange-200">
+                <a v-if="this.$root.requestTitle===Compass.app.base_url" :href="Compass.app.base_url" target="_blank" class="pr-4 bg-orange-100 font-mono font-medium text-orange-700 rounded p-2 hover:bg-orange-200">
                     {{Compass.app.base_url}}
                 </a>
-                <h3 class="text-gray-900 font-semibold" v-else>{{this.$root.title}}</h3>
+                <h3 class="text-gray-900 font-semibold" v-else>
+                    <span class="font-bold text-xs text-gray-500" :class="this.$root.requestIsExample ? '' : 'hidden'">e.g.</span>
+                    {{this.$root.requestTitle}}
+                </h3>
             </div>
 
             <div class="sm:flex sm:items-center">

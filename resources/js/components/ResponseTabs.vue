@@ -1,10 +1,25 @@
 <script>
 export default {
-    props: ['response'],
+    props: {
+        response: {
+            type: Object,
+            required: true,
+        },
+        okToSave: {
+            type: Boolean,
+            default: true,
+        }
+    },
 
     data() {
         return {
             currentTab: 'body',
+        }
+    },
+
+    methods: {
+        sendResponseData() {
+            this.$emit('response-data-ready');
         }
     }
 }
@@ -13,18 +28,18 @@ export default {
 <template>
     <div>
         <!-- tabs -->
-        <div class="flex justify-content-between border-b border-gray-200 bg-secondary">
+        <div class="flex justify-content-between border-b border-gray-200">
             <div>
                 <ul class="flex inline-block">
                     <li class="-mb-px mr-1">
                         <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='body'}"
-                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800 font-sm"
+                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                             href="#"
                             @click.prevent="currentTab='body'">Body</a>
                     </li>
                     <li class="-mb-px mr-1">
                         <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='headers'}"
-                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800 font-sm"
+                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                             href="#"
                             @click.prevent="currentTab='headers'">Headers</a>
                     </li>
@@ -32,18 +47,20 @@ export default {
             </div>
 
             <div class="ml-auto">
-                <div class="inline-block text-xs py-2 px-4 font-medium">
+                <div class="inline-block text-xs py-2 px-1">
                     <span class="text-gray-500">Status:</span>
                     <span class="text-green-500">{{response.status}} {{response.statusText}}</span>
                 </div>
+                <div class="inline-block px-1 text-gray-400" v-if="okToSave">|</div>
+                 <button v-if="okToSave" class="inline-block py-2 pl-1 pr-4 text-sm text-primary focus:outline-none" @click="sendResponseData">Save response as example</button>
             </div>
         </div>
 
         <!-- content -->
-        <div v-if="currentTab=='body'" class="p-4 text-orange-800 text-sm">
+        <div v-if="currentTab=='body'" class="p-4 text-orange-800 text-sm bg-white">
             <vue-json-pretty :data="response.data"></vue-json-pretty>
         </div>
-        <div v-if="currentTab=='headers'">
+        <div v-if="currentTab=='headers'" class="bg-white">
             <table class="w-full text-left table-collapse">
                 <thead>
                     <tr>

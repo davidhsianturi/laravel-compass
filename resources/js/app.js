@@ -26,7 +26,8 @@ new Vue({
 
     data() {
         return {
-            title: null,
+            requestTitle: null,
+            requestIsExample: false,
             alert: {
                 mode: null,
                 type: null,

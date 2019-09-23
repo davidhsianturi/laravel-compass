@@ -32,7 +32,7 @@ class DatabaseResponseRepositoryTest extends TestCase
         $this->assertSame($examplesInStorage->title, $result->title);
         $this->assertSame($examplesInStorage->description, $result->description);
         $this->assertSame($examplesInStorage->content, $result->content);
-        $this->assertSame($examplesInStorage->examples, $result->examples);
+        $this->assertSame($examplesInStorage->example, $result->example);
     }
 
     public function test_delete_existing_example_from_storage()

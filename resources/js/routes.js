@@ -9,7 +9,14 @@ export default [
     {
         path: '/:id',
         name: 'request',
-        component: require('./pages/workspace').default,
+        component: require('./pages/request').default,
+    },
+
+    // Response.
+    {
+        path: '/eg/:id',
+        name: 'response',
+        component: require('./pages/response').default,
     },
 
     // Catch all.
