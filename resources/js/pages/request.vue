@@ -75,8 +75,8 @@ export default {
             this.requestData.info.domain = data.info.domain;
             this.requestData.info.name = data.info.name;
             this.requestData.content.url = data.content.url || data.info.uri;
-            this.requestData.content.headers = data.content.headers || this.defaultReqData();
-            this.requestData.content.body = data.content.body || this.defaultReqData();
+            this.requestData.content.headers = data.content.headers || this.newFormRequests();
+            this.requestData.content.body = data.content.body || this.newFormRequests();
             this.isExample = data.isExample;
             this.examples = data.examples;
             this.requestMethod = data.info.methods[0];
@@ -92,12 +92,14 @@ export default {
         },
 
         sendRequest() {
+            let formData = this.toFormData(this.requestData.content.body);
+
             axios({
                 url: this.requestData.content.url,
-                method: this.selectedMethod,
+                method: this.requestMethod,
                 baseURL: Compass.app.base_url,
-                headers: this.customReqData(this.requestData.content.headers),
-                data: this.customReqData(this.requestData.content.body),
+                headers: this.filterFormRequests(this.requestData.content.headers),
+                data: formData,
             }).then(response => {
                 this.fillResponse(response);
             }).catch(error => {
@@ -121,7 +123,7 @@ export default {
 
         saveResponse() {
             axios.post('/' + Compass.path + '/response', this.responseData).then(response => {
-                this.$router.push({name: 'example', params: {id: response.data.uuid}});
+                this.$router.push({name: 'response', params: {id: response.data.uuid}});
             }).catch(error => {
                 this.responseErrors = error.response;
             });

@@ -1,8 +1,8 @@
 export default {
     data() {
         return {
-            active: null,
-            timer: null,
+            hoverId: null,
+            hoverTimer: null,
         };
     },
 
@@ -13,6 +13,9 @@ export default {
     },
 
     methods: {
+        /**
+         * Show a success message.
+         */
         alertSuccess(message, autoClose) {
             this.$root.alert.mode = 'toast';
             this.$root.alert.type = 'success';
@@ -20,7 +23,10 @@ export default {
             this.$root.alert.autoClose = autoClose;
         },
 
-        defaultReqData() {
+        /**
+         * The default entries for form request body.
+         */
+        newFormRequests() {
             return [
                 {
                     included: false,
@@ -33,30 +39,48 @@ export default {
             ];
         },
 
-        customReqData(input) {
-            let arr = input.filter(data => data.included == true);
+        /**
+         * Filter form request body key/value pair.
+         */
+        filterFormRequests(entries) {
+            let arr = entries.filter(data => data.included == true);
 
             return arr.reduce((obj, item) => (obj[item.key] = item.value, obj), {});
         },
 
-        encodeParams(data) {
-            return Object.entries(data).map(kv => kv.map(encodeURIComponent).join("=")).join("&");
+        /**
+         * Append entries value and key to FormData object.
+         */
+        toFormData(entries) {
+            let data = this.filterFormRequests(entries);
+            let formData = new FormData();
+
+            for (let pair in data) {
+                formData.append(pair, data[pair]);
+            }
+
+            return formData;
         },
 
-        activate(val) {
-            window.clearTimeout(this.timer);
+        /**
+         * List of HTTP header key fields
+         */
+        headerKeyList() {},
 
-            this.timer = window.setTimeout(() => {
-                this.active = val;
+        /**
+         * List of HTTP header value fields
+         */
+        headerValueList() {},
+
+        /**
+         * The mouseOver and mouseOut event target in element.
+         */
+        hoverInElement(val) {
+            window.clearTimeout(this.hoverTimer);
+
+            this.hoverTimer = window.setTimeout(() => {
+                this.hoverId = val;
             }, 100);
         },
-
-        deactivate() {
-            window.clearTimeout(this.timer);
-
-            this.timer = window.setTimeout(() => {
-                this.active = false;
-            }, 100);
-        }
     }
 };

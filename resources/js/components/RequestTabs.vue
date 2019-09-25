@@ -1,9 +1,11 @@
 <script>
 import Dropdown from './../components/Dropdown';
+import FilesInput from './../components/FilesInput';
 
 export default {
     components: {
         'dropdown': Dropdown,
+        'files-input': FilesInput,
     },
 
     props: {
@@ -57,7 +59,7 @@ export default {
 
         sendRequestData() {
             this.$emit('request-data-ready');
-        }
+        },
     }
 }
 </script>
@@ -92,7 +94,10 @@ export default {
             </div>
 
             <div class="ml-auto" v-if="okToSend">
-                <button type="button" class="inline-block py-2 px-1 text-sm text-primary focus:outline-none" @click="sendRequestData">Save request</button>
+                <button type="button"
+                    class="inline-block py-2 px-1 text-sm text-primary focus:outline-none"
+                    @click="sendRequestData">Save request</button>
+
                 <div class="inline-block px-1 text-gray-400">|</div>
                 <dropdown class="inline-block py-1 pl-1 pr-4">
                     <template v-slot:trigger>
@@ -112,7 +117,7 @@ export default {
 
                             <ul v-if="examples.length > 0">
                                 <li v-for="(example, index) in examples" :key="index">
-                                    <router-link :to="{name:'example', params:{id: example.uuid}}" class="block text-gray-800 px-4 py-2 hover:bg-gray-200">
+                                    <router-link :to="{name:'response', params:{id: example.uuid}}" class="block text-gray-800 px-4 py-2 hover:bg-gray-200">
                                         {{example.title}}
                                     </router-link>
                                 </li>
@@ -136,20 +141,39 @@ export default {
                         </tr>
                     </thead>
                     <tbody class="align-baseline">
-                        <tr v-for="(header, row) in request.content.headers" :key="row" @mouseover="activate('header#' + row)" @mouseout="deactivate">
+                        <tr v-for="(header, row) in request.content.headers"
+                            :key="row"
+                            @mouseover="hoverInElement('header#' + row)"
+                            @mouseout="hoverInElement(false)">
                             <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" v-model="header.included" :class="header.new ? 'hidden' : ''">
+                                <input type="checkbox"
+                                    v-model="header.included"
+                                    :class="header.new ? 'hidden' : ''">
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none w-full" placeholder="Key" v-model="header.key" @keypress="handleInput('headers', row, header)">
+                                <input type="text"
+                                    class="mt-0 mb-0 appearance-none focus:outline-none w-full"
+                                    placeholder="Key"
+                                    v-model="header.key"
+                                    @keypress="handleInput('headers', row, header)">
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none w-full" placeholder="Value" v-model="header.value">
+                                <input type="text"
+                                    class="mt-0 mb-0 appearance-none focus:outline-none w-full"
+                                    placeholder="Value"
+                                    v-model="header.value">
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none block w-full" placeholder="Description" v-model="header.description">
+                                <input type="text"
+                                    class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
+                                    placeholder="Description"
+                                    v-model="header.description">
+
                                 <span v-if="!header.new">
-                                    <a v-show="active==='header#' + row" href="#" class="font-bold absolute inset-y-0 right-0 flex items-center pr-3" @click="removeRow('headers', row)">
+                                    <a v-show="hoverId==='header#' + row"
+                                        href="#"
+                                        class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
+                                        @click="removeRow('headers', row)">
                                         <svg class="h-3 w-3 fill-current text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
                                     </a>
@@ -170,13 +194,23 @@ export default {
                         </tr>
                     </thead>
                     <tbody class="align-baseline">
-                        <tr v-for="(reqBody, row) in request.content.body" :key="row" @mouseover="activate('body#' + row)" @mouseout="deactivate">
+                        <tr v-for="(reqBody, row) in request.content.body"
+                            :key="row"
+                            @mouseover="hoverInElement('body#' + row)"
+                            @mouseout="hoverInElement(false)">
                             <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" v-model="reqBody.included" :class="reqBody.new ? 'hidden' : ''">
+                                <input type="checkbox"
+                                    v-model="reqBody.included"
+                                    :class="reqBody.new ? 'hidden' : ''">
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none block w-full" placeholder="Key" v-model="reqBody.key" @keypress="handleInput('body', row, reqBody)">
-                                <div v-show="active==='body#' + row">
+                                <input type="text"
+                                    class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
+                                    placeholder="Key"
+                                    v-model="reqBody.key"
+                                    @keypress="handleInput('body', row, reqBody)">
+
+                                <div v-show="hoverId==='body#' + row">
                                     <select v-model="reqBody.type" class="capitalize rounded-none appearance-none absolute inset-y-0 right-0 flex items-center bg-white text-gray-500 leading-tight focus:outline-none pr-6">
                                         <option>text</option>
                                         <option>file</option>
@@ -187,11 +221,25 @@ export default {
                                 </div>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input :type="reqBody.type" class="mt-0 mb-0 appearance-none focus:outline-none w-full" placeholder="Value" v-model="reqBody.value">
+                                <input v-show="reqBody.type==='text'"
+                                    type="text"
+                                    class="mt-0 mb-0 appearance-none focus:outline-none w-full"
+                                    placeholder="Value"
+                                    v-model="reqBody.value">
+
+                                <files-input v-show="reqBody.type==='file'" v-model="reqBody.value"></files-input>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none block w-full" placeholder="Description" v-model="reqBody.description">
-                                <a v-show="active==='body#' + row && !reqBody.new" href="#" class="font-bold absolute inset-y-0 right-0 flex items-center pr-3" @click="removeRow('body', row)">
+                                <input type="text"
+                                    class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
+                                    placeholder="Description"
+                                    v-model="reqBody.description">
+
+                                <a v-show="hoverId==='body#' + row && !reqBody.new"
+                                    href="#"
+                                    class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
+                                    @click="removeRow('body', row)">
+
                                     <svg class="h-3 w-3 fill-current text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
                                 </a>

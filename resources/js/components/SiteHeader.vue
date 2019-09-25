@@ -51,8 +51,7 @@ export default {
                     {{Compass.app.base_url}}
                 </a>
                 <h3 class="text-gray-900 font-semibold" v-else>
-                    <span class="font-bold text-xs text-gray-500" :class="this.$root.requestIsExample ? '' : 'hidden'">e.g.</span>
-                    {{this.$root.requestTitle}}
+                    <span class="font-bold text-xs text-gray-500" :class="this.$root.requestIsExample ? '' : 'hidden'">e.g.</span>{{this.$root.requestTitle}}
                 </h3>
             </div>
 

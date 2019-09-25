@@ -21,7 +21,7 @@ export default {
 
     data() {
         return {
-            selected: this.httpMethod,
+            selectedMethod: this.httpMethod,
         }
     },
 
@@ -41,7 +41,7 @@ export default {
     <div>
         <div class="flex justify-between">
             <div class="relative">
-                <select v-model="selected" class="block font-semibold appearance-none bg-gray-200 border border-r-0 text-gray-600 py-3 px-4 pr-8 rounded rounded-r-none leading-tight focus:outline-none" @change="onChange">
+                <select v-model="selectedMethod" class="block font-semibold appearance-none bg-gray-200 border border-r-0 text-gray-600 py-3 px-4 pr-8 rounded rounded-r-none leading-tight focus:outline-none" @change="onChange">
                     <option v-for="(method, index) in methods" :key="index">{{method}}</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
