@@ -63,16 +63,6 @@ export default {
         },
 
         /**
-         * List of HTTP header key fields
-         */
-        headerKeyList() {},
-
-        /**
-         * List of HTTP header value fields
-         */
-        headerValueList() {},
-
-        /**
          * The mouseOver and mouseOut event target in element.
          */
         hoverInElement(val) {

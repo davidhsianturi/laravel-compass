@@ -22,11 +22,11 @@ export default {
 
 <template>
     <div>
-        <div slot="picker">
+        <slot name="picker">
             <label for="compassFile" class="w-auto py-1 px-1 bg-gray-300 hover:bg-gray-400 text-gray-700 rounded cursor-pointer">
                 {{fileName}}
             </label>
-        </div>
+        </slot>
 
         <input
             id="compassFile"

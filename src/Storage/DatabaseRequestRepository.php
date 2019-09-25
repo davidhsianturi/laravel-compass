@@ -85,12 +85,14 @@ class DatabaseRequestRepository implements RequestRepository
     /**
      * The route result.
      *
-     * @param  array  $route
+     * @param  array|null  $route
      * @param  array|null  $responses
      * @return \Davidhsianturi\Compass\RouteResult
      */
-    protected function routeResult(array $route, ?array $responses)
+    protected function routeResult(?array $route, ?array $responses)
     {
+        if (blank($route)) { abort(404); }
+
         return new RouteResult(
             $route['route_hash'],
             $route['uuid'],

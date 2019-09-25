@@ -1,11 +1,13 @@
 <script>
 import Dropdown from './../components/Dropdown';
 import FilesInput from './../components/FilesInput';
+import HeaderFields from './../components/HeaderFields';
 
 export default {
     components: {
         'dropdown': Dropdown,
         'files-input': FilesInput,
+        'header-fields': HeaderFields,
     },
 
     props: {
@@ -155,13 +157,19 @@ export default {
                                     class="mt-0 mb-0 appearance-none focus:outline-none w-full"
                                     placeholder="Key"
                                     v-model="header.key"
-                                    @keypress="handleInput('headers', row, header)">
+                                    list="keys"
+                                    @input="handleInput('headers', row, header)">
+
+                                <header-fields :listId="'keys'"></header-fields>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
                                 <input type="text"
                                     class="mt-0 mb-0 appearance-none focus:outline-none w-full"
                                     placeholder="Value"
+                                    list="values"
                                     v-model="header.value">
+
+                                <header-fields :listId="'values'"></header-fields>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
                                 <input type="text"
@@ -208,7 +216,7 @@ export default {
                                     class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
                                     placeholder="Key"
                                     v-model="reqBody.key"
-                                    @keypress="handleInput('body', row, reqBody)">
+                                    @input="handleInput('body', row, reqBody)">
 
                                 <div v-show="hoverId==='body#' + row">
                                     <select v-model="reqBody.type" class="capitalize rounded-none appearance-none absolute inset-y-0 right-0 flex items-center bg-white text-gray-500 leading-tight focus:outline-none pr-6">
