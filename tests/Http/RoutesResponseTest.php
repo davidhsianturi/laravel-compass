@@ -12,6 +12,8 @@ class RoutesResponseTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $repository;
+
     public function setUp(): void
     {
         parent::setUp();

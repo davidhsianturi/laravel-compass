@@ -4,6 +4,7 @@ namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
@@ -81,6 +82,10 @@ class CompassServiceProvider extends ServiceProvider
             ], 'compass-assets');
 
             $this->publishes([
+                __DIR__.'/../resources/views/documentarian' => resource_path('views/vendor/compass'),
+            ], 'compass-views');
+
+            $this->publishes([
                 __DIR__.'/../config/compass.php' => config_path('compass.php'),
             ], 'compass-config');
         }
@@ -98,10 +103,13 @@ class CompassServiceProvider extends ServiceProvider
         );
 
         $this->registerStorageDriver();
+        $this->registerTemplateBuilder();
 
         $this->commands([
             Console\InstallCommand::class,
             Console\PublishCommand::class,
+            Console\BuildCommand::class,
+            Console\RebuildCommand::class,
         ]);
     }
 
@@ -137,5 +145,31 @@ class CompassServiceProvider extends ServiceProvider
         $this->app->when(DatabaseRequestRepository::class)
             ->needs('$connection')
             ->give(config('compass.storage.database.connection'));
+    }
+
+    /**
+     * Register the package template builder.
+     *
+     * @return void
+     */
+    protected function registerTemplateBuilder()
+    {
+        $builder = config('compass.builder');
+
+        if (method_exists($this, $method = 'register'.ucfirst($builder).'Builder')) {
+            return $this->$method();
+        }
+    }
+
+    /**
+     * Register the package slate builder.
+     *
+     * @return void
+     */
+    protected function registerSlateBuilder()
+    {
+        $this->app->singleton(
+            ApiDocsRepository::class, SlateBuilder::class
+        );
     }
 }

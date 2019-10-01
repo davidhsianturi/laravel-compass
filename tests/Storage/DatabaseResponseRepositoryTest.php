@@ -12,6 +12,8 @@ class DatabaseResponseRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $repository;
+
     public function setUp(): void
     {
         parent::setUp();

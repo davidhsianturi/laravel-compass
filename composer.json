@@ -1,7 +1,7 @@
 {
     "name": "davidhsianturi/laravel-compass",
-    "description": "REST assistant for building APIs in Laravel.",
-    "keywords": ["laravel", "API", "debugging", "documentation"],
+    "description": "Laravel REST assistent for testing and build API documentation.",
+    "keywords": ["laravel", "API", "testing", "documentation"],
     "license": "MIT",
     "authors": [
         {
@@ -11,9 +11,10 @@
     ],
     "require": {
         "php": "^7.1.3",
+        "illuminate/console": "5.7.*",
         "illuminate/routing": "5.7.*",
         "illuminate/support": "5.7.*",
-        "illuminate/console": "5.7.*"
+        "mpociot/documentarian": "^0.3.0"
     },
     "require-dev": {
         "orchestra/testbench": "^3.7"

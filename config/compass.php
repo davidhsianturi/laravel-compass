@@ -8,15 +8,13 @@ return [
     'routes' => [
         'domains' => [
             '*',
-            // 'domain.*',
         ],
 
         'prefixes' => [
             '*',
-            // 'prefix/*',
         ],
 
-        // exclude routes by name
+        // exclude routes by name.
         'exclude' => [
             'compass.*',
         ],
@@ -24,10 +22,21 @@ return [
 
     // Compass storage driver.
     'driver' => env('COMPASS_DRIVER', 'database'),
-
     'storage' => [
         'database' => [
             'connection' => env('DB_CONNECTION', 'mysql'),
         ],
+    ],
+
+    // Compass API Documentation builder.
+    'builder' => env('COMPASS_BUILDER', 'slate'),
+    'template' => [
+        'slate' => [
+            'output' => 'public/docs',
+            'example_requests' => [
+                'bash',
+            ],
+        ],
     ]
+
 ];

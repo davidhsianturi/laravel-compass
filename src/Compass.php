@@ -19,7 +19,7 @@ final class Compass
     /**
      * Get the application routes.
      *
-     * @return Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function getAppRoutes()
     {
@@ -78,7 +78,7 @@ final class Compass
      * Sync route from storage with app routes.
      *
      * @param  array  $routeInStorage
-     * @return Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function syncRoute(array $routeInStorage)
     {
@@ -95,8 +95,8 @@ final class Compass
     /**
      * Group the routes with the first word in route URI.
      *
-     * @param  Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]  $routes
-     * @return Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]
+     * @param  \Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]  $routes
+     * @return \Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]
      */
     public static function groupingRoutes(Collection $routes)
     {
@@ -120,5 +120,17 @@ final class Compass
                 'laravel_version' => app()->version(),
             ],
         ];
+    }
+
+    /**
+     * Configure Compass to not register it's migrations.
+     *
+     * @return static
+     */
+    public static function ignoreMigrations()
+    {
+        static::$runsMigrations = false;
+
+        return new static;
     }
 }

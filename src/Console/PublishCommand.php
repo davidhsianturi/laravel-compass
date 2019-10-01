@@ -36,5 +36,10 @@ class PublishCommand extends Command
             '--tag' => 'compass-assets',
             '--force' => true,
         ]);
+
+        $this->call('vendor:publish', [
+            '--tag' => 'compass-views',
+            '--force' => true,
+        ]);
     }
 }
