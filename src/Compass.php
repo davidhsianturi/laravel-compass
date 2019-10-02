@@ -100,8 +100,8 @@ final class Compass
      */
     public static function groupingRoutes(Collection $routes)
     {
-        return $routes->groupBy(function ($item) {
-            return strtok($item->info['uri'], '/');
+        return $routes->groupBy(function ($route) {
+            return strtok($route->info['uri'], '/');
         });
     }
 

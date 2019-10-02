@@ -38,18 +38,26 @@ final class SlateBuilder implements ApiDocsRepository
     public function build()
     {
         $contents = $this->viewContents();
-        $settings = ['languages' => config('compass.template.slate.example_requests')];
+        $settings = $this->markdownConfig();
 
         // Build the routes output.
         $routesOutput = Compass::getAppRoutes()->map(function ($route) use ($settings, $contents) {
             $route = $this->routes->find($route['route_hash']);
+
+            collect($route->examples)->each(function ($example) {
+                $example->content = json_decode($example->content);
+            });
+
             $route->content['output'] = (string) view($contents['route'])
                 ->with('route', $route)
                 ->with('settings', $settings)
+                ->with('baseUrl', config('app.url'))
                 ->render();
 
             return $route;
-        });
+        })->values();
+
+        $parsedRoutesOutput = Compass::groupingRoutes($routesOutput);
 
         $infoText = view($contents['info']);
         $frontmatter = view($contents['frontmatter'])->with('settings', $settings);
@@ -57,7 +65,6 @@ final class SlateBuilder implements ApiDocsRepository
         $markdownFiles = $this->markdownFiles();
         $prependFileContents = file_exists($markdownFiles['prepend']) ? file_get_contents($markdownFiles['prepend'])."\n" : '';
         $appendFileContents = file_exists($markdownFiles['append']) ? "\n".file_get_contents($markdownFiles['append']) : '';
-        $parsedRoutesOutput = Compass::groupingRoutes($routesOutput);
 
         // @todo should we check if the documentation was modified and skip the modified parts of the routes ?
 
@@ -127,6 +134,18 @@ final class SlateBuilder implements ApiDocsRepository
             'append' => $outputPath.DIRECTORY_SEPARATOR.'source'.DIRECTORY_SEPARATOR.'append.md',
             'compare' => $outputPath.DIRECTORY_SEPARATOR.'source'.DIRECTORY_SEPARATOR.'compare.md',
             'prepend' => $outputPath.DIRECTORY_SEPARATOR.'source'.DIRECTORY_SEPARATOR.'prepend.md',
+        ];
+    }
+
+    /**
+     * The markdown files configuration.
+     *
+     * @return array
+     */
+    protected function markdownConfig()
+    {
+        return [
+            'languages' => config('compass.template.slate.example_requests'),
         ];
     }
 

@@ -1,1 +1,12 @@
-{"id":5,"name":"Jessica Jones","gender":"female"}
+{
+    "data": {
+        "data": {
+            "id": 5,
+            "name": "Jessica Jones",
+            "gender": "female"
+        }
+    },
+    "headers": {},
+    "status": "200",
+    "statusText": "OK"
+}

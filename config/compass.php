@@ -1,10 +1,31 @@
 <?php
 
 return [
-    // This is the URI path where Compass will be accessible from.
+
+    /*
+    |--------------------------------------------------------------------------
+    | Compass Path
+    |--------------------------------------------------------------------------
+    |
+    | This is the URI path where Compass will be accessible from. Feel free
+    | to change this path to anything you like.
+    |
+    */
+
     'path' => env('COMPASS_PATH', 'compass'),
 
-    // The routes should be listed for the request.
+    /*
+    |--------------------------------------------------------------------------
+    | Laravel Routes
+    |--------------------------------------------------------------------------
+    |
+    | This is the routes rules that will be filtered for the requests list. use
+    | * as a wildcard to match any characters. note that the following array
+    | list "exclude" must be referenced by the route name. "base_uri" for
+    | grouping the routes wildcards are not supported.
+    |
+    */
+
     'routes' => [
         'domains' => [
             '*',
@@ -14,22 +35,48 @@ return [
             '*',
         ],
 
-        // exclude routes by name.
         'exclude' => [
             'compass.*',
+            'debugbar.*',
         ],
+
+        'base_uri' => 'api/v1',
     ],
 
-    // Compass storage driver.
+    /*
+    |--------------------------------------------------------------------------
+    | Compass Storage Driver
+    |--------------------------------------------------------------------------
+    |
+    | This configuration options determines the storage driver that will
+    | be used to store your API calls and routes. In addition, you may set any
+    | custom options as needed by the particular driver you choose.
+    |
+    */
+
     'driver' => env('COMPASS_DRIVER', 'database'),
+
     'storage' => [
         'database' => [
             'connection' => env('DB_CONNECTION', 'mysql'),
         ],
     ],
 
-    // Compass API Documentation builder.
-    'builder' => env('COMPASS_BUILDER', 'slate'),
+    /*
+    |--------------------------------------------------------------------------
+    | API Documentation Builder
+    |--------------------------------------------------------------------------
+    |
+    | Compass will write and build contents in markdown files and uses
+    | Documentarian as a generator to generate the API documentation
+    | which is a PHP port of the popular Slate API documentation tool.
+    |
+    | @see https://github.com/mpociot/documentarian
+    |
+    */
+
+    'builder' => 'slate',
+
     'template' => [
         'slate' => [
             'output' => 'public/docs',
@@ -37,6 +84,5 @@ return [
                 'bash',
             ],
         ],
-    ]
-
+    ],
 ];

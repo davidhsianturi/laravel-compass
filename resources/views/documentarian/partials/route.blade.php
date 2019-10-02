@@ -15,10 +15,10 @@
 @endforeach
 
 
-> Example response ({{json_decode($example->content)->response->status}}) :
+> Example response ({{$example->content->response->status}}) :
 
 ```json
-{!! json_encode(json_decode($example->content)->response->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) !!}
+{!! json_encode($example->content->response->data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) !!}
 ```
 @endforeach
 @else

@@ -26,6 +26,7 @@ Welcome to the generated API reference.
 > Get example :
 
 ```bash
+curl -X GET -G "http://localhost/example" \
 
 ```
 
@@ -34,9 +35,11 @@ Welcome to the generated API reference.
 
 ```json
 {
-    "id": 5,
-    "name": "Jessica Jones",
-    "gender": "female"
+    "data": {
+        "id": 5,
+        "name": "Jessica Jones",
+        "gender": "female"
+    }
 }
 ```
 

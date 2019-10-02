@@ -19,7 +19,7 @@ class BuildCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Build your API documentation from existing Compass storage';
+    protected $description = 'Build your API documentation from existing Laravel routes.';
 
     /**
      * Execute the console command.
