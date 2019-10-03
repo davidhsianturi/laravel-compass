@@ -2,6 +2,7 @@
 
 namespace Davidhsianturi\Compass\Tests\Storage;
 
+use Illuminate\Support\Str;
 use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\Tests\TestCase;
 use Davidhsianturi\Compass\Storage\RouteModel;
@@ -55,6 +56,22 @@ class DatabaseRequestRepositoryTest extends TestCase
 
         $this->assertSame($request->route_hash, $result['id']);
         $this->assertSame($request->uuid, $result['storageId']);
+    }
+
+    public function test_grouping_routes_request_with_the_first_word_in_route_uri()
+    {
+        $this->registerAppRoutes();
+        $this->saveRequest(Compass::getAppRoutes()->random());
+
+        config(['compass.routes.base_uri' => 'api/v1']);
+        $allRoutes = $this->repository->get();
+
+        $groupedRoutes = Compass::groupingRoutes($allRoutes);
+        $expectedResult = $allRoutes->groupBy(function ($route) {
+            return strtok(Str::after($route->info['uri'], 'api/v1'), '/');
+        })->toArray();
+
+        $this->assertEquals($expectedResult, $groupedRoutes->toArray());
     }
 
     protected function saveRequest(array $attribute)

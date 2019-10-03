@@ -37,10 +37,11 @@ final class Compass
     protected static function getRouteInformation(Route $route)
     {
         $methods = array_diff($route->methods(), ['HEAD']);
+        $baseUri = config('compass.routes.base_uri');
 
         return static::filterRoute([
             "uuid" => null,
-            "title" => $route->uri(),
+            "title" => Str::after($route->uri(), $baseUri),
             "description" => null,
             "content" => [],
             "example" => false,
@@ -100,8 +101,14 @@ final class Compass
      */
     public static function groupingRoutes(Collection $routes)
     {
-        return $routes->groupBy(function ($route) {
-            return strtok($route->info['uri'], '/');
+        $baseUri = config('compass.routes.base_uri');
+
+        return $routes->groupBy(function ($route) use ($baseUri) {
+            if (is_object($route)) {
+                return strtok(Str::after($route->info['uri'], $baseUri), '/');
+            }
+
+            return strtok(Str::after($route['uri'], $baseUri), '/');
         });
     }
 

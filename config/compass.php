@@ -21,8 +21,8 @@ return [
     |
     | This is the routes rules that will be filtered for the requests list. use
     | * as a wildcard to match any characters. note that the following array
-    | list "exclude" must be referenced by the route name. "base_uri" for
-    | grouping the routes wildcards are not supported.
+    | list "exclude" must be referenced by the route name.
+    | "base_uri" is a string value as a comparison for grouping the routes.
     |
     */
 
@@ -40,7 +40,7 @@ return [
             'debugbar.*',
         ],
 
-        'base_uri' => 'api/v1',
+        'base_uri' => '*',
     ],
 
     /*
@@ -67,9 +67,9 @@ return [
     | API Documentation Builder
     |--------------------------------------------------------------------------
     |
-    | Compass will write and build contents in markdown files and uses
-    | Documentarian as a generator to generate the API documentation
-    | which is a PHP port of the popular Slate API documentation tool.
+    | Compass will write and build contents in Documentarian markdown files
+    | and as a generator to generate the API documentation which is a
+    | PHP port of the popular Slate API documentation tool.
     |
     | @see https://github.com/mpociot/documentarian
     |

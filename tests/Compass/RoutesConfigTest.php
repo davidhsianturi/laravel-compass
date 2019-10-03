@@ -2,6 +2,7 @@
 
 namespace Davidhsianturi\Compass\Tests\Compass;
 
+use Illuminate\Support\Str;
 use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\Tests\TestCase;
 
@@ -40,21 +41,21 @@ class RoutesConfigTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        config(['compass.routes.prefixes' => ['prefix1/*', 'prefix2/*']]);
+        config(['compass.routes.prefixes' => ['api/v1/prefix1/*', 'api/v1/prefix2/*']]);
         $this->assertCount(8, Compass::getAppRoutes());
 
-        config(['compass.routes.prefixes' => ['prefix1/*']]);
+        config(['compass.routes.prefixes' => ['api/v1/prefix1/*']]);
         $this->assertCount(4, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertTrue(str_is('prefix1/*', $route['uri']));
-            $this->assertFalse(str_is('prefix2/*', $route['uri']));
+            $this->assertTrue(str_is('api/v1/prefix1/*', $route['uri']));
+            $this->assertFalse(str_is('api/v1/prefix2/*', $route['uri']));
         }
 
-        config(['compass.routes.prefixes' => ['prefix2/*']]);
+        config(['compass.routes.prefixes' => ['api/v1/prefix2/*']]);
         $this->assertCount(4, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertTrue(str_is('prefix2/*', $route['uri']));
-            $this->assertFalse(str_is('prefix1/*', $route['uri']));
+            $this->assertTrue(str_is('api/v1/prefix2/*', $route['uri']));
+            $this->assertFalse(str_is('api/v1/prefix1/*', $route['uri']));
         }
     }
 
@@ -78,5 +79,20 @@ class RoutesConfigTest extends TestCase
             $this->assertFalse(str_is('compass.*', $route['domain']));
             $this->assertFalse(str_is('prefix.domain1-*', $route['name']));
         }
+    }
+
+    public function test_grouping_app_routes_with_the_first_word_in_route_uri()
+    {
+        $this->registerAppRoutes();
+
+        config(['compass.routes.base_uri' => 'api/v1']);
+
+        $appRoutes = Compass::getAppRoutes();
+        $groupedRoutes = Compass::groupingRoutes($appRoutes);
+        $expectedResult = $appRoutes->groupBy(function ($route) {
+            return strtok(Str::after($route['uri'], 'api/v1'), '/');
+        })->toArray();
+
+        $this->assertEquals($expectedResult, $groupedRoutes->toArray());
     }
 }
