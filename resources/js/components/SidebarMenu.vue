@@ -89,7 +89,7 @@ export default {
                         <li class="sm:mb-2" v-for="request in requests.list" :key="request.id">
                             <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
                                 <span class="text-xs text-gray-500 uppercase">{{request.info.methods.join("|")}}</span>
-                                <span class="ml-2">{{request.title}}</span>
+                                <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                             </router-link>
                         </li>
                     </ul>
@@ -103,7 +103,7 @@ export default {
                                 <li class="sm:mb-2" v-for="request in resources" :key="request.id">
                                     <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
                                         <span class="text-xs text-gray-500 uppercase">{{request.info.methods.join("|")}}</span>
-                                        <span class="ml-2">{{request.title}}</span>
+                                        <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                                     </router-link>
                                 </li>
                             </ul>
