@@ -58,13 +58,18 @@ class RoutesRequestTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $appRoute = $this->repository->get()->random()->jsonSerialize();
-
-        $response = $this->postJson(route('compass.request.store'), $appRoute);
+        $appRoute = Compass::getAppRoutes()->random();
+        $response = $this->postJson(route('compass.request.store'), [
+            'id' => $appRoute['route_hash'],
+            'storageId' => null,
+            'title' => $appRoute['title'],
+            'description' => $appRoute['description'],
+            'content' => $appRoute['content'],
+        ]);
 
         $response->assertSuccessful()
             ->assertJson([
-                'id' => $appRoute['id'],
+                'id' => $appRoute['route_hash'],
                 'title' => $appRoute['title'],
                 'content' => $appRoute['content'],
             ]);

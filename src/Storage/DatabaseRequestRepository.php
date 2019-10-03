@@ -49,7 +49,9 @@ class DatabaseRequestRepository implements RequestRepository
      */
     public function find(string $id): RouteResult
     {
-        $route = Compass::syncRoute($this->routesInStorage())->whereStrict('route_hash', $id)->first();
+        $route = Compass::syncRoute($this->routesInStorage())
+            ->whereStrict('route_hash', $id)
+            ->first();
 
         $responses = $this->table('compass_routeables')
             ->whereExample(true)
@@ -61,25 +63,29 @@ class DatabaseRequestRepository implements RequestRepository
     }
 
     /**
-     * Update or insert the given route.
+     * Update or create the given route.
      *
      * @param  array  $route
      * @return mixed
      */
     public function save(array $route)
     {
-        $storageId = $route['storageId'] ?? Str::uuid();
+        $storageId = $route['storageId'] ?? (string) Str::uuid();
 
-        $this->table('compass_routeables')->updateOrInsert(
+        $store = RouteModel::on($this->connection)->updateOrCreate(
             ['route_hash' => $route['id'], 'uuid' => $storageId],
             [
                 'title' => $route['title'],
                 'description' => $route['description'],
-                'content' => json_encode($route['content']),
+                'content' => $route['content'],
             ]
         );
 
-        return $this->find($route['id']);
+        $syncedRoute = Compass::syncRoute($store->get()->toArray())
+            ->whereStrict('uuid', $store->uuid)
+            ->first();
+
+        return $this->routeResult($syncedRoute, []);
     }
 
     /**
