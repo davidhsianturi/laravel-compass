@@ -39,7 +39,7 @@ class PublishCommand extends Command
 
         $this->call('vendor:publish', [
             '--tag' => 'compass-views',
-            '--force' => $this->option('force'),
+            '--force' => true,
         ]);
     }
 }

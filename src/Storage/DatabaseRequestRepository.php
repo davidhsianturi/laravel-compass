@@ -66,7 +66,7 @@ class DatabaseRequestRepository implements RequestRepository
      * Update or create the given route.
      *
      * @param  array  $route
-     * @return mixed
+     * @return \Davidhsianturi\Compass\RouteResult
      */
     public function save(array $route)
     {

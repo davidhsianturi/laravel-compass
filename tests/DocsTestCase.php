@@ -25,6 +25,10 @@ class DocsTestCase extends TestCase
      * .
      * @source laravel-apidoc-generator
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/tests/TestHelpers.php#L22
+     *
+     * @param  string  $pathToExpected
+     * @param  string  $pathToActual
+     * @return void
      */
     protected function assertFilesHaveSameContent($pathToExpected, $pathToActual)
     {
@@ -40,7 +44,7 @@ class DocsTestCase extends TestCase
      * @source laravel-apidoc-generator
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/tests/TestHelpers.php#L36
      *
-     * @param  $path
+     * @param  string $path
      * @return string
      */
     protected function getFileContents($path)
@@ -72,12 +76,13 @@ class DocsTestCase extends TestCase
      *
      * @param  $needle
      * @param  $haystack
+     * @return void
      */
     protected function assertContainsIgnoringWhitespace($needle, $haystack)
     {
         $needle = preg_replace('/\s/', '', $needle);
         $haystack = preg_replace('/\s/', '', $haystack);
 
-        $this->assertContains($needle, $haystack);
+        $this->assertStringContainsString($needle, $haystack);
     }
 }

@@ -25,15 +25,15 @@ class RoutesConfigTest extends TestCase
         config(['compass.routes.domains' => ['domain1.*']]);
         $this->assertCount(6, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertContains('domain1', $route['domain']);
-            $this->assertNotContains('domain2', $route['domain']);
+            $this->assertStringContainsString('domain1', $route['domain']);
+            $this->assertStringNotContainsString('domain2', $route['domain']);
         }
 
         config(['compass.routes.domains' => ['domain2.*']]);
         $this->assertCount(6, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertContains('domain2', $route['domain']);
-            $this->assertNotContains('domain1', $route['domain']);
+            $this->assertStringContainsString('domain2', $route['domain']);
+            $this->assertStringNotContainsString('domain1', $route['domain']);
         }
     }
 
@@ -70,7 +70,7 @@ class RoutesConfigTest extends TestCase
         $this->assertCount(11, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
             $this->assertFalse(str_is('compass.*', $route['domain']));
-            $this->assertNotContains('prefix.domain1-1', $route['name']);
+            $this->assertStringNotContainsString('prefix.domain1-1', $route['name']);
         }
 
         config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-*']]);

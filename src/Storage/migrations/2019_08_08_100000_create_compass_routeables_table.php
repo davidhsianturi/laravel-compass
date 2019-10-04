@@ -9,7 +9,7 @@ class CreateCompassRouteablesTable extends Migration
     /**
      * The database schema.
      *
-     * @var Schema
+     * @var \Illuminate\Database\Schema\Builder
      */
     protected $schema;
 
@@ -20,9 +20,7 @@ class CreateCompassRouteablesTable extends Migration
      */
     public function __construct()
     {
-        $this->schema = Schema::connection(
-            config('compass.storage.database.connection')
-        );
+        $this->schema = Schema::connection($this->getConnection());
     }
 
     /**
@@ -53,5 +51,15 @@ class CreateCompassRouteablesTable extends Migration
     public function down()
     {
         $this->schema->dropIfExists('compass_routeables');
+    }
+
+    /**
+     * Get the migration connection name.
+     *
+     * @return string|null
+     */
+    public function getConnection()
+    {
+        return config('compass.storage.database.connection');
     }
 }
