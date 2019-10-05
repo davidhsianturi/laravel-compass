@@ -52,20 +52,44 @@ class TestCase extends Orchestra
     {
         RouteFacade::prefix('api/v1')->group(function () {
             RouteFacade::group(['domain' => 'domain1.tld.test'], function () {
-                RouteFacade::post('/domain1-1', function () { return 'domain1'; })->name('domain1-1');
-                RouteFacade::get('domain1-2', function () { return 'domain1'; })->name('domain1-2');
-                RouteFacade::get('/prefix1/domain1-1', function () { return 'domain1'; })->name('prefix1.domain1-1');
-                RouteFacade::get('prefix1/domain1-2', function () { return 'domain1'; })->name('prefix1.domain1-2');
-                RouteFacade::get('/prefix2/domain1-1', function () { return 'domain1'; })->name('prefix2.domain1-1');
-                RouteFacade::get('prefix2/domain1-2', function () { return 'domain1'; })->name('prefix2.domain1-2');
+                RouteFacade::post('/domain1-1', function () {
+                    return 'domain1';
+                })->name('domain1-1');
+                RouteFacade::get('domain1-2', function () {
+                    return 'domain1';
+                })->name('domain1-2');
+                RouteFacade::get('/prefix1/domain1-1', function () {
+                    return 'domain1';
+                })->name('prefix1.domain1-1');
+                RouteFacade::get('prefix1/domain1-2', function () {
+                    return 'domain1';
+                })->name('prefix1.domain1-2');
+                RouteFacade::get('/prefix2/domain1-1', function () {
+                    return 'domain1';
+                })->name('prefix2.domain1-1');
+                RouteFacade::get('prefix2/domain1-2', function () {
+                    return 'domain1';
+                })->name('prefix2.domain1-2');
             });
             RouteFacade::group(['domain' => 'domain2.tld.test'], function () {
-                RouteFacade::post('/domain2-1', function () { return 'domain2'; })->name('domain2-1');
-                RouteFacade::get('domain2-2', function () { return 'domain2'; })->name('domain2-2');
-                RouteFacade::get('/prefix1/domain2-1', function () { return 'domain2'; })->name('prefix1.domain2-1');
-                RouteFacade::get('prefix1/domain2-2', function () { return 'domain2'; })->name('prefix1.domain2-2');
-                RouteFacade::get('/prefix2/domain2-1', function () { return 'domain2'; })->name('prefix2.domain2-1');
-                RouteFacade::get('prefix2/domain2-2', function () { return 'domain2'; })->name('prefix2.domain2-2');
+                RouteFacade::post('/domain2-1', function () {
+                    return 'domain2';
+                })->name('domain2-1');
+                RouteFacade::get('domain2-2', function () {
+                    return 'domain2';
+                })->name('domain2-2');
+                RouteFacade::get('/prefix1/domain2-1', function () {
+                    return 'domain2';
+                })->name('prefix1.domain2-1');
+                RouteFacade::get('prefix1/domain2-2', function () {
+                    return 'domain2';
+                })->name('prefix1.domain2-2');
+                RouteFacade::get('/prefix2/domain2-1', function () {
+                    return 'domain2';
+                })->name('prefix2.domain2-1');
+                RouteFacade::get('prefix2/domain2-2', function () {
+                    return 'domain2';
+                })->name('prefix2.domain2-2');
             });
         });
     }
