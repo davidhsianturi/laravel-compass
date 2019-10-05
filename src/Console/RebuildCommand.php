@@ -29,7 +29,7 @@ class RebuildCommand extends Command
     public function handle(ApiDocsRepository $documentation)
     {
         if ($documentation->rebuild() === false) {
-            $this->error("There is no existing markdown files to rebuild! Try to run compass:build first!");
+            $this->error('There is no existing markdown files to rebuild! Try to run compass:build first!');
 
             return;
         }

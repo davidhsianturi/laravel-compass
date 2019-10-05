@@ -40,19 +40,19 @@ final class Compass
         $baseUri = config('compass.routes.base_uri');
 
         return static::filterRoute([
-            "uuid" => null,
-            "title" => Str::after($route->uri(), $baseUri),
-            "description" => null,
-            "content" => [],
-            "example" => false,
+            'uuid' => null,
+            'title' => Str::after($route->uri(), $baseUri),
+            'description' => null,
+            'content' => [],
+            'example' => false,
             'route_hash' => md5($route->uri().':'.implode($methods)),
             'domain' => $route->domain(),
             'methods' => $methods,
             'uri' => $route->uri(),
             'name' => $route->getName(),
             'action' => ltrim($route->getActionName(), '\\'),
-            "created_at" => null,
-            "updated_at" => null,
+            'created_at' => null,
+            'updated_at' => null,
         ]);
     }
 

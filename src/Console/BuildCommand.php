@@ -30,6 +30,6 @@ class BuildCommand extends Command
     {
         $documentation->build();
 
-        $this->info("DONE!");
+        $this->info('DONE!');
     }
 }

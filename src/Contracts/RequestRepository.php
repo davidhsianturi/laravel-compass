@@ -2,7 +2,6 @@
 
 namespace Davidhsianturi\Compass\Contracts;
 
-use Illuminate\Support\Collection;
 use Davidhsianturi\Compass\RouteResult;
 
 interface RequestRepository

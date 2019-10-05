@@ -65,7 +65,7 @@ class RouteResult implements JsonSerializable
     /**
      * The routeables is an example or not.
      *
-     * @var boolean
+     * @var bool
      */
     public $isExample;
 
@@ -87,7 +87,7 @@ class RouteResult implements JsonSerializable
      * @param  array  $info
      * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $createdAt
      * @param  \Carbon\CarbonInterface|\Carbon\Carbon  $updatedAt
-     * @param  boolean  $isExample
+     * @param  bool  $isExample
      * @param  array  $examples
      */
     public function __construct(string $id, $storageId, ?string $title, ?string $description, ?array $content, array $info, $createdAt, $updatedAt, $isExample, $examples = [])
@@ -112,16 +112,16 @@ class RouteResult implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            "id" => $this->id,
-            "storageId" => $this->storageId,
-            "title" => $this->title,
-            "description" => $this->description,
-            "content" => $this->content,
-            "info" => $this->info,
-            "isExample" => $this->isExample,
-            "examples" => $this->examples,
-            "createdAt" => $this->createdAt->toDateTimeString(),
-            "updatedAt" => $this->updatedAt->toDateTimeString(),
+            'id' => $this->id,
+            'storageId' => $this->storageId,
+            'title' => $this->title,
+            'description' => $this->description,
+            'content' => $this->content,
+            'info' => $this->info,
+            'isExample' => $this->isExample,
+            'examples' => $this->examples,
+            'createdAt' => $this->createdAt->toDateTimeString(),
+            'updatedAt' => $this->updatedAt->toDateTimeString(),
         ];
     }
 }

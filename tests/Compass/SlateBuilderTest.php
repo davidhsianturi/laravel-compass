@@ -2,8 +2,8 @@
 
 namespace Davidhsianturi\Compass\Tests\Compass;
 
-use Davidhsianturi\Compass\Tests\DocsTestCase;
 use Davidhsianturi\Compass\Storage\RouteModel;
+use Davidhsianturi\Compass\Tests\DocsTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 
