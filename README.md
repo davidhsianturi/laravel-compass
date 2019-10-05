@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/license.svg" alt="License"></a>
 </p>
 
-<p align="center"><b>Laravel REST client for testing API endpoints and build the documentation</b></p>
+<p align="center"><b>Laravel REST client for testing API endpoints and building API documentation</b></p>
 
 <p align="center">
 <kbd>
