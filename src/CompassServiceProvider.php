@@ -82,7 +82,7 @@ class CompassServiceProvider extends ServiceProvider
             ], 'compass-assets');
 
             $this->publishes([
-                __DIR__.'/../resources/views/documentarian' => resource_path('views/vendor/compass'),
+                __DIR__.'/../resources/views/documentarian' => resource_path('views/vendor/compass/documentarian'),
             ], 'compass-views');
 
             $this->publishes([
