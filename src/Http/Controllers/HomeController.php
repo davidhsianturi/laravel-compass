@@ -15,6 +15,7 @@ class HomeController
     {
         return view('compass::layout', [
             'compassScriptVariables' => Compass::scriptVariables(),
+            'assetsAreCurrent' => Compass::assetsAreCurrent(),
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace Davidhsianturi\Compass;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
 final class Compass
@@ -139,5 +140,24 @@ final class Compass
         static::$runsMigrations = false;
 
         return new static;
+    }
+
+    /**
+     * Check if assets are up-to-date.
+     *
+     * src: https://github.com/laravel/telescope/pull/729
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @return bool
+     */
+    public static function assetsAreCurrent()
+    {
+        $publishedPath = public_path('vendor/compass/mix-manifest.json');
+
+        if (! File::exists($publishedPath)) {
+            throw new \RuntimeException('The Compass assets are not published. Please run: php artisan compass:publish');
+        }
+
+        return File::get($publishedPath) === File::get(__DIR__.'/../public/mix-manifest.json');
     }
 }
