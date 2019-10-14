@@ -49,7 +49,7 @@ export default {
                 </div>
             </div>
 
-            <input class="w-full py-2 px-4 rounded rounded-l-none border bg-gray-200 text-gray-600 inline-block appearance-none focus:outline-none"
+            <input class="w-full px-3 rounded rounded-l-none border bg-gray-200 text-gray-600 inline-block appearance-none focus:outline-none"
                     type="text"
                     :value="url"
                     @input="$emit('update:url', $event.target.value)">

@@ -142,7 +142,7 @@ export default {
 <template>
     <div v-if="!busy" class="bg-white min-h-full">
         <omnibox
-            class="p-4 border-t border-b border-gray-200 bg-secondary"
+            class="px-3 py-2 border-t border-b border-gray-200 bg-secondary"
             :methods="requestData.info.methods"
             :url.sync="requestData.content.url"
             :http-method.sync="requestMethod"
