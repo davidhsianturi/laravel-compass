@@ -3,8 +3,8 @@ const tailwindcss = require('tailwindcss');
 
 mix
     .options({
-        uglify: {
-            uglifyOptions: {
+        terser: {
+            terserOptions: {
                 compress: {
                     drop_console: true,
                 }
