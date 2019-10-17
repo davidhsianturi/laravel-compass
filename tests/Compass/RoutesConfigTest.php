@@ -47,15 +47,15 @@ class RoutesConfigTest extends TestCase
         config(['compass.routes.prefixes' => ['api/v1/prefix1/*']]);
         $this->assertCount(4, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertTrue(str_is('api/v1/prefix1/*', $route['uri']));
-            $this->assertFalse(str_is('api/v1/prefix2/*', $route['uri']));
+            $this->assertTrue(Str::is('api/v1/prefix1/*', $route['uri']));
+            $this->assertFalse(Str::is('api/v1/prefix2/*', $route['uri']));
         }
 
         config(['compass.routes.prefixes' => ['api/v1/prefix2/*']]);
         $this->assertCount(4, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertTrue(str_is('api/v1/prefix2/*', $route['uri']));
-            $this->assertFalse(str_is('api/v1/prefix1/*', $route['uri']));
+            $this->assertTrue(Str::is('api/v1/prefix2/*', $route['uri']));
+            $this->assertFalse(Str::is('api/v1/prefix1/*', $route['uri']));
         }
     }
 
@@ -69,15 +69,15 @@ class RoutesConfigTest extends TestCase
         config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-1']]);
         $this->assertCount(11, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertFalse(str_is('compass.*', $route['domain']));
+            $this->assertFalse(Str::is('compass.*', $route['domain']));
             $this->assertStringNotContainsString('prefix.domain1-1', $route['name']);
         }
 
         config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-*']]);
         $this->assertCount(10, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertFalse(str_is('compass.*', $route['domain']));
-            $this->assertFalse(str_is('prefix.domain1-*', $route['name']));
+            $this->assertFalse(Str::is('compass.*', $route['domain']));
+            $this->assertFalse(Str::is('prefix.domain1-*', $route['name']));
         }
     }
 

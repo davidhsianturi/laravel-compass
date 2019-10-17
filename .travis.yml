@@ -9,16 +9,21 @@ cache:
 php:
   - 7.1
   - 7.2
+  - 7.3
 
 env:
   matrix:
     - LARAVEL=5.7.*
     - LARAVEL=5.8.*
+    - LARAVEL=^6.0
 
 matrix:
   fast_finish: true
+  exclude:
+    - php: 7.1
+      env: LARAVEL=^6.0
   allow_failures:
-    - env: LARAVEL=5.8
+    - env: LARAVEL=^6.0
 
 before_install:
   - phpenv config-rm xdebug.ini || true
