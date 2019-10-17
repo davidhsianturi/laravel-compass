@@ -125,7 +125,6 @@ final class Compass
             'app' => [
                 'name' => config('app.name'),
                 'base_url' => config('app.url'),
-                'laravel_version' => app()->version(),
             ],
         ];
     }
