@@ -15,7 +15,7 @@
 
 ## Introduction
 
-Laravel Compass is a REST client for the Laravel framework. Compass provides automatically endpoints for you to tests based on Laravel route in your project and you can build the API documentation in a second.
+Laravel Compass is an elegant REST assistant for the Laravel framework that you can use to test API calls and create API documentation. it provides automatically endpoints for GET, POST, PUT/PATCH, DELETE, various auth mechanisms and other utility endpoints based on Laravel routes in your project.
 
 ## Installation
 
