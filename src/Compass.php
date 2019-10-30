@@ -37,7 +37,7 @@ final class Compass
      */
     protected static function getRouteInformation(Route $route)
     {
-        $methods = array_diff($route->methods(), ['HEAD']);
+        $methods = array_values(array_diff($route->methods(), ['HEAD']));
         $baseUri = config('compass.routes.base_uri');
 
         return static::filterRoute([
