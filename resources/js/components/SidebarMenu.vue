@@ -8,7 +8,7 @@ export default {
         return {
             requests: [],
             ready: false,
-            isOpen: false,
+            isOpen: true,
             currentTab: 'list',
         }
     },
@@ -47,7 +47,7 @@ export default {
                         <path d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3zm4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54l1.41-1.41zM10 20l-4-4 4-4v8zm0-12V0l4 4-4 4z" />
                     </svg>
                 </a>
-                <a href="#" class="ml-4 md:hidden" @click.prevent="toggle">
+                <a href="#" class="ml-4" @click.prevent="toggle">
                     <svg class="h-5 w-5 fill-current text-gray-600 hover:text-gray-700" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path v-if="isOpen" fill-rule="evenodd" clip-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
                         <path v-if="!isOpen" d="M3 6a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm3 6a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1zm4 5a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-4z" />
