@@ -1,5 +1,5 @@
 preset: laravel
-  enabled:
-    - length_ordered_imports
-  disabled:
-    - alpha_ordered_imports
+enabled:
+  - length_ordered_imports
+disabled:
+  - alpha_ordered_imports
