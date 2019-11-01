@@ -1,5 +1,4 @@
-php:
-  preset: laravel
+preset: laravel
   enabled:
     - length_ordered_imports
   disabled:
