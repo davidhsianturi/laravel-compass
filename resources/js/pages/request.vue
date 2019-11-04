@@ -141,7 +141,7 @@ export default {
 
 <template>
     <div v-if="!busy" class="bg-white min-h-full">
-        <div class="bg-secondary px-3 py-2 text-sm text-gray-700 border-t border-b border-gray-200" v-if="requestData.description">
+        <div class="bg-secondary px-3 py-2 text-sm text-gray-700 border-t border-gray-200" v-if="requestData.description">
           {{ requestData.description }}
         </div>
         <omnibox
