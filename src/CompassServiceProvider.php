@@ -38,6 +38,7 @@ class CompassServiceProvider extends ServiceProvider
         Route::namespace('Davidhsianturi\Compass\Http\Controllers')
             ->as('compass.')
             ->prefix(config('compass.path'))
+            ->middleware(config('compass.middleware', []))
             ->group(function () {
                 $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
             });
