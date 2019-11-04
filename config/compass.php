@@ -22,7 +22,7 @@ return [
     | These are the Middleware that Compass will use for all routes.
     |
     */
-    'middleware' => [],
+    'middleware' => ['web'],
 
     /*
     |--------------------------------------------------------------------------
