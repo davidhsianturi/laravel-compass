@@ -5,7 +5,7 @@ namespace Davidhsianturi\Compass\Contracts;
 use Illuminate\Routing\Route;
 
 interface RouteResolverContract
-{   
+{
     /**
      * Retrieve title from the route.
      *
@@ -23,5 +23,4 @@ interface RouteResolverContract
      * @return string
      */
     public function getDescription(Route $route);
-
 }
