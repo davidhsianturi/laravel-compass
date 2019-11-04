@@ -7,7 +7,7 @@ use Illuminate\Routing\Route;
 interface RouteResolverContract
 {   
     /**
-     * Retrieve title from the route
+     * Retrieve title from the route.
      *
      * @param Route $route
      *
@@ -16,7 +16,7 @@ interface RouteResolverContract
     public function getTitle(Route $route);
 
     /**
-     * Retrieve description from the route
+     * Retrieve description from the route.
      *
      * @param Route $route
      *

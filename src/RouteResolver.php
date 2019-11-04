@@ -9,7 +9,7 @@ use Davidhsianturi\Compass\Contracts\RouteResolverContract;
 class RouteResolver implements RouteResolverContract
 {
     /**
-     * Retrieve title from the route
+     * Retrieve title from the route.
      *
      * @param Route $route
      *
@@ -23,7 +23,7 @@ class RouteResolver implements RouteResolverContract
     }
 
     /**
-     * Retrieve description from the route
+     * Retrieve description from the route.
      *
      * @param Route $route
      *
@@ -31,6 +31,6 @@ class RouteResolver implements RouteResolverContract
      */
     public function getDescription(Route $route)
     {
-        return null;
+        return '';
     }
 }
