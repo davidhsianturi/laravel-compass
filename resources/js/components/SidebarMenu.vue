@@ -1,8 +1,13 @@
 <script>
 import axios from 'axios';
+import MethodChip from './MethodChip'
 
 export default {
     props: [],
+
+    components: {
+      MethodChip
+    },
 
     data() {
         return {
@@ -88,7 +93,7 @@ export default {
                     <ul v-if="currentTab=='list'">
                         <li class="sm:mb-2" v-for="request in requests.list" :key="request.id">
                             <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
-                                <span class="text-xs text-gray-500 uppercase">{{request.info.methods.join("|")}}</span>
+                                <method-chip :request="request" />
                                 <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                             </router-link>
                         </li>
@@ -102,7 +107,7 @@ export default {
                             <ul class="ml-4">
                                 <li class="sm:mb-2" v-for="request in resources" :key="request.id">
                                     <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
-                                        <span class="text-xs text-gray-500 uppercase">{{request.info.methods.join("|")}}</span>
+                                        <method-chip :request="request" />
                                         <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                                     </router-link>
                                 </li>
