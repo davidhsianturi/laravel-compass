@@ -7,6 +7,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route as RouteFacade;
+use Davidhsianturi\Compass\Contracts\RouteResolverContract;
 
 final class Compass
 {
@@ -24,8 +25,10 @@ final class Compass
      */
     public static function getAppRoutes()
     {
-        return collect(RouteFacade::getRoutes())->map(function ($route) {
-            return static::getRouteInformation($route);
+        $resolver = app(RouteResolverContract::class);
+
+        return collect(RouteFacade::getRoutes())->map(function ($route) use ($resolver) {
+            return static::getRouteInformation($route, $resolver);
         })->filter();
     }
 
@@ -33,17 +36,18 @@ final class Compass
      * Get the route information for a given route.
      *
      * @param  \Illuminate\Routing\Route  $route
+     * @param  \Davidhsianturi\Compass\RouteResolverContract $resolver
+     *
      * @return array
      */
-    protected static function getRouteInformation(Route $route)
+    protected static function getRouteInformation(Route $route, RouteResolverContract $resolver)
     {
         $methods = array_values(array_diff($route->methods(), ['HEAD']));
-        $baseUri = config('compass.routes.base_uri');
 
-        return static::filterRoute([
+        $route = [
             'uuid' => null,
-            'title' => Str::after($route->uri(), $baseUri),
-            'description' => null,
+            'title' => $resolver->getTitle($route),
+            'description' => $resolver->getDescription($route),
             'content' => [],
             'example' => false,
             'route_hash' => md5($route->uri().':'.implode($methods)),
@@ -54,7 +58,9 @@ final class Compass
             'action' => ltrim($route->getActionName(), '\\'),
             'created_at' => null,
             'updated_at' => null,
-        ]);
+        ];
+
+        return static::filterRoute($route);
     }
 
     /**

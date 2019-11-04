@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
+use Davidhsianturi\Compass\Contracts\RouteResolverContract;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
 
@@ -104,6 +105,7 @@ class CompassServiceProvider extends ServiceProvider
 
         $this->registerStorageDriver();
         $this->registerTemplateBuilder();
+        $this->registerRouteResolver();
 
         $this->commands([
             Console\InstallCommand::class,
@@ -170,6 +172,18 @@ class CompassServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             ApiDocsRepository::class, SlateBuilder::class
+        );
+    }
+
+    /**
+     * Register the package slate builder.
+     *
+     * @return void
+     */
+    protected function registerRouteResolver()
+    {
+        $this->app->singleton(
+            RouteResolverContract::class, RouteResolver::class
         );
     }
 }
