@@ -141,8 +141,11 @@ export default {
 
 <template>
     <div v-if="!busy" class="bg-white min-h-full">
+        <div class="bg-secondary px-3 py-2 text-sm text-gray-700 border-t border-b border-gray-200" v-if="requestData.description">
+          {{ requestData.description }}
+        </div>
         <omnibox
-            class="px-3 py-2 border-t border-b border-gray-200 bg-secondary"
+            class="px-3 py-2 bg-secondary border-t border-b border-gray-200 "
             :methods="requestData.info.methods"
             :url.sync="requestData.content.url"
             :http-method.sync="requestMethod"
