@@ -19,7 +19,7 @@ export default {
                 <circle fill="#F3F3F3" cx="18" cy="18.008" r="3.055" />
                 <circle fill="#F5F8FA" cx="18" cy="18.008" r="1.648" /></svg>
 
-            <p class="text-gray-600 text-lg mt-5 mb-2">Buld API Documentation</p>
+            <p class="text-gray-600 text-lg mt-5 mb-2">Build API Documentation</p>
             <code class="text-gray-500 border p-1 rounded">php artisan compass:build</code>
         </div>
     </div>
