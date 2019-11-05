@@ -1,4 +1,6 @@
 <script>
+import HttpStatus from './HttpStatus'
+
 export default {
     props: {
         response: {
@@ -9,6 +11,10 @@ export default {
             type: Boolean,
             default: true,
         }
+    },
+
+    components: {
+      HttpStatus
     },
 
     data() {
@@ -47,10 +53,7 @@ export default {
             </div>
 
             <div class="ml-auto">
-                <div class="inline-block text-xs py-2 px-1">
-                    <span class="text-gray-500">Status:</span>
-                    <span class="text-green-500">{{response.status}} {{response.statusText}}</span>
-                </div>
+                <http-status :response="response" />
                 <div class="inline-block px-1 text-gray-400" v-if="okToSave">|</div>
                  <button v-if="okToSave" class="inline-block py-2 pl-1 pr-4 text-sm text-primary focus:outline-none" @click="sendResponseData">Save response as example</button>
             </div>
