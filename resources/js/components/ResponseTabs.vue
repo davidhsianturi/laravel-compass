@@ -1,5 +1,5 @@
 <script>
-import HttpStatus from './HttpStatus'
+import HttpStatus from './HttpStatus';
 
 export default {
     props: {
