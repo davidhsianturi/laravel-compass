@@ -1,6 +1,7 @@
 <script>
 import HttpStatus from './HttpStatus';
 import HttpResponseSize from './HttpResponseSize';
+import HttpResponseTime from './HttpResponseTime';
 
 export default {
     props: {
@@ -23,7 +24,8 @@ export default {
 
     components: {
         HttpStatus,
-        HttpResponseSize
+        HttpResponseSize,
+        HttpResponseTime
     },
 
     data() {
@@ -67,6 +69,7 @@ export default {
                     <span class="text-gray-500">Status:</span>
                     <span class="text-green-500">{{response.status}} {{response.statusText}}</span>
                 </div>
+                <http-response-time :response="response" />
                 <http-response-size :response="response" />
                 <div class="inline-block px-1 text-gray-400" v-if="okToSave">|</div>
                  <button v-if="okToSave" class="inline-block py-2 pl-1 pr-4 text-sm text-primary focus:outline-none" @click="sendResponseData">Save response as example</button>
