@@ -113,10 +113,10 @@ export default {
             this.responseData.route_hash = this.id;
             this.responseData.title = this.requestData.title;
             this.responseData.content.request = this.requestData;
-            this.responseData.content.response.data = data.data;
-            this.responseData.content.response.headers = data.headers;
-            this.responseData.content.response.status = data.status;
-            this.responseData.content.response.statusText = data.statusText;
+            this.responseData.content.response.data = data ? data.data : '';
+            this.responseData.content.response.headers = data ? data.headers : '';
+            this.responseData.content.response.status = data ? data.status : '';
+            this.responseData.content.response.statusText = data ? data.statusText : '';
 
             this.responseReady = true;
         },

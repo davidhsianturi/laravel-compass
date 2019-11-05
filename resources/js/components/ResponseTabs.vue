@@ -5,7 +5,14 @@ export default {
     props: {
         response: {
             type: Object,
-            required: true,
+            default () {
+                return {
+                    data: null,
+                    headers: [],
+                    status: null,
+                    statusText: ''
+                };
+            },
         },
         okToSave: {
             type: Boolean,
@@ -61,7 +68,7 @@ export default {
 
         <!-- content -->
         <div v-if="currentTab=='body'" class="p-4 text-orange-800 text-sm bg-white">
-            <vue-json-pretty :data="response.data"></vue-json-pretty>
+            <vue-json-pretty :data="response.data" v-if="response.data"></vue-json-pretty>
         </div>
         <div v-if="currentTab=='headers'" class="bg-white">
             <table class="w-full text-left table-collapse">

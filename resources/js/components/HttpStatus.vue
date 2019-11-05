@@ -23,10 +23,12 @@ export default {
 
     computed: {
         status () {
-            return `${this.response.status} ${this.response.statusText}`
+            return this.response.status
+                ? `${this.response.status} ${this.response.statusText}`
+                : "Error"
         },
         description () {
-            return RESPONSE_CODE_DESCRIPTIONS[this.response.status] || ''
+            return RESPONSE_CODE_DESCRIPTIONS[this.response.status] || "Unknown Response Code"
         },
         color () {
             let statusGroup = String(this.response.status)[0] || ''
