@@ -1,12 +1,12 @@
 <script>
 import axios from 'axios';
-import MethodChip from './MethodChip'
+import HttpMethods from './HttpMethods'
 
 export default {
     props: [],
 
     components: {
-      MethodChip
+      HttpMethods
     },
 
     data() {
@@ -93,7 +93,7 @@ export default {
                     <ul v-if="currentTab=='list'">
                         <li class="sm:mb-2" v-for="request in requests.list" :key="request.id">
                             <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
-                                <method-chip :request="request" />
+                                <http-methods :request="request" />
                                 <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                             </router-link>
                         </li>
@@ -107,7 +107,7 @@ export default {
                             <ul class="ml-4">
                                 <li class="sm:mb-2" v-for="request in resources" :key="request.id">
                                     <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
-                                        <method-chip :request="request" />
+                                        <method-methods :request="request" />
                                         <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                                     </router-link>
                                 </li>

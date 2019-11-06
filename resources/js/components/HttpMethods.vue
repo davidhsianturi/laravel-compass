@@ -9,7 +9,9 @@ export default {
                 {method: "GET", class: "text-green-500"},
                 {method: "POST", class: "text-orange-400"},
                 {method: "DELETE", class: "text-red-600"},
-                {method: "PUT", class: "text-blue-500"}
+                {method: "PUT", class: "text-blue-500"},
+                {method: "PATCH", class: "text-blue-400"},
+                {method: "OPTIONS", class: "text-grey-500"}
             ]
         }
     },
@@ -18,19 +20,19 @@ export default {
         color: function () {
             let methods = this.request.info.methods
 
-            let color = this.colors.find(color => {
+            let colors = this.colors.filter(color => {
                 return methods.indexOf(color.method) !== -1
             })
 
-            return color ? color.class : "text-grey-500"
+            return colors.length === 1 ? colors[0].class : "text-grey-500"
         }
     }
 }
 </script>
 
 <template>
-    <span :class="'method-chip text-xs font-bold uppercase ' + color">
-        {{request.info.methods.join("|")}}
+    <span :class="'method-chip text-xs text-center font-bold uppercase ' + color">
+        {{ request.info.methods.length > 1 ? '*' : request.info.methods[0] }}
     </span>
 </template>
 
