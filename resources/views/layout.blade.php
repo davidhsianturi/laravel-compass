@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Compass - {{ config('app.name') }}</title>
 
-    <link href='{{ mix('app.css', 'vendor/compass') }}' rel='stylesheet' type='text/css'>
+    <link href="{{ mix('app.css', 'vendor/compass') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div id="compass" class="min-h-screen bg-secondary antialiased md:flex md:flex-col md:h-screen">
