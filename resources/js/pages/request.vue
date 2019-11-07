@@ -94,10 +94,9 @@ export default {
         sendRequest() {
             let formData = this.toFormData(this.requestData.content.body);
 
-            axios({
+            this.http({
                 url: this.requestData.content.url,
                 method: this.requestMethod,
-                baseURL: Compass.app.base_url,
                 headers: this.filterFormRequests(this.requestData.content.headers),
                 data: formData,
             }).then(response => {

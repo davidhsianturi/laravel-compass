@@ -2,8 +2,10 @@ import Vue from 'vue';
 import Base from './base';
 import Routes from './routes';
 import VueRouter from 'vue-router';
+import axios from './axios-instance';
 import VueJsonPretty from 'vue-json-pretty';
 
+Vue.prototype.http = axios;
 Vue.use(VueRouter);
 
 const router = new VueRouter({
