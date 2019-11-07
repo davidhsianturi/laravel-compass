@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             rawBodyOptions: [
-                { key: 'text',  value: '', text: 'Text', },
+                { key: 'text',  value: null, text: 'Text', },
                 { key: 'json',  value: 'application/json', text: 'JSON', },
                 { key: 'xml',  value: 'application/xml', text: 'XML', },
                 { key: 'yaml',  value: 'text/yaml', text: 'YAML', },
@@ -29,8 +29,12 @@ export default {
 
     methods: {
         onChange(e) {
-            this.$emit('update:body-option', this.selectedBodyOption);
-        },
+            const isBodyOptionRaw = this.selectedBodyOption.value === 'raw'
+            const key = isBodyOptionRaw ? this.selectedBodyOption.rawOption : this.selectedBodyOption.value
+            const opt = (isBodyOptionRaw ? this.rawBodyOptions : this.bodyOptions).find(o => o.key === key)
+            const headerContentType = opt ? opt.value : null
+            this.$emit('change', { bodyOption: this.selectedBodyOption, headerContentType });
+        }
   }
 }
 </script>

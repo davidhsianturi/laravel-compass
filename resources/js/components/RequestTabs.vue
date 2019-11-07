@@ -33,6 +33,7 @@ export default {
         return {
             currentTab: 'headers',
             headers: [ ...this.request.content.headers ],
+            headerContentTypeIndex: -1,
             body: [ ...this.request.content.body ],
             bodyOption: { ...this.request.content.bodyOption },
             about: {
@@ -40,6 +41,11 @@ export default {
                 description: this.request.description
             }
         }
+    },
+
+    mounted() {
+        this.headerContentTypeIndex = this.request.content.headers
+            .findIndex(header => header.key === 'Content-Type')
     },
 
     methods: {
@@ -81,6 +87,28 @@ export default {
                     bodyOption: this.bodyOption
                 }
             });
+        },
+
+        onBodyOptionChange(data) {
+            this.bodyOption = data.bodyOption;
+            if (data.headerContentType) {
+                if (this.headerContentTypeIndex !== -1) {
+                    this.headers[this.headerContentTypeIndex].value = data.headerContentType
+                } else {
+                    this.headers.splice(0, 0, {
+                        included: true,
+                        key: 'Content-Type',
+                        value: data.headerContentType,
+                        description: null,
+                        new: false,
+                        type: 'text',
+                    })
+                    this.headerContentTypeIndex = 0
+                }
+            } else if(data.bodyOption.value === 'none' && this.headerContentTypeIndex !== -1) {
+                this.headers.splice(this.headerContentTypeIndex, 1)
+                this.headerContentTypeIndex = -1
+            }
         }
     }
 }
@@ -201,7 +229,7 @@ export default {
                                     <a v-show="hoverId==='header#' + row"
                                         href="#"
                                         class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
-                                        @click="removeRow('headers', row)">
+                                        @click="removeRow(headers, row)">
                                         <svg class="h-3 w-3 fill-current text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
                                     </a>
@@ -212,7 +240,7 @@ export default {
                 </table>
             </div>
             <div v-if="currentTab=='body'">
-                <body-options :body-option.sync="bodyOption" />
+                <body-options :body-option="bodyOption" @change="onBodyOptionChange" />
                 <div class="border-t border-gray-200">
                     <div v-if="bodyOption.value=='none'" class="flex justify-center my-3">
                         <span class="text-xs text-gray-500">This request does not have a body</span>
