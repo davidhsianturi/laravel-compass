@@ -19,7 +19,6 @@ export default {
     computed: {
         color: function () {
             let methods = this.request.info.methods
-
             let colors = this.colors.filter(color => {
                 return methods.indexOf(color.method) !== -1
             })
@@ -31,15 +30,13 @@ export default {
 </script>
 
 <template>
-    <span :class="'method-chip text-xs text-center font-bold uppercase ' + color">
+    <span :class="'w-full inline-block max-w-xxs text-xs text-center font-bold uppercase ' + color">
         {{ request.info.methods.length > 1 ? '*' : request.info.methods[0] }}
     </span>
 </template>
 
 <style scoped>
-    .method-chip {
+    .max-w-xxs {
         max-width: 45px;
-        width: 100%;
-        display: inline-block;
     }
 </style>

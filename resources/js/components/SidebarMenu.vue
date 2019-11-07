@@ -6,7 +6,7 @@ export default {
     props: [],
 
     components: {
-      HttpMethods
+        HttpMethods
     },
 
     data() {
@@ -107,7 +107,7 @@ export default {
                             <ul class="ml-4">
                                 <li class="sm:mb-2" v-for="request in resources" :key="request.id">
                                     <router-link :to="{name:'request', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
-                                        <method-methods :request="request" />
+                                        <http-methods :request="request" />
                                         <span class="ml-2">{{truncateString(request.title, 20)}}</span>
                                     </router-link>
                                 </li>
