@@ -10,12 +10,14 @@ instance.interceptors.request.use((config) => {
         end: null,
         duration: 0
     };
+
     return config;
 })
 
 instance.interceptors.response.use((response) => {
     response.config.timing.end = performance.now();
     response.config.timing.duration = response.config.timing.end - response.config.timing.start;
+
     return response;
 })
 

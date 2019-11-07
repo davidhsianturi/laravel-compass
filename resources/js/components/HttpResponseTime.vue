@@ -16,8 +16,10 @@ export default {
             sizes.some((size) => {
                 if ((miliseconds / size.divisor) < 1) return true
                 duration = `${Math.round(miliseconds / size.divisor, 2)} ${size.token}`
+
                 return false
             })
+
             return duration
         }
     }

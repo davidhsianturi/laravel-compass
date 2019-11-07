@@ -65,10 +65,6 @@ export default {
 
             <div class="ml-auto">
                 <http-status :response="response" />
-                <div class="inline-block text-xs py-2 px-1">
-                    <span class="text-gray-500">Status:</span>
-                    <span class="text-green-500">{{response.status}} {{response.statusText}}</span>
-                </div>
                 <http-response-time :response="response" />
                 <http-response-size :response="response" />
                 <div class="inline-block px-1 text-gray-400" v-if="okToSave">|</div>
