@@ -1,14 +1,27 @@
 <script>
+import HttpStatus from './HttpStatus';
+
 export default {
     props: {
         response: {
             type: Object,
-            required: true,
+            default () {
+                return {
+                    data: null,
+                    headers: [],
+                    status: null,
+                    statusText: ''
+                };
+            },
         },
         okToSave: {
             type: Boolean,
             default: true,
         }
+    },
+
+    components: {
+      HttpStatus
     },
 
     data() {
@@ -47,10 +60,7 @@ export default {
             </div>
 
             <div class="ml-auto">
-                <div class="inline-block text-xs py-2 px-1">
-                    <span class="text-gray-500">Status:</span>
-                    <span class="text-green-500">{{response.status}} {{response.statusText}}</span>
-                </div>
+                <http-status :response="response" />
                 <div class="inline-block px-1 text-gray-400" v-if="okToSave">|</div>
                  <button v-if="okToSave" class="inline-block py-2 pl-1 pr-4 text-sm text-primary focus:outline-none" @click="sendResponseData">Save response as example</button>
             </div>
@@ -58,7 +68,7 @@ export default {
 
         <!-- content -->
         <div v-if="currentTab=='body'" class="p-4 text-orange-800 text-sm bg-white">
-            <vue-json-pretty :data="response.data"></vue-json-pretty>
+            <vue-json-pretty :data="response.data" v-if="response.data"></vue-json-pretty>
         </div>
         <div v-if="currentTab=='headers'" class="bg-white">
             <table class="w-full text-left table-collapse">
