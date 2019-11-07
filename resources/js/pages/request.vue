@@ -33,6 +33,7 @@ export default {
                 content: {
                     headers: '',
                     body: '',
+                    bodyOption: ''
                 },
             },
             responseReady: false,
@@ -77,13 +78,14 @@ export default {
             this.requestData.content.url = data.content.url || data.info.uri;
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestData.content.body = data.content.body || this.newFormRequests();
+            this.requestData.content.bodyOption = data.content.bodyOption || { value: 'none', rawOption: 'text' };
             this.isExample = data.isExample;
             this.examples = data.examples;
             this.requestMethod = data.info.methods[0];
         },
 
-        saveRequest()  {
-            axios.post('/' + Compass.path + '/request', this.requestData).then(response => {
+        saveRequest(data)  {
+            axios.post('/' + Compass.path + '/request', data).then(response => {
                 this.fillRequest(response.data);
                 this.alertSuccess('Request data successfully saved!', 3000);
             }).catch(error => {
