@@ -10,7 +10,7 @@ export default {
     data() {
         return {
             rawBodyOptions: [
-                { key: 'text',  value: null, text: 'Text', },
+                { key: 'text',  value: 'text/plain', text: 'Text', },
                 { key: 'json',  value: 'application/json', text: 'JSON', },
                 { key: 'xml',  value: 'application/xml', text: 'XML', },
                 { key: 'yaml',  value: 'text/yaml', text: 'YAML', },

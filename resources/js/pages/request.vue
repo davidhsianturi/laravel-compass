@@ -94,13 +94,18 @@ export default {
         },
 
         sendRequest() {
-            let formData = this.toFormData(this.requestData.content.body);
+            let requestData = null;
+            if (this.requestData.content.bodyOption.value === 'raw') {
+                requestData = this.requestData.content.body;
+            } else {
+                requestData = this.toFormData(this.requestData.content.body);
+            }
 
             this.http({
                 url: this.requestData.content.url,
                 method: this.requestMethod,
                 headers: this.filterFormRequests(this.requestData.content.headers),
-                data: formData,
+                data: requestData,
             }).then(response => {
                 this.fillResponse(response);
             }).catch(error => {
@@ -155,7 +160,7 @@ export default {
 
         <request-tabs
             class="bg-secondary"
-            :request="requestData"
+            :request.sync="requestData"
             :examples="examples"
             @request-data-ready="saveRequest"></request-tabs>
 

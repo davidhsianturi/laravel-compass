@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+// addons
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/addon/fold/foldgutter.css';

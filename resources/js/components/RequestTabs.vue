@@ -4,6 +4,7 @@ import HeaderFields from './HeaderFields';
 import BodyOptions from './request/BodyOptions';
 import BodyMultipartForm from './request/BodyMultipartForm';
 import BodyFormUrlEncoded from './request/BodyFormUrlEncoded';
+import BodyRawVue from './request/BodyRaw';
 
 export default {
     components: {
@@ -11,7 +12,8 @@ export default {
         'header-fields': HeaderFields,
         'body-options': BodyOptions,
         'body-multipart-form': BodyMultipartForm,
-        'body-from-url-encoded': BodyFormUrlEncoded
+        'body-from-url-encoded': BodyFormUrlEncoded,
+        'body-raw': BodyRawVue
     },
 
     props: {
@@ -33,8 +35,10 @@ export default {
         return {
             currentTab: 'headers',
             headers: [ ...this.request.content.headers ],
+            headerContentType: null,
             headerContentTypeIndex: -1,
             body: [ ...this.request.content.body ],
+            rawBody: '',
             bodyOption: { ...this.request.content.bodyOption },
             about: {
                 title: this.request.title,
@@ -43,9 +47,61 @@ export default {
         }
     },
 
+    computed: {
+        requestData() {
+            return {
+                ...this.request,
+                title: this.about.title,
+                description: this.about.description,
+                content: {
+                    url: this.request.content.url,
+                    headers: this.headers,
+                    body: this.bodyOption.value === 'raw' ? this.rawBody : this.body,
+                    bodyOption: this.bodyOption
+                }
+            }
+        }
+    },
+
+    watch: {
+        headers: {
+            deep: true,
+            handler() {
+                this.$emit('update:request', this.requestData);
+            }
+        },
+        body: {
+            deep: true,
+            handler() {
+                this.$emit('update:request', this.requestData);
+            }
+        },
+        rawBody() {
+            this.$emit('update:request', this.requestData);
+        },
+        bodyOption: {
+            deep: true,
+            handler() {
+                this.$emit('update:request', this.requestData);
+            }
+        },
+        about: {
+            deep: true,
+            handler() {
+                this.$emit('update:request', this.requestData);
+            }
+        }
+    },
+
     mounted() {
-        this.headerContentTypeIndex = this.request.content.headers
-            .findIndex(header => header.key === 'Content-Type')
+        this.headerContentTypeIndex = this.request.content.headers.findIndex(header => header.key === 'Content-Type')
+        if (this.headerContentTypeIndex !== -1) {
+            this.headerContentType = this.request.content.headers[this.headerContentTypeIndex].value
+        }
+
+        if (this.request.content.bodyOption.value === 'raw') {
+            this.rawBody = this.request.content.body;
+        }
     },
 
     methods: {
@@ -77,21 +133,13 @@ export default {
         },
 
         sendRequestData() {
-            this.$emit('request-data-ready', {
-                ...this.request,
-                title: this.about.title,
-                description: this.about.description,
-                content: {
-                    headers: this.headers,
-                    body: this.body,
-                    bodyOption: this.bodyOption
-                }
-            });
+            this.$emit('request-data-ready', this.requestData);
         },
 
         onBodyOptionChange(data) {
             this.bodyOption = data.bodyOption;
             if (data.headerContentType) {
+                this.headerContentType = data.headerContentType
                 if (this.headerContentTypeIndex !== -1) {
                     this.headers[this.headerContentTypeIndex].value = data.headerContentType
                 } else {
@@ -108,6 +156,7 @@ export default {
             } else if(data.bodyOption.value === 'none' && this.headerContentTypeIndex !== -1) {
                 this.headers.splice(this.headerContentTypeIndex, 1)
                 this.headerContentTypeIndex = -1
+                this.headerContentType = null
             }
         }
     }
@@ -247,6 +296,7 @@ export default {
                     </div>
                     <body-multipart-form v-else-if="bodyOption.value=='form-data'" :content="body" />
                     <body-from-url-encoded v-else-if="bodyOption.value=='form-urlencoded'" :content="body" />
+                    <body-raw v-else-if="bodyOption.value=='raw'" :content.sync="rawBody" :content-type="headerContentType" />
                 </div>
             </div>
             <div v-if="currentTab=='about' && okToSend">
