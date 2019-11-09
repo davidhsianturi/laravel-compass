@@ -37,9 +37,9 @@ export default {
             headers: [ ...this.request.content.headers ],
             headerContentType: null,
             headerContentTypeIndex: -1,
-            body: [ ...this.request.content.body ],
+            body: [],
             rawBody: '',
-            bodyOption: { ...this.request.content.bodyOption },
+            bodyOption: { value: 'none', rawOption: 'text' },
             about: {
                 title: this.request.title,
                 description: this.request.description
@@ -57,7 +57,6 @@ export default {
                     url: this.request.content.url,
                     headers: this.headers,
                     body: this.bodyOption.value === 'raw' ? this.rawBody : this.body,
-                    bodyOption: this.bodyOption
                 }
             }
         }
@@ -81,8 +80,14 @@ export default {
         },
         bodyOption: {
             deep: true,
-            handler() {
-                this.$emit('update:request', this.requestData);
+            handler(val) {
+                if(val.value === 'none' && this.headerContentTypeIndex !== -1) {
+                    this.headers.splice(this.headerContentTypeIndex, 1)
+                    this.headerContentTypeIndex = -1
+                    this.headerContentType = null
+                } else if (val.value !== 'raw' && !this.body.length) {
+                    this.body = this.newFormRequests()
+                }
             }
         },
         about: {
@@ -97,10 +102,13 @@ export default {
         this.headerContentTypeIndex = this.request.content.headers.findIndex(header => header.key === 'Content-Type')
         if (this.headerContentTypeIndex !== -1) {
             this.headerContentType = this.request.content.headers[this.headerContentTypeIndex].value
-        }
+            this.bodyOption = this.normalizeContentType(this.headerContentType)
 
-        if (this.request.content.bodyOption.value === 'raw') {
-            this.rawBody = this.request.content.body;
+            if (this.bodyOption.value === 'raw') {
+                this.rawBody = this.request.content.body
+            } else {
+                this.body = [ ...this.request.content.body ]
+            }
         }
     },
 
@@ -133,30 +141,24 @@ export default {
         },
 
         sendRequestData() {
-            this.$emit('request-data-ready', this.requestData);
+            this.$emit('request-data-ready');
         },
 
-        onBodyOptionChange(data) {
-            this.bodyOption = data.bodyOption;
-            if (data.headerContentType) {
-                this.headerContentType = data.headerContentType
-                if (this.headerContentTypeIndex !== -1) {
-                    this.headers[this.headerContentTypeIndex].value = data.headerContentType
-                } else {
-                    this.headers.splice(0, 0, {
-                        included: true,
-                        key: 'Content-Type',
-                        value: data.headerContentType,
-                        description: null,
-                        new: false,
-                        type: 'text',
-                    })
-                    this.headerContentTypeIndex = 0
-                }
-            } else if(data.bodyOption.value === 'none' && this.headerContentTypeIndex !== -1) {
-                this.headers.splice(this.headerContentTypeIndex, 1)
-                this.headerContentTypeIndex = -1
-                this.headerContentType = null
+        onBodyOptionChange(headerContentType) {
+            if (!headerContentType) return;
+            this.headerContentType = headerContentType
+            if (this.headerContentTypeIndex !== -1) {
+                this.headers[this.headerContentTypeIndex].value = headerContentType
+            } else {
+                this.headers.splice(0, 0, {
+                    included: true,
+                    key: 'Content-Type',
+                    value: headerContentType,
+                    description: null,
+                    new: false,
+                    type: 'text',
+                })
+                this.headerContentTypeIndex = 0
             }
         }
     }
@@ -289,14 +291,14 @@ export default {
                 </table>
             </div>
             <div v-if="currentTab=='body'">
-                <body-options :body-option="bodyOption" @change="onBodyOptionChange" />
+                <body-options :body-option.sync="bodyOption" @change="onBodyOptionChange" />
                 <div class="border-t border-gray-200">
                     <div v-if="bodyOption.value=='none'" class="flex justify-center my-3">
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
                     <body-multipart-form v-else-if="bodyOption.value=='form-data'" :content="body" />
                     <body-from-url-encoded v-else-if="bodyOption.value=='form-urlencoded'" :content="body" />
-                    <body-raw v-else-if="bodyOption.value=='raw'" :content.sync="rawBody" :content-type="headerContentType" />
+                    <body-raw v-else-if="bodyOption.value=='raw'" :content-type="headerContentType" :content.sync="rawBody" />
                 </div>
             </div>
             <div v-if="currentTab=='about' && okToSend">

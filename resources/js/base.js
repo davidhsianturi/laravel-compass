@@ -1,3 +1,5 @@
+import { REQUEST_BODY_OPTIONS } from './constants';
+
 export default {
     data() {
         return {
@@ -85,5 +87,27 @@ export default {
 
             return str.slice(0, num) + '...'
         },
+        
+        /**
+         * Normalize header 'Content-Type' into selected request body option
+         *
+         * @param {String} contentType 
+         * @return {Object}
+         */
+        normalizeContentType(contentType) {
+            let bodyOption = { value: 'none', rawOption: 'text' }
+            if (!contentType) return bodyOption
+
+            let option = REQUEST_BODY_OPTIONS.find(opt => opt.value === contentType)
+            bodyOption.value = option ? option.key : 'raw'
+
+            if (bodyOption.value === 'raw') {
+                option = REQUEST_BODY_OPTIONS.find(opt => opt.key === 'raw')
+                const rawOption = option.options.find(opt => opt.value === contentType)
+                bodyOption.rawOption = rawOption ? rawOption.key : 'text'
+            }
+
+            return bodyOption
+        }
     }
 };

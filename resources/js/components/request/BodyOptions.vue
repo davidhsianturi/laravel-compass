@@ -1,29 +1,25 @@
 <script>
+import { REQUEST_BODY_OPTIONS } from '../../constants';
+
 export default {
     props: {
         bodyOption: {
-            type: Object,
-            required: true,
+            type: Object
         }
     },
 
     data() {
         return {
-            rawBodyOptions: [
-                { key: 'text',  value: 'text/plain', text: 'Text', },
-                { key: 'json',  value: 'application/json', text: 'JSON', },
-                { key: 'xml',  value: 'application/xml', text: 'XML', },
-                { key: 'yaml',  value: 'text/yaml', text: 'YAML', },
-                { key: 'edn',  value: 'application/edn', text: 'EDN', },
-            ],
-            bodyOptions: [
-                { key: 'none', value: null, text: 'none' },
-                { key: 'form-data', value: 'multipart/form-data', text: 'multipart form' },
-                { key: 'form-urlencoded', value: 'application/x-www-form-urlencoded', text: 'form URL encoded' },
-                { key: 'raw', value: null, text: 'raw', options: this.rawBodyOptions },
-                { key: 'binary', value: 'application/octet-stream', text: 'binary' }
-            ],
             selectedBodyOption: { ...this.bodyOption }
+        }
+    },
+
+    computed: {
+        bodyOptions() {
+            return REQUEST_BODY_OPTIONS
+        },
+        rawBodyOptions() {
+            return REQUEST_BODY_OPTIONS.find(option => option.key === 'raw').options
         }
     },
 
@@ -31,9 +27,11 @@ export default {
         onChange(e) {
             const isBodyOptionRaw = this.selectedBodyOption.value === 'raw'
             const key = isBodyOptionRaw ? this.selectedBodyOption.rawOption : this.selectedBodyOption.value
-            const opt = (isBodyOptionRaw ? this.rawBodyOptions : this.bodyOptions).find(o => o.key === key)
-            const headerContentType = opt ? opt.value : null
-            this.$emit('change', { bodyOption: this.selectedBodyOption, headerContentType });
+            const option = (isBodyOptionRaw ? this.rawBodyOptions : REQUEST_BODY_OPTIONS).find(opt => opt.key === key)
+            const headerContentType = option ? option.value : null
+
+            this.$emit('update:body-option', this.selectedBodyOption)
+            this.$emit('change', headerContentType)
         }
   }
 }
