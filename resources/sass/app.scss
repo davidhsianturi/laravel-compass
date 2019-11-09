@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 // addons
-@import '~codemirror/lib/codemirror.css';
-@import '~codemirror/addon/fold/foldgutter.css';
+@import 'codemirror/lib/codemirror';
+@import 'codemirror/addon/fold/foldgutter';
