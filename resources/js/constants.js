@@ -11,8 +11,7 @@ export const REQUEST_BODY_OPTIONS = [
     { key: 'none', value: null, text: 'none', options: [] },
     { key: 'form-data', value: 'multipart/form-data', text: 'multipart form', options: [] },
     { key: 'form-urlencoded', value: 'application/x-www-form-urlencoded', text: 'form URL encoded', options: [] },
-    { key: 'raw', value: null, text: 'raw', options: REQUEST_BODY_RAW_OPTIONS },
-    { key: 'binary', value: 'application/octet-stream', text: 'binary', options: [] }
+    { key: 'raw', value: null, text: 'raw', options: REQUEST_BODY_RAW_OPTIONS }
 ];
 
 // Sourced from https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
