@@ -33,7 +33,6 @@ export default {
                 content: {
                     headers: '',
                     body: '',
-                    bodyOption: ''
                 },
             },
             responseReady: false,
@@ -93,15 +92,14 @@ export default {
         },
 
         sendRequest() {
-            const requestData = Array.isArray(this.requestData.content.body)
-                ? this.toFormData(this.requestData.content.body)
-                : this.requestData.content.body;
+            let contentType = this.requestData.content.headers.find(header => header.key === 'Content-Type')
+            contentType = contentType ? contentType.value : null
 
             this.http({
                 url: this.requestData.content.url,
                 method: this.requestMethod,
                 headers: this.filterFormRequests(this.requestData.content.headers),
-                data: requestData,
+                data: this.toRequestData(this.requestData.content.body, contentType),
             }).then(response => {
                 this.fillResponse(response);
             }).catch(error => {

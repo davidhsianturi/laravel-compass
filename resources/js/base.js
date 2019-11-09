@@ -1,3 +1,4 @@
+import qs from 'querystring';
 import { REQUEST_BODY_OPTIONS } from './constants';
 
 export default {
@@ -62,6 +63,30 @@ export default {
             }
 
             return formData;
+        },
+
+        /**
+         * Convert entries value and key to Form URL encoded string
+         *
+         * @param {Array} entries
+         * @param {String} 
+         */
+        toFormUrlEncoded(entries) {
+            let data = this.filterFormRequests(entries);
+            return qs.stringify(data);
+        },
+
+        /**
+         * Convert entries value and key to request data based on 'Content-Type'
+         * 
+         * @param {Array|String} entries 
+         * @param {String} contentType 
+         * @return {FormData|String}
+         */
+        toRequestData(entries, contentType) {
+            if (contentType === 'multipart/form-data') return this.toFormData(entries)
+            if (contentType === 'application/x-www-form-urlencoded') return this.toFormUrlEncoded(entries)
+            return entries
         },
 
         /**
