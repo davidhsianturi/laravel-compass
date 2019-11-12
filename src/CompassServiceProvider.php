@@ -4,11 +4,13 @@ namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Davidhsianturi\Compass\Contracts\UsersRepository;
 use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
+use Davidhsianturi\Compass\Authenticators\SimpleAuthRepository;
 
 class CompassServiceProvider extends ServiceProvider
 {
@@ -104,6 +106,7 @@ class CompassServiceProvider extends ServiceProvider
 
         $this->registerStorageDriver();
         $this->registerTemplateBuilder();
+        $this->registerAuthenticatorProvider();
 
         $this->commands([
             Console\InstallCommand::class,
@@ -162,7 +165,7 @@ class CompassServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package slate builder.
+     * Register the package slate template builder.
      *
      * @return void
      */
@@ -171,5 +174,43 @@ class CompassServiceProvider extends ServiceProvider
         $this->app->singleton(
             ApiDocsRepository::class, SlateBuilder::class
         );
+    }
+
+    /**
+     * Register the package authenticator provider.
+     *
+     * @return void
+     */
+    protected function registerAuthenticatorProvider()
+    {
+        $guard = $this->getGuard();
+
+        if (method_exists($this, $method = 'register'.ucfirst($guard['driver']).'Provider')) {
+            return $this->$method();
+        }
+    }
+
+    /**
+     * Register the package authenticator token provider.
+     *
+     * @return void
+     */
+    protected function registerTokenProvider()
+    {
+        $this->app->singleton(
+            UsersRepository::class, SimpleAuthRepository::class
+        );
+    }
+
+    /**
+     * Get the authenticator guard configuration.
+     *
+     * @return array
+     */
+    protected function getGuard()
+    {
+        $guard = config('compass.authenticator.guard');
+
+        return $this->app['config']["auth.guards.{$guard}"];
     }
 }
