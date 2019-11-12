@@ -83,8 +83,8 @@ final class Compass
 
         if ($matchesUri ||
             Str::is($routeRule['exclude']['names'], $route['name']) ||
-            !Str::is($routeRule['domains'], $route['domain']) ||
-            !Str::is($routeRule['prefixes'], $route['uri'])) {
+            ! Str::is($routeRule['domains'], $route['domain']) ||
+            ! Str::is($routeRule['prefixes'], $route['uri'])) {
             return null;
         }
 

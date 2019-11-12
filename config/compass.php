@@ -36,7 +36,7 @@ return [
         ],
 
         'exclude' => [
-	    'names' => [
+	        'names' => [
                 'compass.*',
                 'debugbar.*',
             ],
