@@ -91,7 +91,6 @@ final class Compass
         return $route;
     }
 
-
     /**
      * Sync route from storage with app routes.
      *
