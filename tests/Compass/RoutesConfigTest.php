@@ -63,17 +63,17 @@ class RoutesConfigTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        config(['compass.routes.exclude' => ['*']]);
+        config(['compass.routes.exclude.names' => ['*']]);
         $this->assertCount(0, Compass::getAppRoutes());
 
-        config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-1']]);
+        config(['compass.routes.exclude.names' => ['compass.*', 'prefix1.domain1-1']]);
         $this->assertCount(11, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
             $this->assertFalse(Str::is('compass.*', $route['domain']));
             $this->assertStringNotContainsString('prefix.domain1-1', $route['name']);
         }
 
-        config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-*']]);
+        config(['compass.routes.exclude.names' => ['compass.*', 'prefix1.domain1-*']]);
         $this->assertCount(10, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
             $this->assertFalse(Str::is('compass.*', $route['domain']));
