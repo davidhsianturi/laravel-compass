@@ -67,14 +67,30 @@ final class Compass
     {
         $routeRule = config('compass.routes');
 
-        if ((Str::is($routeRule['exclude'], $route['name'])) ||
-             ! Str::is($routeRule['domains'], $route['domain']) ||
-             ! Str::is($routeRule['prefixes'], $route['uri'])) {
-            return;
+        $matchesUri = collect($routeRule['exclude']['uris'])->contains(static function ($rule) use ($route) {
+            if ($rule[0] === '/') {
+                $rule = substr($rule, 1, strlen($rule));
+            }
+
+            if (Str::endsWith($rule, '/*')) {
+                $rule = str_replace('/*', '', $rule);
+
+                return Str::startsWith($route['uri'], $rule);
+            }
+
+            return $rule === $route['uri'];
+        });
+
+        if ($matchesUri ||
+            Str::is($routeRule['exclude']['names'], $route['name']) ||
+            !Str::is($routeRule['domains'], $route['domain']) ||
+            !Str::is($routeRule['prefixes'], $route['uri'])) {
+            return null;
         }
 
         return $route;
     }
+
 
     /**
      * Sync route from storage with app routes.
