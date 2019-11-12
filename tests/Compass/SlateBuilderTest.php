@@ -13,7 +13,7 @@ class SlateBuilderTest extends DocsTestCase
 
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -3,6 +3,7 @@
 namespace Davidhsianturi\Compass\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
+use Davidhsianturi\Compass\Tests\Fixtures\User;
 use Davidhsianturi\Compass\CompassServiceProvider;
 use Illuminate\Support\Facades\Route as RouteFacade;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
@@ -42,6 +43,7 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
+        $config->set('auth.providers.users.model', User::class);
 
         $app->when(DatabaseRequestRepository::class)
             ->needs('$connection')
