@@ -36,13 +36,13 @@ return [
         ],
 
         'exclude' => [
-	        'names' => [
+            'names' => [
                 'compass.*',
                 'debugbar.*',
             ],
             'uris' => [
-                //
-            ]
+                //ßß
+            ],
         ],
 
         'base_uri' => '*',

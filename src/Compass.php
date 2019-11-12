@@ -85,7 +85,7 @@ final class Compass
             Str::is($routeRule['exclude']['names'], $route['name']) ||
             ! Str::is($routeRule['domains'], $route['domain']) ||
             ! Str::is($routeRule['prefixes'], $route['uri'])) {
-            return null;
+            return;
         }
 
         return $route;
