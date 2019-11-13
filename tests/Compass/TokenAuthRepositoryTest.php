@@ -15,7 +15,7 @@ class TokenAuthRepositoryTest extends TestCase
 
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -34,7 +34,7 @@ class TokenAuthRepositoryTest extends TestCase
 
     public function test_get_all_registered_users_from_storage()
     {
-        tap(factory(User::class, 3)->create(), function($users) {
+        tap(factory(User::class, 3)->create(), function ($users) {
             $this->assertSame($users->count(), $this->repository->get()->count());
         });
     }
@@ -48,7 +48,7 @@ class TokenAuthRepositoryTest extends TestCase
         $result = $this->repository->get()->first();
 
         $this->getJson('/authenticate', [
-                'Authorization' => 'Bearer '.$result->apiKey
+                'Authorization' => 'Bearer '.$result->apiKey,
             ])
             ->assertStatus(Response::HTTP_OK)
             ->assertSeeText('Authenticated!');
@@ -65,7 +65,7 @@ class TokenAuthRepositoryTest extends TestCase
         $result = $this->repository->get()->first();
 
         $this->getJson('/authenticate', [
-            'Authorization' => 'Bearer '.$result->apiKey
+            'Authorization' => 'Bearer '.$result->apiKey,
         ])
         ->assertStatus(Response::HTTP_OK)
         ->assertSeeText('Authenticated!');

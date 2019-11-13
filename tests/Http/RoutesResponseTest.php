@@ -14,7 +14,7 @@ class RoutesResponseTest extends TestCase
 
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

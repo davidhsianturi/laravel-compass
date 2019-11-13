@@ -12,7 +12,7 @@ $factory->define(User::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(User::class, 'hashedToken', function() {
+$factory->state(User::class, 'hashedToken', function () {
     $token = Str::random(60);
 
     return [

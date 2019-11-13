@@ -9,8 +9,8 @@ use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
-use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
 use Davidhsianturi\Compass\Authenticators\TokenAuthRepository;
+use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
 
 class CompassServiceProvider extends ServiceProvider
 {
