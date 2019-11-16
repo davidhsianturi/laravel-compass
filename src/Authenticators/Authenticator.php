@@ -25,8 +25,8 @@ trait Authenticator
     protected function newModelQuery($model = null)
     {
         return is_null($model)
-            ? $this->createModel()->newQuery()
-            : $model->newQuery();
+                ? $this->createModel()->newQuery()
+                : $model->newQuery();
     }
 
     /**
@@ -53,5 +53,15 @@ trait Authenticator
         $guard = $this->getGuardConfiguration();
 
         return config('auth.providers.'.$guard['provider']);
+    }
+
+    /**
+     * Get the user attribute key.
+     *
+     * @return string
+     */
+    protected function userAttribute()
+    {
+        return config('compass.authenticator.user_attribute');
     }
 }

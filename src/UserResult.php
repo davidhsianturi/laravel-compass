@@ -14,13 +14,22 @@ class UserResult implements JsonSerializable
     public $apiKey;
 
     /**
+     * The user identifier key.
+     *
+     * @var string
+     */
+    public $identifierKey;
+
+    /**
      * Create a new user result instance.
      *
      * @param string $apiKey
+     * @param string $identifierKey
      */
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, string $identifierKey)
     {
         $this->apiKey = $apiKey;
+        $this->identifierKey = $identifierKey;
     }
 
     /**
@@ -32,6 +41,7 @@ class UserResult implements JsonSerializable
     {
         return [
             'apiKey' => $this->apiKey,
+            'identifierKey' => $this->identifierKey,
         ];
     }
 }

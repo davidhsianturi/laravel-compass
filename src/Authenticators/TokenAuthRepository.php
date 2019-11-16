@@ -18,43 +18,24 @@ class TokenAuthRepository implements UsersRepository
     public function get()
     {
         $storageKey = $this->storageKey();
+        $attributeKey = $this->userAttribute();
+        $refreshToken = $this->usingHashedToken();
 
-        if ($this->usingHashedToken()) {
-            return $this->refreshTokens($storageKey);
-        }
+        return $this->newModelQuery()
+                    ->get()
+                    ->map(function ($user) use ($storageKey, $attributeKey, $refreshToken) {
+                        $token = Str::random(60);
+                        $identifier = $user->$attributeKey ?? 'unknown';
 
-        return $this->getUsers()->map(function ($user) use ($storageKey) {
-            return new UserResult($user->$storageKey);
-        })->values();
-    }
+                        if ($refreshToken) {
+                            $user->forceFill([$storageKey => hash('sha256', $token)])->save();
 
-    /**
-     * Refresh the tokens by given a storage key.
-     *
-     * @param  string  $storageKey
-     * @return \Illuminate\Support\Collection|\Davidhsianturi\Compass\UserResult[]
-     */
-    protected function refreshTokens(string $storageKey)
-    {
-        return $this->getUsers()->map(function ($user) use ($storageKey) {
-            $token = Str::random(60);
+                            return new UserResult($token, $identifier);
+                        }
 
-            $user->forceFill([$storageKey => hash('sha256', $token)])->save();
+                        return new UserResult($user->$storageKey, $identifier);
+                    })->values();
 
-            return new UserResult($token);
-        })->values();
-    }
-
-    /**
-     * Get all the users for the model instance.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    protected function getUsers()
-    {
-        return $this->createModel()
-            ->newQuery()
-            ->get();
     }
 
     /**

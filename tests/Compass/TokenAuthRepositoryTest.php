@@ -43,8 +43,9 @@ class TokenAuthRepositoryTest extends TestCase
     {
         // Hash option is false.
         config()->set('auth.guards.api.hash', false);
-        factory(User::class)->create();
 
+        $user = factory(User::class)->create();
+        $attributeKey = config('compass.authenticator.user_attribute');
         $result = $this->repository->get()->first();
 
         $this->getJson('/authenticate', [
@@ -54,14 +55,17 @@ class TokenAuthRepositoryTest extends TestCase
             ->assertSeeText('Authenticated!');
 
         $this->assertTrue(auth('api')->check());
+        $this->assertSame($user->$attributeKey, $result->identifierKey);
     }
 
     public function test_authenticate_refreshed_api_token_for_request()
     {
         // Hash option is true.
         config()->set('auth.guards.api.hash', true);
-        factory(User::class)->states('hashedToken')->create();
+        config()->set('compass.authenticator.user_attribute', 'id');
 
+        $user = factory(User::class)->states('hashedToken')->create();
+        $attributeKey = config('compass.authenticator.user_attribute', 'id');
         $result = $this->repository->get()->first();
 
         $this->getJson('/authenticate', [
@@ -71,5 +75,6 @@ class TokenAuthRepositoryTest extends TestCase
         ->assertSeeText('Authenticated!');
 
         $this->assertTrue(auth('api')->check());
+        $this->assertEquals($user->$attributeKey, $result->identifierKey);
     }
 }

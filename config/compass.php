@@ -71,7 +71,7 @@ return [
 
     'authenticator' => [
         'guard' => 'api',
-        'identifier' => 'email',
+        'user_attribute' => 'email',
     ],
 
     /*
