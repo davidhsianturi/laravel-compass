@@ -15,7 +15,7 @@ class RequestController
     protected $request;
 
     /**
-     * Create a new RoutesController instance.
+     * Create a new RequestController instance.
      *
      * @param  \Davidhsianturi\Compass\Contracts\RequestRepository  $request
      */

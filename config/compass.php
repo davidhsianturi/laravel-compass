@@ -19,16 +19,9 @@ return [
     | Laravel Routes
     |--------------------------------------------------------------------------
     |
-    | This is the routes rules that will be filtered for the requests list. use
-    | * as a wildcard to match any characters. note that the following array
-    | list "exclude" can be referenced by the route name or route uri.
-    |
-    | eg. Route::get('/named-uri/get', ...)->name('named.route.get');
-    |     Route::post('/named-uri/post', ...)->name('named.route.post');
-    |
-    |     'named.route.*' - would match both of the routes above
-    |     'named-uri/*'   - would also match both of the routes above
-    |
+    | This is the routes rules that will be filtered for the requests list.
+    | use "*" as a wildcard to match any characters. note that the following
+    | array list "exclude" can be referenced by the route name or route URI.
     | "base_uri" is a string value as a comparison for grouping the routes.
     |
     */

@@ -7,14 +7,14 @@ use Davidhsianturi\Compass\Contracts\ResponseRepository;
 class ResponseController
 {
     /**
-     * The docs repository.
+     * The examples repository.
      *
      * @var \Davidhsianturi\Compass\Contracts\ResponseRepository
      */
     protected $examples;
 
     /**
-     * Create a new DocsController instance.
+     * Create a new ResponseController instance.
      *
      * @param  \Davidhsianturi\Compass\Contracts\ResponseRepository  $examples
      */
@@ -24,7 +24,7 @@ class ResponseController
     }
 
     /**
-     * Store the route documentation.
+     * Store the response as example.
      *
      * @return  \Illuminate\Http\JsonResponse
      */
@@ -36,7 +36,7 @@ class ResponseController
     }
 
     /**
-     * Show the route documentation by given UUID.
+     * Show the example of a response by given UUID.
      *
      * @param  mixed  $uuid
      * @return \Illuminate\Http\JsonResponse
@@ -49,7 +49,7 @@ class ResponseController
     }
 
     /**
-     * Delete the route documentation by given UUID.
+     * Delete the example of a response by given UUID.
      *
      * @param  mixed  $uuid
      * @return \Illuminate\Http\JsonResponse
