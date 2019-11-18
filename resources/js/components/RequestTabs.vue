@@ -12,7 +12,7 @@ export default {
         'header-fields': HeaderFields,
         'body-options': BodyOptions,
         'body-multipart-form': BodyMultipartForm,
-        'body-from-url-encoded': BodyFormUrlEncoded,
+        'body-form-url-encoded': BodyFormUrlEncoded,
         'body-raw': BodyRawVue
     },
 
@@ -297,7 +297,7 @@ export default {
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
                     <body-multipart-form v-else-if="bodyOption.value=='form-data'" :content="body" />
-                    <body-from-url-encoded v-else-if="bodyOption.value=='form-urlencoded'" :content="body" />
+                    <body-form-url-encoded v-else-if="bodyOption.value=='form-urlencoded'" :content="body" />
                     <body-raw v-else-if="bodyOption.value=='raw'" :content-type="headerContentType" :content.sync="rawBody" />
                 </div>
             </div>
