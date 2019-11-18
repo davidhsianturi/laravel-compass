@@ -95,13 +95,13 @@ export default {
                 </ul>
             </div>
 
-            <div class="ml-auto" v-if="okToSend">
+            <div class="ml-auto px-3" v-if="okToSend">
                 <button type="button"
                     class="inline-block py-2 px-1 text-sm text-primary focus:outline-none"
                     @click="sendRequestData">Save request</button>
 
-                <div class="inline-block px-1 text-gray-400">|</div>
-                <dropdown class="inline-block py-1 pl-1 pr-4">
+                <div class="inline-block text-gray-300">|</div>
+                <dropdown class="inline-block py-2 px-1">
                     <template v-slot:trigger>
                         <div class="text-sm text-primary inline-flex items-center">
                             <span>Examples ({{examples.length}})</span>
