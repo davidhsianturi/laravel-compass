@@ -63,12 +63,14 @@ export default {
                 </ul>
             </div>
 
-            <div class="ml-auto">
+            <div class="ml-auto px-3">
                 <http-status :response="response" />
-                <http-response-time :response="response" />
-                <http-response-size :response="response" />
-                <div class="inline-block px-1 text-gray-400" v-if="okToSave">|</div>
-                 <button v-if="okToSave" class="inline-block py-2 pl-1 pr-4 text-sm text-primary focus:outline-none" @click="sendResponseData">Save response as example</button>
+                <http-response-time v-if="okToSave" :response="response" />
+                <http-response-size v-if="okToSave" :response="response" />
+                <div class="inline-block text-gray-300" v-if="okToSave">|</div>
+                <button v-if="okToSave"
+                    class="inline-block py-2 px-1 text-sm text-primary focus:outline-none"
+                    @click="sendResponseData">Save response as example</button>
             </div>
         </div>
 
