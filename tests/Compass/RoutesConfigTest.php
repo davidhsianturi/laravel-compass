@@ -59,25 +59,47 @@ class RoutesConfigTest extends TestCase
         }
     }
 
-    public function test_filter_app_routes_from_exclude_rule()
+    public function test_exclude_app_routes_with_the_route_name()
     {
         $this->registerAppRoutes();
 
         config(['compass.routes.exclude' => ['*']]);
         $this->assertCount(0, Compass::getAppRoutes());
 
+        config(['compass.routes.exclude' => ['compass.*', 'prefix1.*']]);
+        $this->assertCount(8, $routes = Compass::getAppRoutes());
+        foreach ($routes as $route) {
+            $this->assertFalse(Str::is('compass.*', $route['name']));
+            $this->assertStringNotContainsString('prefix.*', $route['name']);
+        }
+
         config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-1']]);
         $this->assertCount(11, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertFalse(Str::is('compass.*', $route['domain']));
-            $this->assertStringNotContainsString('prefix.domain1-1', $route['name']);
+            $this->assertFalse(Str::is('compass.*', $route['name']));
+            $this->assertFalse(Str::is('prefix.domain1-1', $route['name']));
+        }
+    }
+
+    public function test_exclude_app_routes_with_the_route_uri()
+    {
+        $this->registerAppRoutes();
+
+        config(['compass.routes.exclude' => ['compass*', 'api/v1*']]);
+        $this->assertCount(0, Compass::getAppRoutes());
+
+        config(['compass.routes.exclude' => ['compass*', 'api/v1/prefix2/*']]);
+        $this->assertCount(8, $routes = Compass::getAppRoutes());
+        foreach ($routes as $route) {
+            $this->assertFalse(Str::is('compass*', $route['uri']));
+            $this->assertFalse(Str::is('api/v1/prefix2/*', $route['uri']));
         }
 
-        config(['compass.routes.exclude' => ['compass.*', 'prefix1.domain1-*']]);
-        $this->assertCount(10, $routes = Compass::getAppRoutes());
+        config(['compass.routes.exclude' => ['compass*', 'api/v1/prefix2/domain2-2']]);
+        $this->assertCount(11, $routes = Compass::getAppRoutes());
         foreach ($routes as $route) {
-            $this->assertFalse(Str::is('compass.*', $route['domain']));
-            $this->assertFalse(Str::is('prefix.domain1-*', $route['name']));
+            $this->assertFalse(Str::is('compass*', $route['uri']));
+            $this->assertFalse(Str::is('api/v1/prefix2/domain2-2', $route['uri']));
         }
     }
 
