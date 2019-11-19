@@ -65,12 +65,12 @@ final class Compass
      */
     protected static function filterRoute(array $route)
     {
-        $routeRule = config('compass.routes');
+        $routeRules = config('compass.routes');
 
-        if ((Str::is($routeRule['exclude'], $route['name'])) ||
-             Str::is($routeRule['exclude'], $route['uri']) ||
-             ! Str::is($routeRule['domains'], $route['domain']) ||
-             ! Str::is($routeRule['prefixes'], $route['uri'])) {
+        if ((Str::is($routeRules['exclude'], $route['name'])) ||
+             Str::is($routeRules['exclude'], $route['uri']) ||
+             ! Str::is($routeRules['domains'], $route['domain']) ||
+             ! Str::is($routeRules['prefixes'], $route['uri'])) {
             return;
         }
 
