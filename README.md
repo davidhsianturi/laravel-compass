@@ -141,6 +141,14 @@ return [
 
 You can build the API documentation using the `php artisan compass:build` command and go to `yourproject.test/docs/index.html` to see the result.
 
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
 ## Credits
 
 - [David H. Sianturi](https://github.com/davidhsianturi)
