@@ -7,12 +7,33 @@ const REQUEST_BODY_RAW_OPTIONS = [
     { key: 'edn', value: 'application/edn', text: 'EDN', },
 ];
 
-export const REQUEST_BODY_OPTIONS = [
-    { key: 'none', value: null, text: 'none', options: [] },
-    { key: 'form-data', value: 'multipart/form-data', text: 'multipart form', options: [] },
-    { key: 'form-urlencoded', value: 'application/x-www-form-urlencoded', text: 'form URL encoded', options: [] },
-    { key: 'raw', value: null, text: 'raw', options: REQUEST_BODY_RAW_OPTIONS }
-];
+export const REQUEST_BODY_KEYS = {
+    FORM_DATA: 'form-data',
+    FORM_URL_ENCODED: 'form-urlencoded',
+    RAW: 'raw'
+};
+
+export const REQUEST_BODY_OPTIONS = [{
+    key: 'none',
+    value: null,
+    text: 'none',
+    options: []
+}, {
+    key: REQUEST_BODY_KEYS.FORM_DATA,
+    value: 'multipart/form-data',
+    text: 'multipart form',
+    options: []
+}, {
+    key: REQUEST_BODY_KEYS.FORM_URL_ENCODED,
+    value: 'application/x-www-form-urlencoded',
+    text: 'form URL encoded',
+    options: []
+}, {
+    key: REQUEST_BODY_KEYS.RAW,
+    value: null,
+    text: 'raw',
+    options: REQUEST_BODY_RAW_OPTIONS
+}];
 
 // Sourced from https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 export const RESPONSE_CODE_DESCRIPTIONS = {

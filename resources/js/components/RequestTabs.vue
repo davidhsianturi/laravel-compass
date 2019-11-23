@@ -1,10 +1,11 @@
 <script>
 import Dropdown from './Dropdown';
 import HeaderFields from './HeaderFields';
+import BodyRawVue from './request/BodyRaw';
 import BodyOptions from './request/BodyOptions';
+import { REQUEST_BODY_KEYS } from '../constants';
 import BodyMultipartForm from './request/BodyMultipartForm';
 import BodyFormUrlEncoded from './request/BodyFormUrlEncoded';
-import BodyRawVue from './request/BodyRaw';
 
 export default {
     components: {
@@ -37,8 +38,11 @@ export default {
             headers: [ ...this.request.content.headers ],
             headerContentType: null,
             headerContentTypeIndex: -1,
-            body: [],
-            rawBody: '',
+            body: {
+                [REQUEST_BODY_KEYS.FORM_DATA]: [],
+                [REQUEST_BODY_KEYS.FORM_URL_ENCODED]: [],
+                [REQUEST_BODY_KEYS.RAW]: ''
+            },
             bodyOption: { value: 'none', rawOption: 'text' },
             about: {
                 title: this.request.title,
@@ -56,9 +60,13 @@ export default {
                 content: {
                     url: this.request.content.url,
                     headers: this.headers,
-                    body: this.bodyOption.value === 'raw' ? this.rawBody : this.body,
+                    body: this.body[this.bodyOption.value],
                 }
             }
+        },
+
+        requestBodyKeys() {
+            return REQUEST_BODY_KEYS
         }
     },
 
@@ -75,9 +83,6 @@ export default {
                 this.$emit('update:request', this.requestData);
             }
         },
-        rawBody() {
-            this.$emit('update:request', this.requestData);
-        },
         bodyOption: {
             deep: true,
             handler(val) {
@@ -85,8 +90,8 @@ export default {
                     this.headers.splice(this.headerContentTypeIndex, 1)
                     this.headerContentTypeIndex = -1
                     this.headerContentType = null
-                } else if (val.value !== 'raw' && !this.body.length) {
-                    this.body = this.newFormRequests()
+                } else if (val.value !== 'raw' && !this.body[val.value].length) {
+                    this.body[val.value] = this.newFormRequests()
                 }
             }
         },
@@ -99,16 +104,14 @@ export default {
     },
 
     mounted() {
-        this.headerContentTypeIndex = this.request.content.headers.findIndex(header => header.key === 'Content-Type')
+        this.headerContentTypeIndex = this.request.content.headers
+            .findIndex(header => header.key === 'Content-Type')
         if (this.headerContentTypeIndex !== -1) {
             this.headerContentType = this.request.content.headers[this.headerContentTypeIndex].value
             this.bodyOption = this.normalizeContentType(this.headerContentType)
 
-            if (this.bodyOption.value === 'raw') {
-                this.rawBody = this.request.content.body
-            } else {
-                this.body = [ ...this.request.content.body ]
-            }
+            this.body[this.bodyOption.value] = this.isBodyOption(REQUEST_BODY_KEYS.RAW) ?
+                this.request.content.body : [ ...this.request.content.body ]
         }
     },
 
@@ -160,6 +163,10 @@ export default {
                 })
                 this.headerContentTypeIndex = 0
             }
+        },
+
+        isBodyOption(optionKey) {
+            return this.bodyOption.value === optionKey
         }
     }
 }
@@ -204,7 +211,9 @@ export default {
                     <template v-slot:trigger>
                         <div class="text-sm text-primary inline-flex items-center">
                             <span>Examples ({{examples.length}})</span>
-                            <svg class="fill-current h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                <svg class="fill-current h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                                </svg>
                         </div>
                     </template>
                     <template v-slot:lists>
@@ -282,7 +291,8 @@ export default {
                                         class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
                                         @click="removeRow(headers, row)">
                                         <svg class="h-3 w-3 fill-current text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/></svg>
+                                            <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
+                                        </svg>
                                     </a>
                                 </span>
                             </td>
@@ -293,12 +303,16 @@ export default {
             <div v-if="currentTab=='body'">
                 <body-options :body-option.sync="bodyOption" @change="onBodyOptionChange" />
                 <div class="border-t border-gray-200">
-                    <div v-if="bodyOption.value=='none'" class="flex justify-center my-3">
+                    <body-multipart-form v-if="isBodyOption(requestBodyKeys.FORM_DATA)"
+                        :content="body[bodyOption.value]" />
+                    <body-form-url-encoded v-else-if="isBodyOption(requestBodyKeys.FORM_URL_ENCODED)"
+                        :content="body[bodyOption.value]" />
+                    <body-raw v-else-if="isBodyOption(requestBodyKeys.RAW)"
+                        :content-type="headerContentType"
+                        :content.sync="body[bodyOption.value]" />
+                    <div v-else class="flex justify-center my-3">
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
-                    <body-multipart-form v-else-if="bodyOption.value=='form-data'" :content="body" />
-                    <body-form-url-encoded v-else-if="bodyOption.value=='form-urlencoded'" :content="body" />
-                    <body-raw v-else-if="bodyOption.value=='raw'" :content-type="headerContentType" :content.sync="rawBody" />
                 </div>
             </div>
             <div v-if="currentTab=='about' && okToSend">
