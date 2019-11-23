@@ -1,9 +1,7 @@
 <script>
 /** CodeMirror mode */
-import 'codemirror/mode/xml/xml';
-import 'codemirror/mode/yaml/yaml';
-import 'codemirror/mode/clojure/clojure';
 import 'codemirror/mode/javascript/javascript';
+// TODO: support body raw options for XML, YAML, and EDN
 
 /** CodeMirror addons */
 // Selection addon
