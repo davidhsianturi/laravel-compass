@@ -1,19 +1,19 @@
 <script>
 /** CodeMirror mode */
 import 'codemirror/mode/javascript/javascript';
-// TODO: support body raw options for XML, YAML, and EDN
+// TODO: support body raw options for XML, YAML, and EDN.
 
 /** CodeMirror addons */
-// Selection addon
+// Selection addon.
 import 'codemirror/addon/selection/active-line';
-// Edit addon
+// Edit addon.
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
-// Comment addon
+// Comment addon.
 import 'codemirror/addon/comment/comment';
-// Display addon
+// Display addon.
 import 'codemirror/addon/display/placeholder';
-// Fold addon
+// Fold addon.
 import 'codemirror/addon/fold/xml-fold';
 import 'codemirror/addon/fold/foldcode';
 import 'codemirror/addon/fold/foldgutter';

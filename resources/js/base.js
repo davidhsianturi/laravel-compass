@@ -66,10 +66,10 @@ export default {
         },
 
         /**
-         * Convert entries value and key to Form URL encoded string
+         * Convert entries value and key to Form URL encoded string.
          *
          * @param {Array} entries
-         * @param {String} 
+         * @param {String}
          */
         toFormUrlEncoded(entries) {
             let data = this.filterFormRequests(entries);
@@ -77,10 +77,10 @@ export default {
         },
 
         /**
-         * Convert entries value and key to request data based on 'Content-Type'
-         * 
-         * @param {Array|String} entries 
-         * @param {String} contentType 
+         * Convert entries value and key to request data based on 'Content-Type'.
+         *
+         * @param {Array|String} entries
+         * @param {String} contentType
          * @return {FormData|String}
          */
         toRequestData(entries, contentType) {
@@ -103,7 +103,7 @@ export default {
         /**
          * Truncate the given string.
          *
-         * src: https: //gist.github.com/DylanAttal/13716cfd9272e92a544ddddde221eab1
+         * src: https://gist.github.com/DylanAttal/13716cfd9272e92a544ddddde221eab1
          */
         truncateString(str, num) {
             if (str.length <= num) {
@@ -112,11 +112,11 @@ export default {
 
             return str.slice(0, num) + '...'
         },
-        
+
         /**
-         * Normalize header 'Content-Type' into selected request body option
+         * Normalize header 'Content-Type' into selected request body option.
          *
-         * @param {String} contentType 
+         * @param {String} contentType
          * @return {Object}
          */
         normalizeContentType(contentType) {
