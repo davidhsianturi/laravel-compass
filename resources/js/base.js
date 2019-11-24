@@ -1,3 +1,6 @@
+import qs from 'querystring';
+import { REQUEST_BODY_OPTIONS } from './constants';
+
 export default {
     data() {
         return {
@@ -63,6 +66,30 @@ export default {
         },
 
         /**
+         * Convert entries value and key to Form URL encoded string
+         *
+         * @param {Array} entries
+         * @param {String} 
+         */
+        toFormUrlEncoded(entries) {
+            let data = this.filterFormRequests(entries);
+            return qs.stringify(data);
+        },
+
+        /**
+         * Convert entries value and key to request data based on 'Content-Type'
+         * 
+         * @param {Array|String} entries 
+         * @param {String} contentType 
+         * @return {FormData|String}
+         */
+        toRequestData(entries, contentType) {
+            if (contentType === 'multipart/form-data') return this.toFormData(entries)
+            if (contentType === 'application/x-www-form-urlencoded') return this.toFormUrlEncoded(entries)
+            return entries
+        },
+
+        /**
          * The mouseOver and mouseOut event target in element.
          */
         hoverInElement(val) {
@@ -85,5 +112,27 @@ export default {
 
             return str.slice(0, num) + '...'
         },
+        
+        /**
+         * Normalize header 'Content-Type' into selected request body option
+         *
+         * @param {String} contentType 
+         * @return {Object}
+         */
+        normalizeContentType(contentType) {
+            let bodyOption = { value: 'none', rawOption: 'text' }
+            if (!contentType) return bodyOption
+
+            let option = REQUEST_BODY_OPTIONS.find(opt => opt.value === contentType)
+            bodyOption.value = option ? option.key : 'raw'
+
+            if (bodyOption.value === 'raw') {
+                option = REQUEST_BODY_OPTIONS.find(opt => opt.key === 'raw')
+                const rawOption = option.options.find(opt => opt.value === contentType)
+                bodyOption.rawOption = rawOption ? rawOption.key : 'text'
+            }
+
+            return bodyOption
+        }
     }
 };

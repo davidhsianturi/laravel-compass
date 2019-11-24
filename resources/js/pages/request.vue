@@ -92,13 +92,14 @@ export default {
         },
 
         sendRequest() {
-            let formData = this.toFormData(this.requestData.content.body);
+            let contentType = this.requestData.content.headers.find(header => header.key === 'Content-Type')
+            contentType = contentType ? contentType.value : null
 
             this.http({
                 url: this.requestData.content.url,
                 method: this.requestMethod,
                 headers: this.filterFormRequests(this.requestData.content.headers),
-                data: formData,
+                data: this.toRequestData(this.requestData.content.body, contentType),
             }).then(response => {
                 this.fillResponse(response);
             }).catch(error => {
@@ -153,7 +154,7 @@ export default {
 
         <request-tabs
             class="bg-secondary"
-            :request="requestData"
+            :request.sync="requestData"
             :examples="examples"
             @request-data-ready="saveRequest"></request-tabs>
 
