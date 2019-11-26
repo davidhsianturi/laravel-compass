@@ -28,7 +28,7 @@ class DatabaseRequestRepositoryTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $appRoutes = Compass::getAppRoutes();
+        $appRoutes = app('compass')->getAppRoutes();
         $request = $this->saveRequest($appRoutes->random());
         $result = $this->repository->get();
 
@@ -45,7 +45,7 @@ class DatabaseRequestRepositoryTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $appRoute = Compass::getAppRoutes()->random();
+        $appRoute = app('compass')->getAppRoutes()->random();
         $result = $this->repository->find($appRoute['route_hash'])->jsonSerialize();
 
         $this->assertSame($appRoute['route_hash'], $result['id']);
@@ -61,12 +61,12 @@ class DatabaseRequestRepositoryTest extends TestCase
     public function test_grouping_routes_request_with_the_first_word_in_route_uri()
     {
         $this->registerAppRoutes();
-        $this->saveRequest(Compass::getAppRoutes()->random());
+        $this->saveRequest(app('compass')->getAppRoutes()->random());
 
         config(['compass.routes.base_uri' => 'api/v1']);
         $allRoutes = $this->repository->get();
 
-        $groupedRoutes = Compass::groupingRoutes($allRoutes);
+        $groupedRoutes = app('compass')->groupingRoutes($allRoutes);
         $expectedResult = $allRoutes->groupBy(function ($route) {
             return strtok(Str::after($route->info['uri'], 'api/v1'), '/');
         })->toArray();

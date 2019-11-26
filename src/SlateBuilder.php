@@ -41,7 +41,7 @@ final class SlateBuilder implements ApiDocsRepository
         $settings = $this->markdownConfig();
 
         // Build the routes output.
-        $routesOutput = Compass::getAppRoutes()->map(function ($route) use ($settings, $contents) {
+        $routesOutput = app('compass')->getAppRoutes()->map(function ($route) use ($settings, $contents) {
             $route = $this->routes->find($route['route_hash']);
 
             collect($route->examples)->each(function ($example) {
@@ -57,7 +57,7 @@ final class SlateBuilder implements ApiDocsRepository
             return $route;
         })->values();
 
-        $parsedRoutesOutput = Compass::groupingRoutes($routesOutput);
+        $parsedRoutesOutput = app('compass')->groupingRoutes($routesOutput);
 
         $infoText = view($contents['info']);
         $frontmatter = view($contents['frontmatter'])->with('settings', $settings);

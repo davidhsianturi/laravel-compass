@@ -27,7 +27,7 @@ class RoutesResponseTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $route = Compass::getAppRoutes()->random();
+        $route = app('compass')->getAppRoutes()->random();
 
         $exampleData = factory(RouteModel::class)->raw([
             'uuid' => $route['uuid'],
@@ -81,7 +81,7 @@ class RoutesResponseTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $route = Compass::getAppRoutes()->random();
+        $route = app('compass')->getAppRoutes()->random();
 
         return factory(RouteModel::class)->create([
             'route_hash' => $route['route_hash'],

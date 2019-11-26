@@ -52,7 +52,7 @@ class DatabaseResponseRepositoryTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $route = Compass::getAppRoutes()->random();
+        $route = app('compass')->getAppRoutes()->random();
 
         return factory(RouteModel::class)->create([
             'route_hash' => $route['route_hash'],

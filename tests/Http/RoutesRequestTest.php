@@ -29,7 +29,7 @@ class RoutesRequestTest extends TestCase
 
         $routes = $this->repository->get();
         $totalList = $routes->count();
-        $totalGroup = Compass::groupingRoutes($routes)->count();
+        $totalGroup = app('compass')->groupingRoutes($routes)->count();
 
         $this->getJson(route('compass.request'))
             ->assertSuccessful()
@@ -58,7 +58,7 @@ class RoutesRequestTest extends TestCase
     {
         $this->registerAppRoutes();
 
-        $appRoute = Compass::getAppRoutes()->random();
+        $appRoute = app('compass')->getAppRoutes()->random();
         $response = $this->postJson(route('compass.request.store'), [
             'id' => $appRoute['route_hash'],
             'storageId' => null,

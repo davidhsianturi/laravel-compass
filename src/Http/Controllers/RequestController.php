@@ -36,7 +36,7 @@ class RequestController
         return response()->json([
             'data' => [
                 'list' => $requests,
-                'group' => Compass::groupingRoutes($requests),
+                'group' => app('compass')->groupingRoutes($requests),
             ],
         ]);
     }

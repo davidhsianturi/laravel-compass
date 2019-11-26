@@ -9,6 +9,7 @@ use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
+use Davidhsianturi\Compass\Contracts\CompassContract;
 
 class CompassServiceProvider extends ServiceProvider
 {
@@ -62,7 +63,7 @@ class CompassServiceProvider extends ServiceProvider
      */
     protected function shouldMigrate()
     {
-        return Compass::$runsMigrations && config('compass.driver') === 'database';
+        return app('compass')->runsMigrations && config('compass.driver') === 'database';
     }
 
     /**
@@ -111,6 +112,12 @@ class CompassServiceProvider extends ServiceProvider
             Console\BuildCommand::class,
             Console\RebuildCommand::class,
         ]);
+
+        $this->app->singleton(
+            CompassContract::class, Compass::class
+        );
+
+        $this->app->bind('compass', CompassContract::class);
     }
 
     /**
