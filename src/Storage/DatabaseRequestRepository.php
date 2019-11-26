@@ -5,7 +5,6 @@ namespace Davidhsianturi\Compass\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\RouteResult;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 

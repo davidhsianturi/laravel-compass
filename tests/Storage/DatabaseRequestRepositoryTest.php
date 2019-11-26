@@ -3,7 +3,6 @@
 namespace Davidhsianturi\Compass\Tests\Storage;
 
 use Illuminate\Support\Str;
-use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\Tests\TestCase;
 use Davidhsianturi\Compass\Storage\RouteModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -2,8 +2,6 @@
 
 namespace Davidhsianturi\Compass\Http\Controllers;
 
-use Davidhsianturi\Compass\Compass;
-
 class HomeController
 {
     /**

@@ -3,7 +3,6 @@
 namespace Davidhsianturi\Compass\Tests\Compass;
 
 use Illuminate\Support\Str;
-use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\Tests\TestCase;
 
 class RoutesConfigTest extends TestCase

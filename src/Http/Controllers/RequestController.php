@@ -2,7 +2,6 @@
 
 namespace Davidhsianturi\Compass\Http\Controllers;
 
-use Davidhsianturi\Compass\Compass;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 
 class RequestController
