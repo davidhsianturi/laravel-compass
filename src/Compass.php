@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
-final class Compass
+class Compass
 {
     /**
      * Indicates if Compass migrations will be run.
