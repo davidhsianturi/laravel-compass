@@ -35,7 +35,6 @@ class SimpleAuthRepository implements UsersRepository
 
                         return new UserResult($user->$storageKey, $attributeKey);
                     })->values();
-
     }
 
     /**

@@ -49,7 +49,7 @@ class SimpleAuthTest extends TestCase
         $result = $this->repository->get()->first();
 
         $this
-            ->getJson('/authenticate', ['Authorization' => 'Bearer ' . $result->apiKey])
+            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->apiKey])
             ->assertStatus(Response::HTTP_OK)
             ->assertSeeText('Authenticated!');
 
@@ -68,7 +68,7 @@ class SimpleAuthTest extends TestCase
         $result = $this->repository->get()->first();
 
         $this
-            ->getJson('/authenticate', ['Authorization' => 'Bearer ' . $result->apiKey])
+            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->apiKey])
             ->assertStatus(Response::HTTP_OK)
             ->assertSeeText('Authenticated!');
 
