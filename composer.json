@@ -1,7 +1,13 @@
 {
     "name": "davidhsianturi/laravel-compass",
-    "description": "Laravel REST assistent for testing and build API documentation.",
-    "keywords": ["laravel", "API", "testing", "documentation"],
+    "description": "An elegant REST assistent for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "API",
+        "testing",
+        "documentation"
+    ],
+    "homepage": "https://github.com/davidhsianturi/laravel-compass",
     "license": "MIT",
     "authors": [
         {
