@@ -145,12 +145,13 @@ export default {
           <span v-if="requestData.description">{{ requestData.description }}</span>
           <span v-else class="italic">No description available</span>
         </div>
+
         <omnibox
             class="px-3 py-2 bg-secondary border-t border-b border-gray-200 "
             :methods="requestData.info.methods"
             :url.sync="requestData.content.url"
             :http-method.sync="requestMethod"
-            @request-ready="sendRequest"></omnibox>
+            @endpoint-ready="sendRequest"></omnibox>
 
         <request-tabs
             class="bg-secondary"

@@ -30,8 +30,8 @@ export default {
             this.$emit('update:http-method', this.selected);
         },
 
-        requestReady() {
-            this.$emit('request-ready');
+        endpointReady() {
+            this.$emit('endpoint-ready');
         }
     }
 }
@@ -49,15 +49,17 @@ export default {
                 </div>
             </div>
 
-            <input class="w-full px-3 rounded rounded-l-none border bg-gray-200 text-gray-600 inline-block appearance-none focus:outline-none"
-                    type="text"
-                    :value="url"
-                    @input="$emit('update:url', $event.target.value)">
+            <input
+                class="w-full px-3 rounded rounded-l-none border bg-gray-200 text-gray-600 inline-block appearance-none focus:outline-none"
+                type="text"
+                :value="url"
+                @input="$emit('update:url', $event.target.value)">
 
-            <button v-if="okToSubmit"
-                    class="block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
-                    type="button"
-                    @click="requestReady">SEND</button>
+            <button
+                class="block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
+                type="button"
+                v-if="okToSubmit"
+                @click="endpointReady">SEND</button>
         </div>
     </div>
 </template>
