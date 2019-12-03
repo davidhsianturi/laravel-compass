@@ -9,7 +9,7 @@ export default {
             type: String,
             required: true,
         },
-        httpMethod: {
+        selectedMethod: {
             type: String,
             required: true,
         },
@@ -19,17 +19,7 @@ export default {
         }
     },
 
-    data() {
-        return {
-            selectedMethod: this.httpMethod,
-        }
-    },
-
     methods: {
-        onChange() {
-            this.$emit('update:http-method', this.selected);
-        },
-
         endpointReady() {
             this.$emit('endpoint-ready');
         }
@@ -41,7 +31,11 @@ export default {
     <div>
         <div class="flex justify-between">
             <div class="relative">
-                <select v-model="selectedMethod" class="block font-semibold appearance-none bg-gray-200 border border-r-0 text-gray-600 py-3 px-4 pr-8 rounded rounded-r-none leading-tight focus:outline-none" @change="onChange">
+                <select
+                    class="block font-semibold appearance-none bg-gray-200 border border-r-0 text-gray-600 py-3 px-4 pr-8 rounded rounded-r-none leading-tight focus:outline-none"
+                    v-model="selectedMethod"
+                    @change="$emit('update:selected-method', $event.target.value)">
+
                     <option v-for="(method, index) in methods" :key="index">{{method}}</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">

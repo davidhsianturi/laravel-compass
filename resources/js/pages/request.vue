@@ -14,7 +14,6 @@ export default {
     data() {
         return {
             id: this.$route.params.id,
-            requestMethod: null,
             requestReady: false,
             requestErrors: null,
             requestData: {
@@ -34,6 +33,7 @@ export default {
                     url: '',
                     body: [],
                     headers: [],
+                    selectedMethod: '',
                 },
             },
             responseReady: false,
@@ -79,7 +79,7 @@ export default {
             this.requestData.content.url = data.content.url || data.info.uri;
             this.requestData.content.body = data.content.body || this.newFormRequests();
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
-            this.requestMethod = data.info.methods[0];
+            this.requestData.content.selectedMethod = data.content.selectedMethod || data.info.methods[0];
         },
 
         saveRequest()  {
@@ -150,7 +150,7 @@ export default {
             class="px-3 py-2 bg-secondary border-t border-b border-gray-200 "
             :methods="requestData.info.methods"
             :url.sync="requestData.content.url"
-            :http-method.sync="requestMethod"
+            :selected-method.sync="requestData.content.selectedMethod"
             @endpoint-ready="sendRequest"></omnibox>
 
         <div v-if="requestReady">
