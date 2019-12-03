@@ -201,19 +201,19 @@ export default {
                 </ul>
             </div>
 
-            <div class="ml-auto px-3" v-if="okToSend">
-                <button type="button"
-                    class="inline-block py-2 px-1 text-sm text-primary focus:outline-none"
+            <div class="ml-auto" v-if="okToSend">
+                <button
+                    class="inline-block py-2 mr-1 text-sm text-primary focus:outline-none"
+                    type="button"
                     @click="sendRequestData">Save request</button>
-
-                <div class="inline-block text-gray-300">|</div>
-                <dropdown class="inline-block py-2 px-1">
+                <div class="inline-block text-gray-300 mr-1">|</div>
+                <dropdown class="inline-block pr-3">
                     <template v-slot:trigger>
                         <div class="text-sm text-primary inline-flex items-center">
                             <span>Examples ({{examples.length}})</span>
-                                <svg class="fill-current h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                                </svg>
+                            <svg class="fill-current h-4 w-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
                         </div>
                     </template>
                     <template v-slot:lists>
@@ -244,10 +244,10 @@ export default {
                 <table class="w-full text-left table-collapse">
                     <thead>
                         <tr>
-                            <th class="border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
+                            <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-2/4">Description</th>
+                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Description</th>
                         </tr>
                     </thead>
                     <tbody class="align-baseline">
@@ -255,7 +255,7 @@ export default {
                             :key="row"
                             @mouseover="hoverInElement('header#' + row)"
                             @mouseout="hoverInElement(false)">
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
                                 <input type="checkbox"
                                     v-model="header.included"
                                     :class="header.new ? 'hidden' : ''">
@@ -319,7 +319,7 @@ export default {
                 <table class="w-full text-left table-collapse">
                     <thead>
                         <tr>
-                            <th class="border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
+                            <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/5">Key</th>
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-4/5">Value</th>
                         </tr>
@@ -335,7 +335,7 @@ export default {
                             </td>
                         </tr>
                         <tr>
-                            <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Description</td>
@@ -344,35 +344,35 @@ export default {
                             </td>
                         </tr>
                         <tr>
-                            <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Name</td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.name || '...'}}</td>
                         </tr>
                         <tr>
-                            <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Domain</td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.domain || '...'}}</td>
                         </tr>
                         <tr>
-                            <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Uri</td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.uri || '...'}}</td>
                         </tr>
                         <tr>
-                            <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Method</td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.methods.join("|") || '...'}}</td>
                         </tr>
                         <tr>
-                            <td class="px-2 border-l border-t border-gray-200 text-xs text-gray-800 text-right">
+                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Action</td>

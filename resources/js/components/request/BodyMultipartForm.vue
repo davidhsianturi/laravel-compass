@@ -36,7 +36,7 @@ export default {
                 type: 'text',
             });
         },
-    
+
         removeRow(row) {
             this.content.splice(row, 1);
         },
@@ -48,10 +48,10 @@ export default {
     <table class="w-full text-left table-collapse">
         <thead>
             <tr>
-                <th class="text-xs font-semibold text-gray-700 w-auto"></th>
+                <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
                 <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
                 <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
-                <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-2/4">Description</th>
+                <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Description</th>
             </tr>
         </thead>
         <tbody class="align-baseline">
@@ -59,7 +59,7 @@ export default {
                 :key="row"
                 @mouseover="hoverInElement('body#' + row)"
                 @mouseout="hoverInElement(false)">
-                <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
+                <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
                     <input type="checkbox"
                         v-model="reqBody.included"
                         :class="reqBody.new ? 'hidden' : ''">
