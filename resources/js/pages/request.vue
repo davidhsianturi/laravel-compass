@@ -13,26 +13,27 @@ export default {
 
     data() {
         return {
-            busy: true,
             id: this.$route.params.id,
-            examples: null,
             requestMethod: null,
+            requestReady: false,
             requestErrors: null,
             requestData: {
                 id: '',
                 storageId: '',
                 title: '',
                 description: '',
+                examples: [],
                 info: {
                     uri: '',
-                    methods: '',
+                    name: '',
                     action: '',
                     domain: '',
-                    name: '',
+                    methods: [],
                 },
                 content: {
-                    headers: '',
-                    body: '',
+                    url: '',
+                    body: [],
+                    headers: [],
                 },
             },
             responseReady: false,
@@ -59,26 +60,25 @@ export default {
     mounted() {
         axios.get('/' + Compass.path + '/request/' + this.id).then(response => {
             this.fillRequest(response.data);
-            this.busy = false;
+            this.requestReady = true;
         });
     },
 
     methods: {
         fillRequest(data) {
             this.requestData.id = data.id;
-            this.requestData.storageId = data.storageId;
             this.requestData.title = data.title;
+            this.requestData.storageId = data.storageId;
             this.requestData.description = data.description;
+            this.requestData.examples = data.examples;
             this.requestData.info.uri = data.info.uri;
-            this.requestData.info.methods = data.info.methods;
+            this.requestData.info.name = data.info.name;
             this.requestData.info.action = data.info.action;
             this.requestData.info.domain = data.info.domain;
-            this.requestData.info.name = data.info.name;
+            this.requestData.info.methods = data.info.methods;
             this.requestData.content.url = data.content.url || data.info.uri;
-            this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestData.content.body = data.content.body || this.newFormRequests();
-            this.isExample = data.isExample;
-            this.examples = data.examples;
+            this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestMethod = data.info.methods[0];
         },
 
@@ -140,10 +140,10 @@ export default {
 </script>
 
 <template>
-    <div v-if="!busy" class="bg-white min-h-full">
-        <div class="bg-secondary px-3 py-2 text-sm text-gray-700 border-t border-gray-200">
-          <span v-if="requestData.description">{{ requestData.description }}</span>
-          <span v-else class="italic">No description available</span>
+    <div class="bg-white min-h-full">
+        <div class="bg-secondary px-4 py-2 text-sm text-gray-700 border-t border-gray-200">
+            <span v-if="requestData.description">{{ requestData.description }}</span>
+            <span v-else class="italic">No description available</span>
         </div>
 
         <omnibox
@@ -153,28 +153,30 @@ export default {
             :http-method.sync="requestMethod"
             @endpoint-ready="sendRequest"></omnibox>
 
-        <request-tabs
-            class="bg-secondary"
-            :request.sync="requestData"
-            :examples="examples"
-            @request-data-ready="saveRequest"></request-tabs>
+        <div v-if="requestReady">
+            <request-tabs
+                class="bg-secondary"
+                :request.sync="requestData"
+                :examples="requestData.examples"
+                @request-data-ready="saveRequest"></request-tabs>
 
-        <div v-if="!responseReady">
-            <div class="flex justify-content-between border-b border-t border-gray-200 bg-secondary">
-                <div class="-mb-px mr-1">
-                    <h3 class="inline-block text-sm py-2 px-4 text-gray-500">Response</h3>
+            <div v-if="!responseReady">
+                <div class="flex justify-content-between border-b border-t border-gray-200 bg-secondary">
+                    <div class="-mb-px mr-1">
+                        <h3 class="inline-block text-sm py-2 px-4 text-gray-500">Response</h3>
+                    </div>
+                </div>
+                <div class="px-4 py-4">
+                    <p class="text-gray-600 text-medium">No response yet</p>
                 </div>
             </div>
-            <div class="px-4 py-4">
-                <p class="text-gray-600 text-medium">No response yet</p>
-            </div>
-        </div>
 
-        <div v-if="responseReady" class="border-t border-gray-200">
-            <response-tabs
-                class="bg-secondary"
-                :response="responseMeta"
-                @response-data-ready="saveResponse"></response-tabs>
+            <div v-if="responseReady" class="border-t border-gray-200">
+                <response-tabs
+                    class="bg-secondary"
+                    :response="responseMeta"
+                    @response-data-ready="saveResponse"></response-tabs>
+            </div>
         </div>
     </div>
 </template>
