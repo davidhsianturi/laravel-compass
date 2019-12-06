@@ -192,10 +192,10 @@ export default {
                             @click.prevent="currentTab='body'">Body</a>
                     </li>
                     <li class="-mb-px mr-1" v-if="okToSend">
-                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='about'}"
+                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='info'}"
                             class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                             href="#"
-                            @click.prevent="currentTab='about'">About
+                            @click.prevent="currentTab='info'">Info
                             <div v-if="!request.storageId" class="rounded-full bg-primary h-2 w-2 inline-block"></div>
                         </a>
                     </li>
@@ -316,7 +316,23 @@ export default {
                     </div>
                 </div>
             </div>
-            <div v-if="currentTab=='about' && okToSend">
+            <div v-if="currentTab=='info' && okToSend">
+                <div class="px-4 py-3">
+                    <input
+                        type="text"
+                        class="text-gray-700 font-semibold text-xl appearance-none focus:outline-none w-full"
+                        v-model="about.title">
+
+                    <textarea
+                        class="text-gray-500 font-normal text-md italic appearance-none focus:outline-none w-full"
+                        placeholder="No description available"
+                        v-model="about.description"></textarea>
+                </div>
+                <div class="border-b border-t border-gray-200 bg-secondary">
+                    <div class="-mb-px mr-1">
+                        <h3 class="text-sm py-2 px-4 text-gray-600">Route Information</h3>
+                    </div>
+                </div>
                 <table class="w-full text-left table-collapse">
                     <thead>
                         <tr>
@@ -326,58 +342,16 @@ export default {
                         </tr>
                     </thead>
                     <tbody class="align-baseline">
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
+                        <tr v-for="(value, key) in request.info" :key="key">
+                            <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
                                 <input type="checkbox" :checked="true" disabled>
                             </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Title</td>
+                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 capitalize">
+                                {{key}}
+                            </td>
                             <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none w-full" v-model="about.title">
+                                {{key === 'methods' ? value.join(" | ") : value || '...'}}
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" :checked="true" disabled>
-                            </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Description</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input type="text" class="mt-0 mb-0 appearance-none focus:outline-none w-full" placeholder="description" v-model="about.description">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" :checked="true" disabled>
-                            </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Name</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.name || '...'}}</td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" :checked="true" disabled>
-                            </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Domain</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.domain || '...'}}</td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" :checked="true" disabled>
-                            </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Uri</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.uri || '...'}}</td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" :checked="true" disabled>
-                            </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Method</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.methods.join("|") || '...'}}</td>
-                        </tr>
-                        <tr>
-                            <td class="px-2 border-t border-gray-200 text-xs text-gray-800 text-right">
-                                <input type="checkbox" :checked="true" disabled>
-                            </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">Action</td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">{{request.info.action || '...'}}</td>
                         </tr>
                     </tbody>
                 </table>
