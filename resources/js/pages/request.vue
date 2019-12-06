@@ -97,7 +97,7 @@ export default {
 
             this.http({
                 url: this.requestData.content.url,
-                method: this.requestMethod,
+                method: this.requestData.content.selectedMethod,
                 headers: this.filterFormRequests(this.requestData.content.headers),
                 data: this.toRequestData(this.requestData.content.body, contentType),
             }).then(response => {

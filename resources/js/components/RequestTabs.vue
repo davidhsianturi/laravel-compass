@@ -61,6 +61,7 @@ export default {
                     url: this.request.content.url,
                     headers: this.headers,
                     body: this.body[this.bodyOption.value],
+                    selectedMethod: this.request.content.selectedMethod,
                 }
             }
         },
