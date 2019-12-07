@@ -5,33 +5,30 @@ export default {
 
     data () {
         return {
-            colors: [
-                {method: "GET", class: "text-green-500"},
-                {method: "POST", class: "text-orange-400"},
-                {method: "DELETE", class: "text-red-600"},
-                {method: "PUT", class: "text-blue-500"},
-                {method: "PATCH", class: "text-blue-400"},
-                {method: "OPTIONS", class: "text-grey-500"}
+            methods: [
+                {name: "GET", color: "text-green-500"},
+                {name: "POST", color: "text-orange-400"},
+                {name: "DELETE", color: "text-red-600"},
+                {name: "PUT", color: "text-blue-500"},
+                {name: "PATCH", color: "text-blue-400"},
+                {name: "OPTIONS", color: "text-grey-500"}
             ]
         }
     },
 
     computed: {
-        color: function () {
-            let methods = this.request.info.methods
-            let colors = this.colors.filter(color => {
-                return methods.indexOf(color.method) !== -1
-            })
+        method() {
+            const selectedMethod = this.request.content.selectedMethod || this.request.info.methods[0]
 
-            return colors.length === 1 ? colors[0].class : "text-grey-500"
+            return this.methods.filter(method => method.name === selectedMethod)[0]
         }
     }
 }
 </script>
 
 <template>
-    <span :class="'w-full inline-block max-w-xxs text-xs text-center font-bold uppercase ' + color">
-        {{ request.info.methods.length > 1 ? '*' : request.info.methods[0] }}
+    <span :class="'w-full inline-block max-w-xxs text-xs font-bold uppercase ' + method.color">
+        {{ method.name }}
     </span>
 </template>
 
