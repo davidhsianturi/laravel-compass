@@ -29,14 +29,14 @@ export default {
     methods: {
         saveExample() {
             axios.post('/' + Compass.path + '/response', this.exampleData).then(response => {
-                this.$router.push({name: 'request', params:{id: this.exampleData.content.request.id}});
+                this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
                 this.alertSuccess('An example data successfully saved!', 3000);
             });
         },
 
         deleteExample() {
             axios.delete('/' + Compass.path + '/response/' + this.id).then(response => {
-                this.$router.push({name: 'request', params:{id: this.exampleData.content.request.id}});
+                this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
                 this.alertSuccess('An example data successfully deleted!', 3000);
             });
         },
@@ -62,7 +62,7 @@ export default {
                         v-model="exampleData.title">
             </div>
             <div class="ml-auto">
-                <router-link :to="{name:'request', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold mb-2 text-right hover:text-orange-600 text-orange-500">
+                <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold mb-2 text-right hover:text-orange-600 text-orange-500">
                     {{exampleData.content.request.title}}
                 </router-link>
                 <div class="inline-flex pl-3">

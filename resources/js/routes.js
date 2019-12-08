@@ -5,11 +5,11 @@ export default [
         component: require('./pages/welcome').default,
     },
 
-    // Request.
+    // Cortex.
     {
         path: '/:id',
-        name: 'request',
-        component: require('./pages/request').default,
+        name: 'cortex',
+        component: require('./pages/cortex').default,
     },
 
     // Example.
