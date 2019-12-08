@@ -97,7 +97,9 @@ class DatabaseRequestRepository implements RequestRepository
      */
     protected function routeResult(?array $route, ?array $responses)
     {
-        if (blank($route)) return;
+        if (blank($route)) {
+            return;
+        }
 
         return new RouteResult(
             $route['route_hash'],
