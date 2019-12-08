@@ -84,7 +84,6 @@ export default {
 
         saveRequest()  {
             axios.post('/' + Compass.path + '/request', this.requestData).then(response => {
-                this.fillRequest(response.data);
                 this.alertSuccess('Request data successfully saved!', 3000);
             }).catch(error => {
                 this.requestErrors = error.response;

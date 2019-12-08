@@ -18,7 +18,7 @@ export default {
 
 <template>
     <header class="bg-secondary sm:flex sm:items-center sm:justify-between md:bg-white md:flex-shrink-0">
-        <div class="flex justify-between md:border-r sm:shadow-none px-4 py-3 md:w-72 md:bg-secondary md:justify-center md:py-3 md:border-gray-200 md:border-b">
+        <div class="flex justify-between md:border-r sm:shadow-none px-4 py-3 md:w-72 md:bg-secondary md:py-3 md:border-gray-200 md:border-b">
             <div class="flex inline-block">
                 <svg class="h-8 w-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
                     <circle fill="#F4900C" cx="18" cy="18" r="18" />
