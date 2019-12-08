@@ -12,11 +12,11 @@ export default [
         component: require('./pages/request').default,
     },
 
-    // Response.
+    // Example.
     {
         path: '/eg/:id',
-        name: 'response',
-        component: require('./pages/response').default,
+        name: 'example',
+        component: require('./pages/example').default,
     },
 
     // Catch all.

@@ -122,7 +122,7 @@ export default {
 
         saveResponse() {
             axios.post('/' + Compass.path + '/response', this.responseData).then(response => {
-                this.$router.push({name: 'response', params: {id: response.data.uuid}});
+                this.$router.push({name: 'example', params: {id: response.data.uuid}});
             }).catch(error => {
                 this.responseErrors = error.response;
             });

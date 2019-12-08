@@ -228,7 +228,7 @@ export default {
 
                             <ul v-if="examples.length > 0">
                                 <li v-for="(example, index) in examples" :key="index">
-                                    <router-link :to="{name:'response', params:{id: example.uuid}}" class="block text-gray-800 px-4 py-2 hover:bg-gray-200">
+                                    <router-link :to="{name:'example', params:{id: example.uuid}}" class="block text-gray-800 px-4 py-2 hover:bg-gray-200">
                                         {{example.title}}
                                     </router-link>
                                 </li>
