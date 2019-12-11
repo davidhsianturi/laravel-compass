@@ -57,6 +57,20 @@ export default {
         }
     },
 
+    computed: {
+        baseUrl() {
+            let appUrl = new URL(Compass.app.base_url);
+            let newHostname = this.requestData.info.domain;
+
+            if (!newHostname) {
+                return appUrl.origin
+            };
+
+            appUrl.hostname = newHostname;
+            return appUrl.origin;
+        }
+    },
+
     mounted() {
         axios.get('/' + Compass.path + '/request/' + this.id).then(response => {
             this.fillRequest(response.data);
@@ -77,7 +91,7 @@ export default {
             this.requestData.info.domain = data.info.domain;
             this.requestData.info.methods = data.info.methods;
             this.requestData.content.url = data.content.url || data.info.uri;
-            this.requestData.content.body = data.content.body || this.newFormRequests();
+            this.requestData.content.body = data.content.body;
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestData.content.selectedMethod = data.content.selectedMethod || data.info.methods[0];
         },
@@ -95,6 +109,7 @@ export default {
             contentType = contentType ? contentType.value : null
 
             this.http({
+                baseURL: this.baseUrl,
                 url: this.requestData.content.url,
                 method: this.requestData.content.selectedMethod,
                 headers: this.filterFormRequests(this.requestData.content.headers),
