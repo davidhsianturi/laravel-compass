@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create({
-    baseURL: Compass.app.base_url
-});
+const instance = axios.create();
 
 instance.interceptors.request.use((config) => {
     config.timing = {
