@@ -1,0 +1,52 @@
+@import 'node_modules/vue-multiselect/dist/vue-multiselect.min';
+
+.multiselect {
+    min-height: 35px;
+}
+
+.min-vs .multiselect,
+.min-vs .multiselect__input,
+.min-vs .multiselect__single {
+    @apply text-xs;
+}
+
+.min-vs .multiselect__single {
+    @apply pl-0 mb-0;
+}
+
+.min-vs .multiselect__tags {
+    @apply border-0 bg-transparent text-xs;
+    min-height: 35px;
+}
+
+.min-vs .multiselect__tag {
+    @apply bg-primary;
+}
+
+.min-vs .multiselect__select {
+    height: 33px;
+}
+
+.min-vs .multiselect__placeholder {
+    @apply text-gray-500 text-xs mb-0 pt-0;
+}
+
+.min-vs .multiselect__content-wrapper {
+    @apply border border-gray-200;
+}
+
+.min-vs .multiselect__option {
+    @apply capitalize;
+}
+
+.min-vs .multiselect__option--highlight {
+    @apply bg-primary;
+}
+
+.min-vs .multiselect__option--highlight:after {
+    @apply bg-primary;
+}
+
+.select-hide .multiselect__select {
+    @apply hidden;
+}

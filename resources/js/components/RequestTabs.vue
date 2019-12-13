@@ -251,7 +251,7 @@ export default {
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Description</th>
                         </tr>
                     </thead>
-                    <tbody class="align-baseline">
+                    <tbody class="align-middle">
                         <tr v-for="(header, row) in headers"
                             :key="row"
                             @mouseover="hoverInElement('header#' + row)"
@@ -261,28 +261,21 @@ export default {
                                     v-model="header.included"
                                     :class="header.new ? 'hidden' : ''">
                             </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input type="text"
-                                    class="mt-0 mb-0 appearance-none focus:outline-none w-full"
-                                    placeholder="Key"
-                                    v-model="header.key"
+                            <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800">
+                                <header-fields
                                     list="keys"
-                                    @input="handleInput(headers, row, header)">
-
-                                <header-fields :listId="'keys'"></header-fields>
+                                    v-model="header.key"
+                                    @input="handleInput(headers, row, header)"></header-fields>
                             </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <input type="text"
-                                    class="mt-0 mb-0 appearance-none focus:outline-none w-full"
-                                    placeholder="Value"
+                            <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800">
+                                <header-fields
                                     list="values"
-                                    v-model="header.value">
-
-                                <header-fields :listId="'values'"></header-fields>
+                                    v-model="header.value"></header-fields>
                             </td>
-                            <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
-                                <input type="text"
-                                    class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
+                            <td class="pl-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
+                                <input
+                                    type="text"
+                                    class="appearance-none focus:outline-none w-full"
                                     placeholder="Description"
                                     v-model="header.description">
 
