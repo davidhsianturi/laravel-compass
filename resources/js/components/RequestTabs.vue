@@ -254,8 +254,8 @@ export default {
                     <tbody class="align-middle">
                         <tr v-for="(header, row) in headers"
                             :key="row"
-                            @mouseover="hoverInElement('header#' + row)"
-                            @mouseout="hoverInElement(false)">
+                            @mouseover="activateElmnt('header#' + row)"
+                            @mouseout="activateElmnt(null)">
                             <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
                                 <input type="checkbox"
                                     v-model="header.included"
@@ -280,7 +280,7 @@ export default {
                                     v-model="header.description">
 
                                 <span v-if="!header.new">
-                                    <a v-show="hoverId==='header#' + row"
+                                    <a v-show="elementId==='header#' + row"
                                         href="#"
                                         class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
                                         @click="removeRow(headers, row)">

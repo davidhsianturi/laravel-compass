@@ -50,8 +50,8 @@ export default {
         <tbody class="align-baseline">
             <tr v-for="(reqBody, row) in content"
                 :key="row"
-                @mouseover="hoverInElement('body#' + row)"
-                @mouseout="hoverInElement(false)">
+                @mouseover="activateElmnt('body#' + row)"
+                @mouseout="activateElmnt(null)">
                 <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
                     <input type="checkbox"
                         v-model="reqBody.included"
@@ -76,7 +76,7 @@ export default {
                         placeholder="Description"
                         v-model="reqBody.description">
 
-                    <a v-show="hoverId==='body#' + row && !reqBody.new"
+                    <a v-show="elementId==='body#' + row && !reqBody.new"
                         href="#"
                         class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
                         @click="removeRow(row)">

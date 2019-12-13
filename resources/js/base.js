@@ -4,8 +4,8 @@ import { REQUEST_BODY_OPTIONS } from './constants';
 export default {
     data() {
         return {
-            hoverId: null,
-            hoverTimer: null,
+            elementId: null,
+            waitingTime: null,
         };
     },
 
@@ -90,13 +90,13 @@ export default {
         },
 
         /**
-         * The mouseOver and mouseOut event target in element.
+         * The mouseOver/mouseOut event target in element.
          */
-        hoverInElement(val) {
-            window.clearTimeout(this.hoverTimer);
+        activateElmnt(val) {
+            window.clearTimeout(this.waitingTime);
 
-            this.hoverTimer = window.setTimeout(() => {
-                this.hoverId = val;
+            this.waitingTime = window.setTimeout(() => {
+                this.elementId = val;
             }, 100);
         },
 

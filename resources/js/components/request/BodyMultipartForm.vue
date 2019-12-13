@@ -1,9 +1,11 @@
 <script>
+import vSelect from 'vue-multiselect';
 import FilesInput from '../FilesInput';
 
 export default {
     components: {
-        'files-input': FilesInput
+        'v-select': vSelect,
+        'files-input': FilesInput,
     },
 
     props: {
@@ -57,8 +59,8 @@ export default {
         <tbody class="align-baseline">
             <tr v-for="(reqBody, row) in content"
                 :key="row"
-                @mouseover="hoverInElement('body#' + row)"
-                @mouseout="hoverInElement(false)">
+                @mouseover="activateElmnt('body#' + row)"
+                @mouseout="activateElmnt(null)">
                 <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
                     <input type="checkbox"
                         v-model="reqBody.included"
@@ -66,19 +68,20 @@ export default {
                 </td>
                 <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
                     <input type="text"
-                        class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
+                        class="mt-0 mb-0 appearance-none focus:outline-none w-full"
                         placeholder="Key"
                         v-model="reqBody.key"
                         @input="handleInput(row, reqBody)">
 
-                    <div v-show="hoverId==='body#' + row">
-                        <select v-model="reqBody.type" class="capitalize rounded-none appearance-none absolute inset-y-0 right-0 flex items-center bg-white text-gray-500 leading-tight focus:outline-none pr-6">
-                            <option>text</option>
-                            <option>file</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                        </div>
+                    <div v-show="elementId==='body#' + row" class="w-1/4 absolute inset-y-0 right-0">
+                        <v-select
+                            class="min-vs capitalize text-gray-500 text-xs"
+                            v-model="reqBody.type"
+                            openDirection="bottom"
+                            :allowEmpty="false"
+                            :showLabels="false"
+                            :searchable="false"
+                            :options="['text','file']"></v-select>
                     </div>
                 </td>
                 <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800">
@@ -92,11 +95,11 @@ export default {
                 </td>
                 <td class="p-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
                     <input type="text"
-                        class="mt-0 mb-0 appearance-none focus:outline-none block w-full"
+                        class="mt-0 mb-0 appearance-none focus:outline-none w-full"
                         placeholder="Description"
                         v-model="reqBody.description">
 
-                    <a v-show="hoverId==='body#' + row && !reqBody.new"
+                    <a v-show="elementId==='body#' + row && !reqBody.new"
                         href="#"
                         class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
                         @click="removeRow(row)">
