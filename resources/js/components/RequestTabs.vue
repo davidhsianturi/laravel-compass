@@ -117,20 +117,20 @@ export default {
     },
 
     methods: {
-        handleInput(tab, row, obj) {
+        handleInput(row, obj) {
             if (!obj.included && obj.new) {
-                this.updateRow(tab, row);
-                this.addRow(tab);
+                this.updateRow(row);
+                this.addRow();
             }
         },
 
-        updateRow(tab, row) {
-            tab[row].included = true;
-            tab[row].new = false;
+        updateRow(row) {
+            this.headers[row].included = true;
+            this.headers[row].new = false;
         },
 
-        addRow(tab) {
-            tab.push({
+        addRow() {
+            this.headers.push({
                 included: false,
                 key: null,
                 value: null,
@@ -140,8 +140,8 @@ export default {
             });
         },
 
-        removeRow(tab, row) {
-            tab.splice(row, 1);
+        removeRow(row) {
+            this.headers.splice(row, 1);
         },
 
         sendRequestData() {
@@ -242,13 +242,13 @@ export default {
         <!-- contents -->
         <div class="bg-white border-gray-200">
             <div v-if="currentTab=='headers'">
-                <table class="w-full text-left table-collapse">
+                <table class="w-full text-left table-collapse table-fixed">
                     <thead>
                         <tr>
-                            <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
+                            <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-4"></th>
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
                             <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Description</th>
+                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-auto">Description</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
@@ -265,7 +265,7 @@ export default {
                                 <header-fields
                                     list="keys"
                                     v-model="header.key"
-                                    @input="handleInput(headers, row, header)"></header-fields>
+                                    @input="handleInput(row, header)"></header-fields>
                             </td>
                             <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800">
                                 <header-fields
@@ -283,7 +283,7 @@ export default {
                                     <a v-show="elementId==='header#' + row"
                                         href="#"
                                         class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
-                                        @click="removeRow(headers, row)">
+                                        @click="removeRow(row)">
                                         <svg class="h-3 w-3 fill-current text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                             <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
                                         </svg>

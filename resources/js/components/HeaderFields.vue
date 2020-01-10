@@ -22,6 +22,12 @@ export default {
         }
     },
 
+    watch: {
+        value(value) {
+            this.selectedField = value;
+        }
+    },
+
     mounted() {
         this.list === 'keys'
             ? this.fields = HeaderFields.keys
@@ -54,6 +60,7 @@ export default {
             :show-no-results="false"
             :taggable="true"
             :options="fields"
+            :hide-selected="true"
             @input="handleHeader"
             @tag="addTag"></v-select>
     </div>

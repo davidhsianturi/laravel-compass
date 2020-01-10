@@ -11,7 +11,7 @@
 }
 
 .min-vs .multiselect__single {
-    @apply pl-0 mb-0;
+    @apply pl-0 mb-0 truncate;
 }
 
 .min-vs .multiselect__tags {
