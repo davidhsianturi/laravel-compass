@@ -63,7 +63,7 @@ class SimpleAuthTest extends TestCase
         config()->set('auth.guards.api.hash', true);
         config()->set('compass.authenticator.user_attribute_key', 'id');
 
-        $attributeKey = config('compass.authenticator.user_attribute_key', 'id');
+        $attributeKey = config('compass.authenticator.user_attribute_key');
         $user = factory(User::class)->states('hashedToken')->create();
         $result = $this->repository->get()->first();
 

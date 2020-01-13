@@ -185,7 +185,7 @@ class CompassServiceProvider extends ServiceProvider
     {
         $guard = $this->getGuard();
 
-        if (method_exists($this, $method = 'register'.ucfirst($guard['driver']).'Provider')) {
+        if (! Compass::ignoreAuthenticators() && method_exists($this, $method = 'register'.ucfirst($guard['driver']).'Provider')) {
             return $this->$method();
         }
     }

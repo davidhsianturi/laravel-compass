@@ -5,6 +5,7 @@ namespace Davidhsianturi\Compass;
 use Illuminate\Support\Str;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
@@ -127,6 +128,7 @@ final class Compass
                 'name' => config('app.name'),
                 'base_url' => config('app.url'),
             ],
+            'ignore_auths' => static::ignoreAuthenticators(),
         ];
     }
 
@@ -140,6 +142,16 @@ final class Compass
         static::$runsMigrations = false;
 
         return new static;
+    }
+
+    /**
+     * Configure Compass to not register it's authenticators in production.
+     *
+     * @return bool
+     */
+    public static function ignoreAuthenticators()
+    {
+        return App::environment() === 'production';
     }
 
     /**
