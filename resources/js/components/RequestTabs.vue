@@ -1,20 +1,16 @@
 <script>
 import Dropdown from './Dropdown';
-import HeaderFields from './HeaderFields';
+import DataTable from './DataTable';
 import BodyRawVue from './request/BodyRaw';
 import BodyOptions from './request/BodyOptions';
 import { REQUEST_BODY_KEYS } from '../constants';
-import BodyMultipartForm from './request/BodyMultipartForm';
-import BodyFormUrlEncoded from './request/BodyFormUrlEncoded';
 
 export default {
     components: {
         'dropdown': Dropdown,
-        'header-fields': HeaderFields,
+        'body-raw': BodyRawVue,
+        'data-table': DataTable,
         'body-options': BodyOptions,
-        'body-multipart-form': BodyMultipartForm,
-        'body-form-url-encoded': BodyFormUrlEncoded,
-        'body-raw': BodyRawVue
     },
 
     props: {
@@ -117,33 +113,6 @@ export default {
     },
 
     methods: {
-        handleInput(row, obj) {
-            if (!obj.included && obj.new) {
-                this.updateRow(row);
-                this.addRow();
-            }
-        },
-
-        updateRow(row) {
-            this.headers[row].included = true;
-            this.headers[row].new = false;
-        },
-
-        addRow() {
-            this.headers.push({
-                included: false,
-                key: null,
-                value: null,
-                description: null,
-                new: true,
-                type: 'text',
-            });
-        },
-
-        removeRow(row) {
-            this.headers.splice(row, 1);
-        },
-
         sendRequestData() {
             this.$emit('request-data-ready');
         },
@@ -242,64 +211,14 @@ export default {
         <!-- contents -->
         <div class="bg-white border-gray-200">
             <div v-if="currentTab=='headers'">
-                <table class="w-full text-left table-collapse table-fixed">
-                    <thead>
-                        <tr>
-                            <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-4"></th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
-                            <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-auto">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle">
-                        <tr v-for="(header, row) in headers"
-                            :key="row"
-                            @mouseover="activateElmnt('header#' + row)"
-                            @mouseout="activateElmnt(null)">
-                            <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
-                                <input type="checkbox"
-                                    v-model="header.included"
-                                    :class="header.new ? 'hidden' : ''">
-                            </td>
-                            <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <header-fields
-                                    list="keys"
-                                    v-model="header.key"
-                                    @input="handleInput(row, header)"></header-fields>
-                            </td>
-                            <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800">
-                                <header-fields
-                                    list="values"
-                                    v-model="header.value"></header-fields>
-                            </td>
-                            <td class="pl-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
-                                <input
-                                    type="text"
-                                    class="appearance-none focus:outline-none w-full"
-                                    placeholder="Description"
-                                    v-model="header.description">
-
-                                <span v-if="!header.new">
-                                    <a v-show="elementId==='header#' + row"
-                                        href="#"
-                                        class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
-                                        @click="removeRow(row)">
-                                        <svg class="h-3 w-3 fill-current text-gray-700 hover:text-gray-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                            <path d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z"/>
-                                        </svg>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <data-table src="header" :content="headers" />
             </div>
             <div v-if="currentTab=='body'">
                 <body-options :body-option.sync="bodyOption" @change="onBodyOptionChange" />
                 <div class="border-t border-gray-200">
-                    <body-multipart-form v-if="isBodyOption(requestBodyKeys.FORM_DATA)"
-                        :content="body[bodyOption.value]" />
-                    <body-form-url-encoded v-else-if="isBodyOption(requestBodyKeys.FORM_URL_ENCODED)"
+                    <data-table src="form-data" v-if="isBodyOption(requestBodyKeys.FORM_DATA)"
+                        :content="body[bodyOption.value]" optionable />
+                    <data-table src="form-url-encoded" v-else-if="isBodyOption(requestBodyKeys.FORM_URL_ENCODED)"
                         :content="body[bodyOption.value]" />
                     <body-raw v-else-if="isBodyOption(requestBodyKeys.RAW)"
                         :content-type="headerContentType"
