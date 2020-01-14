@@ -65,18 +65,20 @@ export default {
 
             <div class="ml-auto px-3">
                 <http-status :response="response" />
-                <http-response-time v-if="okToSave" :response="response" />
-                <http-response-size v-if="okToSave" :response="response" />
-                <div class="inline-block text-gray-300" v-if="okToSave">|</div>
-                <button v-if="okToSave"
-                    class="inline-block py-2 px-1 text-sm text-primary focus:outline-none"
-                    @click="sendResponseData">Save response as example</button>
+                <template v-if="okToSave">
+                    <http-response-time :response="response" />
+                    <http-response-size :response="response" />
+                    <div class="inline-block text-gray-300">|</div>
+                    <button @click="sendResponseData" class="inline-block py-2 px-1 text-sm text-primary focus:outline-none">
+                        Save response as example
+                    </button>
+                </template>
             </div>
         </div>
 
         <!-- content -->
         <div v-if="currentTab=='body'" class="p-4 text-orange-800 text-sm bg-white">
-            <vue-json-pretty :data="response.data" v-if="response.data"></vue-json-pretty>
+            <vue-json-pretty :data="response.data" />
         </div>
         <div v-if="currentTab=='headers'" class="bg-white">
             <table class="w-full text-left table-collapse">
@@ -84,14 +86,14 @@ export default {
                     <tr>
                         <th class="border-b border-r border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
                         <th class="p-2 border-b border-r border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Key</th>
-                        <th class="p-2 border-b border-r border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Value</th>
+                        <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-1/2">Value</th>
                     </tr>
                 </thead>
                 <tbody class="align-baseline">
                     <tr v-for="(value, key) in response.headers" :key="key">
                         <td class="px-4 border-b border-r border-gray-200 text-xs text-gray-800 text-right"></td>
                         <td class="p-2 border-b border-r border-gray-200 text-xs text-gray-800">{{key}}</td>
-                        <td class="p-2 border-b border-r border-gray-200 text-xs text-gray-800">{{value}}</td>
+                        <td class="p-2 border-b border-gray-200 text-xs text-gray-800">{{value}}</td>
                     </tr>
                 </tbody>
             </table>

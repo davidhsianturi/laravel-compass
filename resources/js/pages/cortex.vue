@@ -95,7 +95,6 @@ export default {
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestData.content.selectedMethod = data.content.selectedMethod || data.info.methods[0];
         },
-
         saveRequest()  {
             axios.post('/' + Compass.path + '/request', this.requestData).then(response => {
                 this.alertSuccess('Request data successfully saved!', 3000);
@@ -103,7 +102,6 @@ export default {
                 this.requestErrors = error.response;
             });
         },
-
         sendRequest() {
             let contentType = this.requestData.content.headers.find(header => header.key === 'Content-Type')
             contentType = contentType ? contentType.value : null
@@ -120,7 +118,6 @@ export default {
                 this.fillResponse(error.response);
             });
         },
-
         fillResponse(data) {
             this.responseMeta = data;
 
@@ -134,7 +131,6 @@ export default {
 
             this.responseReady = true;
         },
-
         saveResponse() {
             axios.post('/' + Compass.path + '/response', this.responseData).then(response => {
                 this.$router.push({name: 'example', params: {id: response.data.uuid}});
@@ -165,14 +161,14 @@ export default {
             :methods="requestData.info.methods"
             :url.sync="requestData.content.url"
             :selected-method.sync="requestData.content.selectedMethod"
-            @endpoint-ready="sendRequest"></omnibox>
+            @endpoint-ready="sendRequest" />
 
         <div v-if="requestReady">
             <request-tabs
                 class="bg-secondary"
                 :request.sync="requestData"
                 :examples="requestData.examples"
-                @request-data-ready="saveRequest"></request-tabs>
+                @request-data-ready="saveRequest" />
 
             <div v-if="!responseReady">
                 <div class="flex justify-content-between border-b border-t border-gray-200 bg-secondary">
@@ -189,7 +185,7 @@ export default {
                 <response-tabs
                     class="bg-secondary"
                     :response="responseMeta"
-                    @response-data-ready="saveResponse"></response-tabs>
+                    @response-data-ready="saveResponse" />
             </div>
         </div>
     </div>

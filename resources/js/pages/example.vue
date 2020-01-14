@@ -66,10 +66,10 @@ export default {
                     {{exampleData.content.request.title}}
                 </router-link>
                 <div class="inline-flex pl-3">
-                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l focus:outline-none" @click="saveExample">
+                    <button @click="saveExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l focus:outline-none">
                         Save
                     </button>
-                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r focus:outline-none" @click="deleteExample">
+                    <button @click="deleteExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r focus:outline-none">
                         Delete
                     </button>
                 </div>
@@ -84,12 +84,10 @@ export default {
                     :methods="exampleData.content.request.info.methods"
                     :url.sync="exampleData.content.request.content.url"
                     :selected-method.sync="exampleData.content.request.content.selectedMethod"
-                    :okToSubmit="false"></omnibox>
+                    :okToSubmit="false" />
 
                 <div class="border-t border-gray-200">
-                    <request-tabs
-                        :request.sync="exampleData.content.request"
-                        :okToSend="false"></request-tabs>
+                    <request-tabs :request.sync="exampleData.content.request" :okToSend="false" />
                 </div>
             </div>
         </div>
@@ -97,9 +95,7 @@ export default {
         <div class="mt-5">
             <label class="block uppercase text-gray-500 text-xs font-semibold mb-2">Example response</label>
             <div class="bg-white border">
-                <response-tabs
-                    :response="exampleData.content.response"
-                    :okToSave="false"></response-tabs>
+                <response-tabs :response="exampleData.content.response" :okToSave="false" />
             </div>
         </div>
     </div>
