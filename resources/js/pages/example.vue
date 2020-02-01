@@ -27,10 +27,10 @@ export default {
     },
 
     methods: {
-        saveExample() {
+        updateExample() {
             axios.post('/' + Compass.path + '/response', this.exampleData).then(response => {
                 this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
-                this.alertSuccess('An example data successfully saved!', 3000);
+                this.alertSuccess('An example data successfully updated!', 3000);
             });
         },
 
@@ -53,7 +53,7 @@ export default {
 
 <template>
     <div v-if="!busy" class="border-t border-gray-200 p-4">
-        <div class="flex justify-content-between">
+        <section class="flex justify-content-between mb-5">
             <div class="w-full">
                 <label class="block uppercase text-gray-500 text-xs font-semibold mb-2" for="title">Title</label>
                 <input class="w-full block py-2 px-4 rounded border bg-gray-100 text-gray-600 appearance-none text-sm focus:outline-none focus:bg-white"
@@ -63,20 +63,20 @@ export default {
             </div>
             <div class="ml-auto">
                 <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold mb-2 text-right hover:text-orange-600 text-orange-500">
-                    {{exampleData.content.request.title}}
+                    {{ exampleData.content.request.title }}
                 </router-link>
                 <div class="inline-flex pl-3">
-                    <button @click="saveExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l focus:outline-none">
-                        Save
+                    <button @click="updateExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l focus:outline-none">
+                        Update
                     </button>
                     <button @click="deleteExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r focus:outline-none">
                         Delete
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="mt-5">
+        <section class="w-full mb-5">
             <label class="block uppercase text-gray-500 text-xs font-semibold mb-2">Example request</label>
             <div class="bg-white border">
                 <omnibox
@@ -90,13 +90,13 @@ export default {
                     <request-tabs :request.sync="exampleData.content.request" :okToSend="false" />
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="mt-5">
+        <section class="w-full mb-5">
             <label class="block uppercase text-gray-500 text-xs font-semibold mb-2">Example response</label>
             <div class="bg-white border">
                 <response-tabs :response="exampleData.content.response" :okToSave="false" />
             </div>
-        </div>
+        </section>
     </div>
 </template>
