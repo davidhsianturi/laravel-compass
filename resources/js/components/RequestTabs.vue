@@ -160,13 +160,17 @@ export default {
                             href="#"
                             @click.prevent="currentTab='body'">Body</a>
                     </li>
-                    <li class="-mb-px mr-1" v-if="okToSend">
-                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='info'}"
+                    <li class="-mb-px mr-1">
+                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='route'}"
                             class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                             href="#"
-                            @click.prevent="currentTab='info'">Info
-                            <div v-if="!request.storageId" class="rounded-full bg-primary h-2 w-2 inline-block"></div>
-                        </a>
+                            @click.prevent="currentTab='route'">Route</a>
+                    </li>
+                    <li class="-mb-px mr-1" v-if="okToSend">
+                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='docs'}"
+                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                            href="#"
+                            @click.prevent="currentTab='docs'">Docs</a>
                     </li>
                 </ul>
             </div>
@@ -228,23 +232,7 @@ export default {
                     </div>
                 </div>
             </div>
-            <div v-if="currentTab=='info' && okToSend">
-                <div class="px-4 py-3">
-                    <input
-                        type="text"
-                        class="text-gray-700 font-semibold text-xl appearance-none focus:outline-none w-full"
-                        v-model="about.title">
-
-                    <textarea
-                        class="text-gray-500 font-normal text-md italic appearance-none focus:outline-none w-full"
-                        placeholder="No description available"
-                        v-model="about.description"></textarea>
-                </div>
-                <div class="border-b border-t border-gray-200 bg-secondary">
-                    <div class="-mb-px mr-1">
-                        <h3 class="text-sm py-2 px-4 text-gray-600">Route Information</h3>
-                    </div>
-                </div>
+            <template v-if="currentTab=='route'">
                 <table class="w-full text-left table-collapse">
                     <thead>
                         <tr>
@@ -267,7 +255,13 @@ export default {
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </template>
+            <template v-if="currentTab=='docs'">
+                <div class="px-4 py-3">
+                    <input v-model="about.title" type="text" class="text-gray-700 font-semibold text-xl appearance-none focus:outline-none w-full">
+                    <textarea v-model="about.description" placeholder="No description available" class="text-gray-500 font-normal text-md italic appearance-none focus:outline-none w-full"></textarea>
+                </div>
+            </template>
         </div>
     </div>
 </template>
