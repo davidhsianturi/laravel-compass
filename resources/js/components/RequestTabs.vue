@@ -1,15 +1,15 @@
 <script>
 import Dropdown from './Dropdown';
 import DataTable from './DataTable';
-import BodyRawVue from './request/BodyRaw';
+import CodeEditor from './CodeEditor';
 import BodyOptions from './request/BodyOptions';
 import { REQUEST_BODY_KEYS } from '../constants';
 
 export default {
     components: {
         'dropdown': Dropdown,
-        'body-raw': BodyRawVue,
         'data-table': DataTable,
+        'code-editor': CodeEditor,
         'body-options': BodyOptions,
     },
 
@@ -220,9 +220,9 @@ export default {
                         :content="body[bodyOption.value]" optionable />
                     <data-table src="form-url-encoded" v-else-if="isBodyOption(requestBodyKeys.FORM_URL_ENCODED)"
                         :content="body[bodyOption.value]" />
-                    <body-raw v-else-if="isBodyOption(requestBodyKeys.RAW)"
-                        :content-type="headerContentType"
-                        :content.sync="body[bodyOption.value]" />
+                    <code-editor v-else-if="isBodyOption(requestBodyKeys.RAW)"
+                        :mode="headerContentType"
+                        :code.sync="body[bodyOption.value]" />
                     <div v-else class="flex justify-center my-3">
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
