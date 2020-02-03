@@ -1,9 +1,17 @@
 <script>
+import CodeEditor from './CodeEditor';
 import HttpStatus from './HttpStatus';
 import HttpResponseSize from './HttpResponseSize';
 import HttpResponseTime from './HttpResponseTime';
 
 export default {
+    components: {
+        CodeEditor,
+        HttpStatus,
+        HttpResponseSize,
+        HttpResponseTime
+    },
+
     props: {
         response: {
             type: Object,
@@ -14,23 +22,28 @@ export default {
                     status: null,
                     statusText: ''
                 };
-            },
+            }
         },
         okToSave: {
             type: Boolean,
-            default: true,
+            default: true
         }
     },
 
-    components: {
-        HttpStatus,
-        HttpResponseSize,
-        HttpResponseTime
+    computed: {
+        code() {
+            let data = this.response.data
+
+            return typeof data === 'string'
+                ? data
+                : JSON.stringify(data, null, '\t')
+        }
     },
 
     data() {
         return {
             currentTab: 'body',
+            currentBodyOption: 'pretty'
         }
     },
 
@@ -38,7 +51,7 @@ export default {
         sendResponseData() {
             this.$emit('response-data-ready');
         }
-    }
+    },
 }
 </script>
 
@@ -77,8 +90,21 @@ export default {
         </div>
 
         <!-- content -->
-        <div v-if="currentTab=='body'" class="p-4 text-orange-800 text-sm bg-white">
-            <vue-json-pretty :data="response.data" />
+        <div v-if="currentTab=='body'" class="bg-white">
+            <div v-if="okToSave" class="w-full px-3 py-2 inline-flex">
+                <a :class="{'text-gray-800': currentBodyOption=='pretty'}"
+                    class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-l hover:text-gray-800"
+                    href="#"
+                    @click.prevent="currentBodyOption='pretty'">Pretty</a>
+
+                <a :class="{'text-gray-800': currentBodyOption=='preview'}"
+                    class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-r hover:text-gray-800"
+                    href="#"
+                    @click.prevent="currentBodyOption='preview'">Preview</a>
+            </div>
+
+            <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />
+            <iframe v-if="currentBodyOption=='preview'" :src="response.config.url" frameborder="0" class="w-full min-h-screen" />
         </div>
         <div v-if="currentTab=='headers'" class="bg-white">
             <table class="w-full text-left table-collapse">
@@ -100,3 +126,9 @@ export default {
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+::v-deep .CodeMirror {
+    height: 100vh;
+}
+</style>
