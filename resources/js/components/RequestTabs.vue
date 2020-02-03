@@ -7,30 +7,30 @@ import { REQUEST_BODY_KEYS } from '../constants';
 
 export default {
     components: {
-        'dropdown': Dropdown,
-        'data-table': DataTable,
-        'code-editor': CodeEditor,
-        'body-options': BodyOptions,
+        Dropdown,
+        DataTable,
+        CodeEditor,
+        BodyOptions
     },
 
     props: {
         request: {
             type: Object,
-            required: true,
+            required: true
         },
         examples: {
             type: Array,
-            required: false,
+            required: false
         },
         okToSend: {
             type: Boolean,
-            default: true,
+            default: true
         }
     },
 
     data() {
         return {
-            currentTab: 'headers',
+            currentTab: 'body',
             headers: [ ...this.request.content.headers ],
             headerContentType: null,
             headerContentTypeIndex: -1,
@@ -116,7 +116,6 @@ export default {
         sendRequestData() {
             this.$emit('request-data-ready');
         },
-
         onBodyOptionChange(headerContentType) {
             if (!headerContentType) return;
             this.headerContentType = headerContentType
@@ -134,7 +133,6 @@ export default {
                 this.headerContentTypeIndex = 0
             }
         },
-
         isBodyOption(optionKey) {
             return this.bodyOption.value === optionKey
         }
@@ -146,35 +144,32 @@ export default {
     <div>
         <!-- tabs -->
         <div class="flex justify-content-between border-b border-gray-200">
-            <div>
-                <ul class="flex inline-block">
-                    <li class="-mb-px mr-1">
-                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='headers'}"
-                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
-                            href="#"
-                            @click.prevent="currentTab='headers'">Headers</a>
-                    </li>
-                    <li class="-mb-px mr-1">
-                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='body'}"
-                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
-                            href="#"
-                            @click.prevent="currentTab='body'">Body</a>
-                    </li>
-                    <li class="-mb-px mr-1">
-                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='route'}"
-                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
-                            href="#"
-                            @click.prevent="currentTab='route'">Route</a>
-                    </li>
-                    <li class="-mb-px mr-1" v-if="okToSend">
-                        <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='docs'}"
-                            class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
-                            href="#"
-                            @click.prevent="currentTab='docs'">Docs</a>
-                    </li>
-                </ul>
-            </div>
-
+            <ul class="flex inline-block">
+                <li class="-mb-px mr-1">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='body'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='body'">Body</a>
+                </li>
+                <li class="-mb-px mr-1">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='headers'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='headers'">Headers</a>
+                </li>
+                <li class="-mb-px mr-1">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='route'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='route'">Route</a>
+                </li>
+                <li class="-mb-px mr-1" v-if="okToSend">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='docs'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='docs'">Docs</a>
+                </li>
+            </ul>
             <div class="ml-auto" v-if="okToSend">
                 <button
                     class="inline-block py-2 mr-1 text-sm text-primary focus:outline-none"
@@ -213,11 +208,8 @@ export default {
         </div>
 
         <!-- contents -->
-        <div class="bg-white border-gray-200">
-            <div v-if="currentTab=='headers'">
-                <data-table src="header" :content="headers" />
-            </div>
-            <div v-if="currentTab=='body'">
+        <div class="w-full bg-white">
+            <template v-if="currentTab=='body'">
                 <body-options :body-option.sync="bodyOption" @change="onBodyOptionChange" />
                 <div class="border-t border-gray-200">
                     <data-table src="form-data" v-if="isBodyOption(requestBodyKeys.FORM_DATA)"
@@ -227,11 +219,14 @@ export default {
                     <code-editor v-else-if="isBodyOption(requestBodyKeys.RAW)"
                         :mode="headerContentType"
                         :code.sync="body[bodyOption.value]" />
-                    <div v-else class="flex justify-center my-3">
+                    <div v-else class="px-3 py-2 text-center">
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
                 </div>
-            </div>
+            </template>
+            <template v-if="currentTab=='headers'">
+                <data-table src="header" :content="headers" />
+            </template>
             <template v-if="currentTab=='route'">
                 <table class="w-full text-left table-collapse">
                     <thead>
