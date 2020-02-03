@@ -1,10 +1,12 @@
 <script>
+import CodeEditor from './CodeEditor';
 import HttpStatus from './HttpStatus';
 import HttpResponseSize from './HttpResponseSize';
 import HttpResponseTime from './HttpResponseTime';
 
 export default {
     components: {
+        CodeEditor,
         HttpStatus,
         HttpResponseSize,
         HttpResponseTime
@@ -25,6 +27,16 @@ export default {
         okToSave: {
             type: Boolean,
             default: true
+        }
+    },
+
+    computed: {
+        code() {
+            let data = this.response.data
+
+            return typeof data === 'string'
+                ? data
+                : JSON.stringify(data, null, '\t')
         }
     },
 
@@ -78,8 +90,8 @@ export default {
         </div>
 
         <!-- content -->
-        <div v-if="currentTab=='body'" class="p-4 bg-white">
-            <div v-if="okToSave" class="inline-flex mb-5">
+        <div v-if="currentTab=='body'" class="bg-white">
+            <div v-if="okToSave" class="w-full px-3 py-2 inline-flex">
                 <a :class="{'text-gray-800': currentBodyOption=='pretty'}"
                     class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-l hover:text-gray-800"
                     href="#"
@@ -91,7 +103,7 @@ export default {
                     @click.prevent="currentBodyOption='preview'">Preview</a>
             </div>
 
-            <vue-json-pretty v-if="currentBodyOption=='pretty'" :data="response.data" />
+            <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />
             <iframe v-if="currentBodyOption=='preview'" :src="response.config.url" frameborder="0" class="w-full min-h-screen" />
         </div>
         <div v-if="currentTab=='headers'" class="bg-white">
@@ -114,3 +126,9 @@ export default {
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+::v-deep .CodeMirror {
+    height: 100vh;
+}
+</style>
