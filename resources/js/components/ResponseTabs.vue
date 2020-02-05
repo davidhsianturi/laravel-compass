@@ -104,7 +104,7 @@ export default {
             </div>
 
             <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />
-            <iframe v-if="currentBodyOption=='preview'" :src="response.config.url" frameborder="0" class="w-full min-h-screen" />
+            <iframe v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" class="w-full min-h-screen" />
         </div>
         <div v-if="currentTab=='headers'" class="bg-white">
             <table class="w-full text-left table-collapse">
