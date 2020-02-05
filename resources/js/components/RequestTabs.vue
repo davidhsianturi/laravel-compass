@@ -30,7 +30,7 @@ export default {
 
     data() {
         return {
-            currentTab: 'body',
+            currentTab: 'headers',
             headers: [ ...this.request.content.headers ],
             headerContentType: null,
             headerContentTypeIndex: -1,
@@ -146,16 +146,16 @@ export default {
         <div class="flex justify-content-between border-b border-gray-200">
             <ul class="flex inline-block">
                 <li class="-mb-px mr-1">
-                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='body'}"
-                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
-                        href="#"
-                        @click.prevent="currentTab='body'">Body</a>
-                </li>
-                <li class="-mb-px mr-1">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='headers'}"
                         class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                         href="#"
                         @click.prevent="currentTab='headers'">Headers</a>
+                </li>
+                <li class="-mb-px mr-1">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='body'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='body'">Body</a>
                 </li>
                 <li class="-mb-px mr-1">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='route'}"
@@ -209,6 +209,9 @@ export default {
 
         <!-- contents -->
         <div class="w-full bg-white">
+            <template v-if="currentTab=='headers'">
+                <data-table src="header" :content="headers" />
+            </template>
             <template v-if="currentTab=='body'">
                 <body-options :body-option.sync="bodyOption" @change="onBodyOptionChange" />
                 <div class="border-t border-gray-200">
@@ -223,9 +226,6 @@ export default {
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
                 </div>
-            </template>
-            <template v-if="currentTab=='headers'">
-                <data-table src="header" :content="headers" />
             </template>
             <template v-if="currentTab=='route'">
                 <table class="w-full text-left table-collapse">
