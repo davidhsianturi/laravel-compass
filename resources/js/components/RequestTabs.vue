@@ -2,6 +2,7 @@
 import Dropdown from './Dropdown';
 import DataTable from './DataTable';
 import CodeEditor from './CodeEditor';
+import Authenticator from './Authenticator';
 import BodyOptions from './request/BodyOptions';
 import { REQUEST_BODY_KEYS } from '../constants';
 
@@ -10,7 +11,8 @@ export default {
         Dropdown,
         DataTable,
         CodeEditor,
-        BodyOptions
+        BodyOptions,
+        Authenticator
     },
 
     props: {
@@ -25,6 +27,10 @@ export default {
         okToSend: {
             type: Boolean,
             default: true
+        },
+        authKey: {
+            type: String,
+            required: true
         }
     },
 
@@ -43,7 +49,8 @@ export default {
             about: {
                 title: this.request.title,
                 description: this.request.description
-            }
+            },
+            authType: this.request.content.authType
         }
     },
 
@@ -58,6 +65,7 @@ export default {
                     headers: this.headers,
                     body: this.body[this.bodyOption.value],
                     selectedMethod: this.request.content.selectedMethod,
+                    authType: this.authType,
                 }
             }
         },
@@ -93,6 +101,12 @@ export default {
             }
         },
         about: {
+            deep: true,
+            handler() {
+                this.$emit('update:request', this.requestData);
+            }
+        },
+        authType: {
             deep: true,
             handler() {
                 this.$emit('update:request', this.requestData);
@@ -142,12 +156,13 @@ export default {
 
 <template>
     <div>
-        <!-- tabs -->
+        <!-- tabs
+            @todo refactor to dynamic components -->
         <div class="flex justify-content-between border-b border-gray-200">
             <ul class="flex inline-block">
                 <li class="-mb-px mr-1">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='headers'}"
-                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-900"
                         href="#"
                         @click.prevent="currentTab='headers'">Headers</a>
                 </li>
@@ -156,6 +171,12 @@ export default {
                         class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                         href="#"
                         @click.prevent="currentTab='body'">Body</a>
+                </li>
+                <li class="-mb-px mr-1" v-if="okToSend && !Compass.ignore_auths">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='auth'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='auth'">Auth</a>
                 </li>
                 <li class="-mb-px mr-1">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='route'}"
@@ -226,6 +247,9 @@ export default {
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
                 </div>
+            </template>
+            <template v-if="currentTab=='auth' && !Compass.ignore_auths">
+                <authenticator :auth-type.sync="authType" :auth-key="authKey" />
             </template>
             <template v-if="currentTab=='route'">
                 <table class="w-full text-left table-collapse">

@@ -48,7 +48,7 @@ class AuthenticatedUsersTest extends TestCase
     {
         foreach ($users as $user) {
             $this
-                ->getJson('/authenticate', ['Authorization' => 'Bearer '.$user->apiKey])
+                ->getJson('/authenticate', ['Authorization' => 'Bearer '.$user->token])
                 ->assertStatus(Response::HTTP_OK)
                 ->assertSeeText('Authenticated!');
         }

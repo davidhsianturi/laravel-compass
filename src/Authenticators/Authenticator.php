@@ -56,12 +56,12 @@ trait Authenticator
     }
 
     /**
-     * Get the user attribute key.
+     * Get a user attribute.
      *
      * @return string
      */
-    protected function userAttributeKey()
+    protected function getUserAttribute()
     {
-        return config('compass.authenticator.user_attribute_key');
+        return config('compass.authenticator.user_attribute');
     }
 }

@@ -129,6 +129,6 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep .CodeMirror {
-    height: 100vh;
+    @apply h-screen;
 }
 </style>

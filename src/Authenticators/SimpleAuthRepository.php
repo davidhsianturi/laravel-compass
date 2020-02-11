@@ -17,23 +17,23 @@ class SimpleAuthRepository implements UsersRepository
      */
     public function get()
     {
-        $storageKey = $this->storageKey();
-        $attributeKey = $this->userAttributeKey();
+        $storageKey = $this->getStorageKey();
+        $attributeKey = $this->getUserAttribute();
         $refreshToken = $this->usingHashedToken();
 
         return $this->newModelQuery()
                     ->get()
                     ->map(function ($user) use ($storageKey, $attributeKey, $refreshToken) {
                         $token = Str::random(60);
-                        $attributeKey = $user->$attributeKey ?? 'unknown';
+                        $userAttribute = $user->$attributeKey ?? 'unknown';
 
                         if ($refreshToken) {
                             $user->forceFill([$storageKey => hash('sha256', $token)])->save();
 
-                            return new UserResult($token, $attributeKey);
+                            return new UserResult($token, $userAttribute);
                         }
 
-                        return new UserResult($user->$storageKey, $attributeKey);
+                        return new UserResult($user->$storageKey, $userAttribute);
                     })->values();
     }
 
@@ -54,7 +54,7 @@ class SimpleAuthRepository implements UsersRepository
      *
      * @return string
      */
-    protected function storageKey()
+    protected function getStorageKey()
     {
         $guard = $this->getGuardConfiguration();
 

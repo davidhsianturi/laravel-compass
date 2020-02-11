@@ -133,7 +133,7 @@ final class Compass
     }
 
     /**
-     * Configure Compass to not register it's migrations.
+     * Configure Compass to not register its migrations.
      *
      * @return static
      */
@@ -145,13 +145,13 @@ final class Compass
     }
 
     /**
-     * Configure Compass to not register it's authenticators in production.
+     * Set Compass to not register its authenticators in production.
      *
      * @return bool
      */
     public static function ignoreAuthenticators()
     {
-        return App::environment() === 'production';
+        return App::isProduction();
     }
 
     /**

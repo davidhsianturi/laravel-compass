@@ -7,29 +7,29 @@ use JsonSerializable;
 class UserResult implements JsonSerializable
 {
     /**
-     * The user API key.
+     * The API token.
      *
      * @var string
      */
-    public $apiKey;
+    public $token;
 
     /**
-     * The user attribute key.
+     * The user attribute.
      *
      * @var string
      */
-    public $attributeKey;
+    public $userAttribute;
 
     /**
      * Create a new user result instance.
      *
-     * @param  string  $apiKey
-     * @param  string  $attributeKey
+     * @param  string  $token
+     * @param  string  $userAttribute
      */
-    public function __construct(string $apiKey, string $attributeKey)
+    public function __construct(string $token, string $userAttribute)
     {
-        $this->apiKey = $apiKey;
-        $this->attributeKey = $attributeKey;
+        $this->token = $token;
+        $this->userAttribute = $userAttribute;
     }
 
     /**
@@ -40,8 +40,8 @@ class UserResult implements JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'apiKey' => $this->apiKey,
-            'attributeKey' => $this->attributeKey,
+            'token' => $this->token,
+            'userAttribute' => $this->userAttribute,
         ];
     }
 }

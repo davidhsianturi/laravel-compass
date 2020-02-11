@@ -44,35 +44,35 @@ class SimpleAuthTest extends TestCase
         // Hash option is false.
         config()->set('auth.guards.api.hash', false);
 
-        $attributeKey = config('compass.authenticator.user_attribute_key');
+        $attributeKey = config('compass.authenticator.user_attribute');
         $user = factory(User::class)->create();
         $result = $this->repository->get()->first();
 
         $this
-            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->apiKey])
+            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->token])
             ->assertStatus(Response::HTTP_OK)
             ->assertSeeText('Authenticated!');
 
         $this->assertTrue(auth('api')->check());
-        $this->assertSame($user->$attributeKey, $result->attributeKey);
+        $this->assertSame($user->$attributeKey, $result->userAttribute);
     }
 
     public function test_authenticate_a_refreshed_api_token_for_request()
     {
         // Hash option is true.
         config()->set('auth.guards.api.hash', true);
-        config()->set('compass.authenticator.user_attribute_key', 'id');
+        config()->set('compass.authenticator.user_attribute', 'id');
 
-        $attributeKey = config('compass.authenticator.user_attribute_key');
+        $attributeKey = config('compass.authenticator.user_attribute');
         $user = factory(User::class)->states('hashedToken')->create();
         $result = $this->repository->get()->first();
 
         $this
-            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->apiKey])
+            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->token])
             ->assertStatus(Response::HTTP_OK)
             ->assertSeeText('Authenticated!');
 
         $this->assertTrue(auth('api')->check());
-        $this->assertEquals($user->$attributeKey, $result->attributeKey);
+        $this->assertEquals($user->$attributeKey, $result->userAttribute);
     }
 }
