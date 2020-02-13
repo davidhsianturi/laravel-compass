@@ -72,7 +72,7 @@ class SimpleAuthTest extends TestCase
         $this->assertEquals($user->$attributeKey, $result->userAttribute);
     }
 
-    protected function confirmUser(String $token)
+    protected function confirmUser(string $token)
     {
         $this
             ->getJson('/authenticate', ['Authorization' => 'Bearer '.$token])
