@@ -5,18 +5,6 @@ namespace Davidhsianturi\Compass\Authenticators;
 trait Authenticator
 {
     /**
-     * Get the guard configuration.
-     *
-     * @return array
-     */
-    protected function getGuardConfiguration()
-    {
-        $name = config('compass.authenticator.guard');
-
-        return config('auth.guards.'.$name);
-    }
-
-    /**
      * Get a new query builder for the model instance.
      *
      * @param  \Illuminate\Database\Eloquent\Model|null  $model
@@ -36,31 +24,28 @@ trait Authenticator
      */
     protected function createModel()
     {
-        $provider = $this->getGuardProvider();
+        $provider = $this->getUserProvider();
 
         $class = '\\'.ltrim($provider['model'], '\\');
 
         return new $class;
     }
 
-    /**
-     * Get the guard provider configuration.
-     *
-     * @return array
-     */
-    protected function getGuardProvider()
+    protected function authenticationGuard(): array
     {
-        $guard = $this->getGuardConfiguration();
+        $name = config('compass.authenticator.guard');
+
+        return config('auth.guards.'.$name);
+    }
+
+    protected function getUserProvider(): array
+    {
+        $guard = $this->authenticationGuard();
 
         return config('auth.providers.'.$guard['provider']);
     }
 
-    /**
-     * Get a user attribute.
-     *
-     * @return string
-     */
-    protected function getUserAttribute()
+    protected function getUserAttribute(): string
     {
         return config('compass.authenticator.user_attribute');
     }

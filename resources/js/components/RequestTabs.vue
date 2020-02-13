@@ -69,9 +69,11 @@ export default {
                 }
             }
         },
-
         requestBodyKeys() {
             return REQUEST_BODY_KEYS
+        },
+        ignoreAuth() {
+            return Compass.app.env !== 'local';
         }
     },
 
@@ -156,8 +158,7 @@ export default {
 
 <template>
     <div>
-        <!-- tabs
-            @todo refactor to dynamic components -->
+        <!-- tabs -->
         <div class="flex justify-content-between border-b border-gray-200">
             <ul class="flex inline-block">
                 <li class="-mb-px mr-1">
@@ -172,7 +173,7 @@ export default {
                         href="#"
                         @click.prevent="currentTab='body'">Body</a>
                 </li>
-                <li class="-mb-px mr-1" v-if="okToSend && !Compass.ignore_auths">
+                <li class="-mb-px mr-1" v-if="okToSend && !ignoreAuth">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='auth'}"
                         class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                         href="#"

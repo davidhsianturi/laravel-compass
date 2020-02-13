@@ -39,7 +39,7 @@ class SimpleAuthTest extends TestCase
         });
     }
 
-    public function test_authenticate_a_plain_text_api_token_for_request()
+    public function test_get_an_authenticated_user_when_using_the_plain_text_token()
     {
         // Hash option is false.
         config()->set('auth.guards.api.hash', false);
@@ -48,16 +48,14 @@ class SimpleAuthTest extends TestCase
         $user = factory(User::class)->create();
         $result = $this->repository->get()->first();
 
-        $this
-            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->token])
-            ->assertStatus(Response::HTTP_OK)
-            ->assertSeeText('Authenticated!');
-
+        $this->assertEquals($user->api_token, $result->token);
+        $this->assertFalse(auth('api')->check());
+        $this->confirmUser($result->token);
         $this->assertTrue(auth('api')->check());
-        $this->assertSame($user->$attributeKey, $result->userAttribute);
+        $this->assertEquals($user->$attributeKey, $result->userAttribute);
     }
 
-    public function test_authenticate_a_refreshed_api_token_for_request()
+    public function test_get_an_authenticated_user_when_using_the_hashed_token()
     {
         // Hash option is true.
         config()->set('auth.guards.api.hash', true);
@@ -67,12 +65,18 @@ class SimpleAuthTest extends TestCase
         $user = factory(User::class)->states('hashedToken')->create();
         $result = $this->repository->get()->first();
 
-        $this
-            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$result->token])
-            ->assertStatus(Response::HTTP_OK)
-            ->assertSeeText('Authenticated!');
-
+        $this->assertNotEquals($user->api_token, $result->token);
+        $this->assertFalse(auth('api')->check());
+        $this->confirmUser($result->token);
         $this->assertTrue(auth('api')->check());
         $this->assertEquals($user->$attributeKey, $result->userAttribute);
+    }
+
+    protected function confirmUser(String $token)
+    {
+        $this
+            ->getJson('/authenticate', ['Authorization' => 'Bearer '.$token])
+            ->assertStatus(Response::HTTP_OK)
+            ->assertSeeText('Authenticated!');
     }
 }

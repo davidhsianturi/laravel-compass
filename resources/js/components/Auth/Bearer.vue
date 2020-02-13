@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             users: [],
-            selectedUser: null,
+            selectedUser: null
         }
     },
 
@@ -29,7 +29,7 @@ export default {
     methods: {
         loadUsers() {
             let users = this.getItem('users');
-            users ? this.users = users : this.getUsers();
+            users ? this.users = users : Compass.auth_enabled ? this.getUsers() : undefined;
         },
         loadSelectedUser() {
             let selectedUser = this.getItem(this.authKey);
@@ -121,7 +121,7 @@ export default {
             </tr>
         </thead>
         <tbody class="align-baseline">
-            <tr>
+            <tr @mouseover="activateElmnt(authKey)" @mouseout="activateElmnt(null)">
                 <td class="px-4 border-r border-gray-200 text-xs text-gray-800 text-right"></td>
                 <td class="p-0 border-r border-gray-200 text-xs text-gray-800">
                     <select-options
@@ -141,7 +141,7 @@ export default {
                         @remove="onRemoveUser"
                         @tag="onAddAttr" />
                 </td>
-                <td class="pl-2 border-gray-200 text-xs text-gray-800">
+                <td class="pl-2 border-gray-200 text-xs text-gray-800 relative">
                     <input
                         class="appearance-none focus:outline-none w-full bg-transparent"
                         ref="token"
@@ -149,6 +149,16 @@ export default {
                         placeholder="Select from user or paste here to create a new one"
                         :value="selectedUser ? selectedUser.token : ''"
                         @input="onInputToken($event.target.value)">
+
+                    <a v-show="elementId===authKey"
+                        href="#"
+                        title="Refresh users"
+                        class="font-bold absolute inset-y-0 right-0 flex items-center pr-3"
+                        @click="getUsers">
+                        <svg class="h-5 w-5 fill-current text-gray-500 hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3zm4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54l1.41-1.41zM10 20l-4-4 4-4v8zm0-12V0l4 4-4 4z" />
+                        </svg>
+                    </a>
                 </td>
             </tr>
         </tbody>

@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
@@ -127,8 +128,9 @@ final class Compass
             'app' => [
                 'name' => config('app.name'),
                 'base_url' => config('app.url'),
+                'env' => App::environment(),
             ],
-            'ignore_auths' => static::ignoreAuthenticators(),
+            'auth_enabled' => config('compass.authenticator.enabled'),
         ];
     }
 

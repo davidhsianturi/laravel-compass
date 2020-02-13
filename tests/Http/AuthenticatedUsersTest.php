@@ -27,13 +27,11 @@ class AuthenticatedUsersTest extends TestCase
         })->middleware('auth:api');
     }
 
-    public function test_get_authenticated_users_provided_by_the_simple_authenticator()
+    public function test_get_the_authenticated_users_that_provided_by_simple_auth()
     {
-        // Config by default.
-        config()->set('auth.guards.api.driver', 'token');
-        config()->set('compass.authenticator.guard', 'api');
+        config()->set('auth.guards.api.hash', true);
 
-        $users = factory(User::class, 3)->states('hashedToken')->create();
+        $users = factory(User::class)->states('hashedToken')->create();
         $response = $this->get(route('compass.users'));
 
         $response
@@ -41,10 +39,10 @@ class AuthenticatedUsersTest extends TestCase
             ->assertJsonStructure(['data' => []])
             ->assertJsonCount($users->count(), 'data');
 
-        $this->validateTokens($response->getData()->data);
+        $this->confirmUsers($response->getData()->data);
     }
 
-    protected function validateTokens(array $users)
+    protected function confirmUsers(array $users)
     {
         foreach ($users as $user) {
             $this

@@ -19,15 +19,15 @@ class SimpleAuthRepository implements UsersRepository
     {
         $storageKey = $this->getStorageKey();
         $attributeKey = $this->getUserAttribute();
-        $refreshToken = $this->usingHashedToken();
+        $usingHashedToken = $this->usingHashedToken();
 
         return $this->newModelQuery()
                     ->get()
-                    ->map(function ($user) use ($storageKey, $attributeKey, $refreshToken) {
+                    ->map(function ($user) use ($storageKey, $attributeKey, $usingHashedToken) {
                         $token = Str::random(60);
                         $userAttribute = $user->$attributeKey ?? 'unknown';
 
-                        if ($refreshToken) {
+                        if ($usingHashedToken) {
                             $user->forceFill([$storageKey => hash('sha256', $token)])->save();
 
                             return new UserResult($token, $userAttribute);
@@ -37,26 +37,16 @@ class SimpleAuthRepository implements UsersRepository
                     })->values();
     }
 
-    /**
-     * Get the guard hash option value.
-     *
-     * @return bool
-     */
-    protected function usingHashedToken()
+    protected function usingHashedToken(): bool
     {
-        $guard = $this->getGuardConfiguration();
+        $guard = $this->authenticationGuard();
 
         return $guard['hash'] ?? false;
     }
 
-    /**
-     * Get the guard storage key value.
-     *
-     * @return string
-     */
-    protected function getStorageKey()
+    protected function getStorageKey(): string
     {
-        $guard = $this->getGuardConfiguration();
+        $guard = $this->authenticationGuard();
 
         return $guard['storage_key'] ?? 'api_token';
     }
