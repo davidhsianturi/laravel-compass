@@ -90,6 +90,21 @@ export default {
         },
 
         /**
+         * Normalize headers with the given auth.
+         *
+         * @param {Array} entries
+         * @param {Object} auth
+         * @return {Object}
+         */
+        toRequestHeaders(entries, auth) {
+            const authInStorage = localStorage.getItem(auth.key);
+            const token = authInStorage ? JSON.parse(authInStorage).token : '';
+            const authHeader = { Authorization: `${auth.type} ${token}` };
+            const headers = this.filterFormRequests(entries);
+            return auth.type === 'Bearer' ? { ...headers, ...authHeader } : headers;
+        },
+
+        /**
          * The mouseOver/mouseOut event target in element.
          */
         activateElmnt(val) {

@@ -2,6 +2,7 @@
 import Dropdown from './Dropdown';
 import DataTable from './DataTable';
 import CodeEditor from './CodeEditor';
+import Authenticator from './Authenticator';
 import BodyOptions from './request/BodyOptions';
 import { REQUEST_BODY_KEYS } from '../constants';
 
@@ -10,7 +11,8 @@ export default {
         Dropdown,
         DataTable,
         CodeEditor,
-        BodyOptions
+        BodyOptions,
+        Authenticator
     },
 
     props: {
@@ -25,12 +27,17 @@ export default {
         okToSend: {
             type: Boolean,
             default: true
+        },
+        authKey: {
+            type: String,
+            required: true
         }
     },
 
     data() {
         return {
             currentTab: 'headers',
+            authType: this.request.content.authType,
             headers: [ ...this.request.content.headers ],
             headerContentType: null,
             headerContentTypeIndex: -1,
@@ -54,16 +61,19 @@ export default {
                 title: this.about.title,
                 description: this.about.description,
                 content: {
-                    url: this.request.content.url,
                     headers: this.headers,
+                    authType: this.authType,
+                    url: this.request.content.url,
                     body: this.body[this.bodyOption.value],
-                    selectedMethod: this.request.content.selectedMethod,
+                    selectedMethod: this.request.content.selectedMethod
                 }
             }
         },
-
         requestBodyKeys() {
             return REQUEST_BODY_KEYS
+        },
+        ignoreAuth() {
+            return Compass.app.env !== 'local';
         }
     },
 
@@ -93,6 +103,12 @@ export default {
             }
         },
         about: {
+            deep: true,
+            handler() {
+                this.$emit('update:request', this.requestData);
+            }
+        },
+        authType: {
             deep: true,
             handler() {
                 this.$emit('update:request', this.requestData);
@@ -156,6 +172,12 @@ export default {
                         class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                         href="#"
                         @click.prevent="currentTab='body'">Body</a>
+                </li>
+                <li class="-mb-px mr-1" v-if="okToSend && !ignoreAuth">
+                    <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='auth'}"
+                        class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
+                        href="#"
+                        @click.prevent="currentTab='auth'">Auth</a>
                 </li>
                 <li class="-mb-px mr-1">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='route'}"
@@ -226,6 +248,9 @@ export default {
                         <span class="text-xs text-gray-500">This request does not have a body</span>
                     </div>
                 </div>
+            </template>
+            <template v-if="currentTab=='auth' && !ignoreAuth">
+                <authenticator :auth-type.sync="authType" :auth-key="authKey" />
             </template>
             <template v-if="currentTab=='route'">
                 <table class="w-full text-left table-collapse">
