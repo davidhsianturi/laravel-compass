@@ -71,6 +71,9 @@ export default {
         },
         requestBodyKeys() {
             return REQUEST_BODY_KEYS
+        },
+        ignoreAuth() {
+            return Compass.app.env !== 'local';
         }
     },
 
@@ -170,7 +173,7 @@ export default {
                         href="#"
                         @click.prevent="currentTab='body'">Body</a>
                 </li>
-                <li class="-mb-px mr-1" v-if="okToSend">
+                <li class="-mb-px mr-1" v-if="okToSend && !ignoreAuth">
                     <a :class="{'text-gray-800 border-primary border-b-2': currentTab=='auth'}"
                         class="inline-block text-sm py-2 px-4 text-gray-600 hover:text-gray-800"
                         href="#"
@@ -246,7 +249,7 @@ export default {
                     </div>
                 </div>
             </template>
-            <template v-if="currentTab=='auth'">
+            <template v-if="currentTab=='auth' && !ignoreAuth">
                 <authenticator :auth-type.sync="authType" :auth-key="authKey" />
             </template>
             <template v-if="currentTab=='route'">
