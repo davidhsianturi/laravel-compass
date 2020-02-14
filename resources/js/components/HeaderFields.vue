@@ -1,10 +1,10 @@
 <script>
-import vSelect from 'vue-multiselect';
+import SelectOption from 'vue-multiselect';
 import HeaderFields from './../data/HeaderFields.json';
 
 export default {
     components: {
-        'v-select': vSelect,
+        SelectOption
     },
 
     props: ['value', 'list'],
@@ -50,8 +50,8 @@ export default {
 
 <template>
     <div>
-        <v-select
-            class="min-vs select-hide text-xs"
+        <select-option
+            class="hide-arrow-icon"
             v-model="selectedField"
             openDirection="bottom"
             tag-placeholder="Add this as new header"
@@ -62,6 +62,6 @@ export default {
             :options="fields"
             :hide-selected="true"
             @input="handleHeader"
-            @tag="addTag"></v-select>
+            @tag="addTag" />
     </div>
 </template>

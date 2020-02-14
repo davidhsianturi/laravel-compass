@@ -1,13 +1,13 @@
 <script>
-import vSelect from 'vue-multiselect';
 import FilesInput from './FilesInput';
 import HeaderFields from './HeaderFields';
+import SelectOption from 'vue-multiselect';
 
 export default {
     components: {
-        'v-select': vSelect,
-        'files-input': FilesInput,
-        'header-fields': HeaderFields,
+        FilesInput,
+        HeaderFields,
+        SelectOption,
     },
 
     props: {
@@ -84,8 +84,8 @@ export default {
                         @input="handleInput(row, col)">
 
                     <div v-show="elementId===src + row && optionable" class="absolute inset-y-0 right-0">
-                        <v-select
-                            class="min-vs capitalize text-gray-500 text-xs"
+                        <select-option
+                            class="capitalize"
                             v-model="col.type"
                             openDirection="bottom"
                             :allowEmpty="false"
