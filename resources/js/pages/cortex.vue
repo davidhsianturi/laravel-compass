@@ -27,13 +27,14 @@ export default {
                     name: '',
                     action: '',
                     domain: '',
-                    methods: [],
+                    methods: []
                 },
                 content: {
                     url: '',
                     body: [],
                     headers: [],
                     selectedMethod: '',
+                    authType: ''
                 },
             },
             responseReady: false,
@@ -68,6 +69,12 @@ export default {
 
             appUrl.hostname = newHostname;
             return appUrl.origin;
+        },
+        authenticator() {
+            let type = this.requestData.content.authType;
+            let key = `${type}@${this.requestData.id}`;
+
+            return {type, key};
         }
     },
 
@@ -90,8 +97,9 @@ export default {
             this.requestData.info.action = data.info.action;
             this.requestData.info.domain = data.info.domain;
             this.requestData.info.methods = data.info.methods;
-            this.requestData.content.url = data.content.url || data.info.uri;
             this.requestData.content.body = data.content.body;
+            this.requestData.content.url = data.content.url || data.info.uri;
+            this.requestData.content.authType = data.content.authType || 'None';
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestData.content.selectedMethod = data.content.selectedMethod || data.info.methods[0];
         },
@@ -110,7 +118,7 @@ export default {
                 baseURL: this.baseUrl,
                 url: this.requestData.content.url,
                 method: this.requestData.content.selectedMethod,
-                headers: this.filterFormRequests(this.requestData.content.headers),
+                headers: this.toRequestHeaders(this.requestData.content.headers, this.authenticator),
                 data: this.toRequestData(this.requestData.content.body, contentType),
             }).then(response => {
                 this.fillResponse(response);
@@ -168,6 +176,7 @@ export default {
                 class="bg-secondary"
                 :request.sync="requestData"
                 :examples="requestData.examples"
+                :authKey="authenticator.key"
                 @request-data-ready="saveRequest" />
 
             <div v-if="!responseReady">
