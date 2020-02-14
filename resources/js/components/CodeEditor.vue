@@ -70,10 +70,3 @@ export default {
         :options="options"
         @input="$emit('update:code', $event)" />
 </template>
-
-<style lang="scss">
-.CodeMirror-gutters {
-    border-right: 0px !important;
-    background-color: #fff !important;
-}
-</style>

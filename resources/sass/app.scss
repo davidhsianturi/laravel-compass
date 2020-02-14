@@ -2,9 +2,6 @@
 @tailwind components;
 
 @import "multiselect";
+@import "codemirror";
 
 @tailwind utilities;
-
-// addons
-@import 'node_modules/codemirror/lib/codemirror';
-@import 'node_modules/codemirror/addon/fold/foldgutter';

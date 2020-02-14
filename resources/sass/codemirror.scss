@@ -1,0 +1,6 @@
+@import 'node_modules/codemirror/lib/codemirror';
+@import 'node_modules/codemirror/addon/fold/foldgutter';
+
+.CodeMirror-gutters {
+    @apply border-r-0 bg-white;
+}
