@@ -30,7 +30,7 @@ export default {
         },
         authKey: {
             type: String,
-            required: true
+            default: ''
         }
     },
 
