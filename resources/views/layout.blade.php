@@ -9,7 +9,7 @@
     <link href="{{ mix('app.css', 'vendor/compass') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="compass" class="min-h-screen bg-secondary antialiased md:flex md:flex-col md:h-screen">
+    <div id="compass" class="min-h-screen bg-white antialiased md:flex md:flex-col md:h-screen">
         <alert v-if="alert.mode"
             :mode="alert.mode"
             :type="alert.type"
@@ -23,7 +23,7 @@
 
             <main class="md:flex-1 md:overflow-x-hidden">
                 @if (! $assetsAreCurrent)
-                    <div class="bg-blue-100 text-blue-900 px-4 py-3" role="alert">
+                    <div class="bg-blue-100 text-blue-900 px-4 py-3 mb-3" role="alert">
                         <div class="flex">
                             <div class="py-1">
                                 <svg class="fill-current h-6 w-6 text-blue-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

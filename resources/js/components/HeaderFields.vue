@@ -1,6 +1,6 @@
 <script>
 import SelectOption from 'vue-multiselect';
-import HeaderFields from './../data/HeaderFields.json';
+import { HTTP_HEADER_FIELDS } from '../constants';
 
 export default {
     components: {
@@ -11,12 +11,14 @@ export default {
 
     data() {
         return {
-            fields: [],
             selectedField: this.value,
         }
     },
 
     computed: {
+        fields() {
+            return this.list === 'keys' ? HTTP_HEADER_FIELDS.KEYS : HTTP_HEADER_FIELDS.VALUES;
+        },
         placeholder() {
             return 'Select ' + this.list.slice(0, -1) + ' options';
         }
@@ -26,12 +28,6 @@ export default {
         value(value) {
             this.selectedField = value;
         }
-    },
-
-    mounted() {
-        this.list === 'keys'
-            ? this.fields = HeaderFields.keys
-            : this.fields = HeaderFields.values;
     },
 
     methods: {

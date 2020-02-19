@@ -104,16 +104,16 @@ export default {
 <template>
     <table class="w-full text-left table-collapse">
         <thead>
-            <tr>
-                <th class="border-b border-r border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
-                <th class="p-2 border-b border-r border-gray-200 text-xs font-semibold text-gray-700 w-1/3">Name</th>
+            <tr class="bg-gray-100">
+                <th class="border-b border-gray-200 text-xs font-semibold text-gray-700 w-auto"></th>
+                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-1/3">Name</th>
                 <th class="p-2 b border-b border-gray-200 text-xs font-semibold text-gray-700 w-2/3">Token</th>
             </tr>
         </thead>
         <tbody class="align-baseline">
             <tr>
-                <td class="px-4 border-r border-gray-200 text-xs text-gray-800 text-right"></td>
-                <td class="p-0 border-r border-gray-200 text-xs text-gray-800">
+                <td class="px-4 border-b border-gray-200 text-xs text-gray-800 text-right"></td>
+                <td class="p-0 border-b border-gray-200 text-xs text-gray-800">
                     <select-options
                         class="hide-arrow-icon"
                         v-model="selectedAuth"
@@ -131,7 +131,7 @@ export default {
                         @remove="onRemoveAuth"
                         @tag="onAddAuth" />
                 </td>
-                <td class="pl-2 border-gray-200 text-xs text-gray-800 relative">
+                <td class="pl-2 border-b border-gray-200 text-xs text-gray-800 relative">
                     <input
                         class="appearance-none focus:outline-none w-full bg-transparent"
                         ref="token"

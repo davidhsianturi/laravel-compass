@@ -1,21 +1,12 @@
 <script>
 import axios from 'axios';
-import Omnibox from '../components/Omnibox';
-import RequestTabs from '../components/RequestTabs';
-import ResponseTabs from '../components/ResponseTabs';
 
 export default {
-    components: {
-        'omnibox': Omnibox,
-        'request-tabs': RequestTabs,
-        'response-tabs': ResponseTabs,
-    },
-
     data() {
         return {
             id: this.$route.params.id,
-            requestReady: false,
             requestErrors: null,
+            requestReady: false,
             requestData: {
                 id: '',
                 storageId: '',
@@ -37,9 +28,9 @@ export default {
                     authType: ''
                 },
             },
-            responseReady: false,
-            responseErrors: null,
             responseMeta: null,
+            responseErrors: null,
+            responseReady: false,
             responseData: {
                 uuid: '',
                 route_hash: '',
@@ -79,25 +70,28 @@ export default {
     },
 
     mounted() {
-        axios.get('/' + Compass.path + '/request/' + this.id).then(response => {
-            this.fillRequest(response.data);
-            this.requestReady = true;
-        });
+        this.getRequest();
     },
 
     methods: {
+        getRequest() {
+            axios.get('/' + Compass.path + '/request/' + this.id).then(response => {
+                this.fillRequest(response.data);
+                this.requestReady = true;
+            });
+        },
         fillRequest(data) {
             this.requestData.id = data.id;
             this.requestData.title = data.title;
+            this.requestData.examples = data.examples;
             this.requestData.storageId = data.storageId;
             this.requestData.description = data.description;
-            this.requestData.examples = data.examples;
             this.requestData.info.uri = data.info.uri;
             this.requestData.info.name = data.info.name;
             this.requestData.info.action = data.info.action;
             this.requestData.info.domain = data.info.domain;
             this.requestData.info.methods = data.info.methods;
-            this.requestData.content.body = data.content.body;
+            this.requestData.content.body = data.content.body || '';
             this.requestData.content.url = data.content.url || data.info.uri;
             this.requestData.content.authType = data.content.authType || 'None';
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
@@ -152,50 +146,31 @@ export default {
         'requestData.title'(val) {
             this.$root.requestTitle = val;
             this.$root.requestIsExample = false;
-        },
+        }
     }
 }
 </script>
 
 <template>
-    <div class="bg-white min-h-full">
-        <div class="bg-secondary px-4 py-2 text-sm text-gray-700 border-t border-gray-200">
-            <span v-if="requestData.description">{{ requestData.description }}</span>
-            <span v-else class="italic">No description available</span>
-        </div>
+    <div>
+        <section class="px-3 pb-1">
+            <omnibox
+                :methods="requestData.info.methods"
+                :url.sync="requestData.content.url"
+                :selected-method.sync="requestData.content.selectedMethod"
+                @endpoint-ready="sendRequest" />
+        </section>
 
-        <omnibox
-            class="px-3 py-2 bg-secondary border-t border-b border-gray-200 "
-            :methods="requestData.info.methods"
-            :url.sync="requestData.content.url"
-            :selected-method.sync="requestData.content.selectedMethod"
-            @endpoint-ready="sendRequest" />
+        <section>
+            <request-tabs v-bind.sync="requestData" :authKey="authenticator.key" @request-data-ready="saveRequest" />
+        </section>
 
-        <div v-if="requestReady">
-            <request-tabs
-                class="bg-secondary"
-                :request.sync="requestData"
-                :examples="requestData.examples"
-                :authKey="authenticator.key"
-                @request-data-ready="saveRequest" />
+        <template v-if="!responseReady">
+            <content-space description="Hit send to get a response" />
+        </template>
 
-            <div v-if="!responseReady">
-                <div class="flex justify-content-between border-b border-t border-gray-200 bg-secondary">
-                    <div class="-mb-px mr-1">
-                        <h3 class="inline-block text-sm py-2 px-4 text-gray-500">Response</h3>
-                    </div>
-                </div>
-                <div class="px-4 py-4">
-                    <p class="text-gray-600 text-medium">No response yet</p>
-                </div>
-            </div>
-
-            <div v-if="responseReady" class="border-t border-gray-200">
-                <response-tabs
-                    class="bg-secondary"
-                    :response="responseMeta"
-                    @response-data-ready="saveResponse" />
-            </div>
-        </div>
+        <section v-if="responseReady">
+            <response-tabs v-bind="responseMeta" @response-data-ready="saveResponse" show-body-options />
+        </section>
     </div>
 </template>

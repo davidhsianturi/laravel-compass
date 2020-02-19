@@ -35,7 +35,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <section>
         <ul class="flex inline-block ml-4 text-xs text-gray-600">
             <li class="-mb-px mr-4 py-3" v-for="(tab, i) in tabs" :key="i">
                 <input
@@ -49,5 +49,5 @@ export default {
         </ul>
 
         <component :is="currentTab" :auth-key="authKey" class="border-t border-gray-200" />
-    </div>
+    </section>
 </template>

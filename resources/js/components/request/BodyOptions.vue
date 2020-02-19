@@ -4,13 +4,14 @@ import { REQUEST_BODY_OPTIONS } from '../../constants';
 export default {
     props: {
         bodyOption: {
-            type: Object
+            type: Object,
+            required: true
         }
     },
 
     data() {
         return {
-            selectedBodyOption: { ...this.bodyOption }
+            selectedBodyOption: this.bodyOption
         }
     },
 
@@ -33,7 +34,7 @@ export default {
             this.$emit('update:body-option', this.selectedBodyOption)
             this.$emit('change', headerContentType)
         }
-  }
+    }
 }
 </script>
 

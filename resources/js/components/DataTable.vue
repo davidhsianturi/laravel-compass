@@ -4,24 +4,33 @@ import HeaderFields from './HeaderFields';
 import SelectOption from 'vue-multiselect';
 
 export default {
+    inheritAttrs: false,
+
     components: {
         FilesInput,
         HeaderFields,
-        SelectOption,
+        SelectOption
     },
 
     props: {
         src: {
             type: String,
-            required: true,
+            required: true
         },
         content: {
             type: Array,
-            required: true,
+            required: true
         },
         optionable: {
             type: Boolean,
-            default: false,
+            default: false
+        }
+    },
+
+    computed: {
+        items: {
+            get() { return this.content },
+            set(val) { this.$emit('update:content', val) }
         }
     },
 
@@ -33,11 +42,11 @@ export default {
             }
         },
         updateRow(row) {
-            this.content[row].included = true;
-            this.content[row].new = false;
+            this.items[row].included = true;
+            this.items[row].new = false;
         },
         addRow() {
-            this.content.push({
+            this.items.push({
                 included: false,
                 key: null,
                 value: null,
@@ -47,8 +56,8 @@ export default {
             });
         },
         removeRow(row) {
-            this.content.splice(row, 1);
-        },
+            this.items.splice(row, 1);
+        }
     }
 }
 </script>
@@ -56,25 +65,25 @@ export default {
 <template>
     <table class="w-full text-left table-collapse table-fixed">
         <thead>
-            <tr>
-                <th class="p-4 border-gray-200 text-xs font-semibold text-gray-700 w-4"></th>
-                <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
-                <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
-                <th class="p-2 border-l border-gray-200 text-xs font-semibold text-gray-700 w-auto">Description</th>
+            <tr class="bg-gray-100">
+                <th class="p-4 border-b border-gray-200 text-xs font-semibold text-gray-700 w-4"></th>
+                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
+                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
+                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-auto">Description</th>
             </tr>
         </thead>
         <tbody class="align-middle">
-            <tr v-for="(col, row) in content"
+            <tr v-for="(col, row) in items"
                 :key="row"
                 @mouseover="activateElmnt(src + row)"
                 @mouseout="activateElmnt(null)">
 
                 <!-- Checkbox -->
-                <td class="border-t border-gray-200 text-xs text-gray-800 text-center">
+                <td class="border-b border-gray-200 text-xs text-gray-800 text-center">
                     <input type="checkbox" v-model="col.included" :class="col.new ? 'hidden' : ''">
                 </td>
                 <!-- Key -->
-                <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800" :class="optionable ? 'relative' : ''">
+                <td class="p-0 border-b border-gray-200 text-xs text-gray-800" :class="optionable ? 'relative' : ''">
                     <input
                         v-show="src!=='header'"
                         type="text"
@@ -97,7 +106,7 @@ export default {
                     <header-fields v-show="src==='header'" list="keys" v-model="col.key" @input="handleInput(row, col)" />
                 </td>
                 <!-- Value -->
-                <td class="p-0 border-l border-t border-gray-200 text-xs text-gray-800">
+                <td class="p-0 border-b border-gray-200 text-xs text-gray-800">
                     <input
                         v-show="col.type==='text' && src!=='header'"
                         type="text"
@@ -109,7 +118,7 @@ export default {
                     <header-fields v-show="src==='header'" list="values" v-model="col.value" />
                 </td>
                 <!-- Description -->
-                <td class="pl-2 border-l border-t border-gray-200 text-xs text-gray-800 relative">
+                <td class="pl-2 border-b border-gray-200 text-xs text-gray-800 relative">
                     <input
                         type="text"
                         class="appearance-none focus:outline-none w-full bg-transparent"

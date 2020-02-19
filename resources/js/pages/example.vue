@@ -1,21 +1,12 @@
 <script>
 import axios from 'axios';
-import Omnibox from "../components/Omnibox";
-import RequestTabs from '../components/RequestTabs';
-import ResponseTabs from '../components/ResponseTabs';
 
 export default {
-    components: {
-        'omnibox': Omnibox,
-        'request-tabs': RequestTabs,
-        'response-tabs': ResponseTabs,
-    },
-
     data() {
         return {
             busy: true,
-            id: this.$route.params.id,
             exampleData: {},
+            id: this.$route.params.id
         }
     },
 
@@ -52,51 +43,52 @@ export default {
 </script>
 
 <template>
-    <div v-if="!busy" class="border-t border-gray-200 p-4">
-        <section class="flex justify-content-between mb-5">
-            <div class="w-full">
-                <label class="block uppercase text-gray-500 text-xs font-semibold mb-2" for="title">Title</label>
-                <input class="w-full block py-2 px-4 rounded border bg-gray-100 text-gray-600 appearance-none text-sm focus:outline-none focus:bg-white"
-                        id="title"
-                        type="text"
-                        v-model="exampleData.title">
-            </div>
-            <div class="ml-auto">
-                <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold mb-2 text-right hover:text-orange-600 text-orange-500">
-                    {{ exampleData.content.request.title }}
-                </router-link>
-                <div class="inline-flex pl-3">
-                    <button @click="updateExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l focus:outline-none">
-                        Update
-                    </button>
-                    <button @click="deleteExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r focus:outline-none">
-                        Delete
-                    </button>
-                </div>
-            </div>
-        </section>
+    <div>
+        <template v-if="busy">
+            <content-space description="Please wait..." />
+        </template>
 
-        <section class="w-full mb-5">
-            <label class="block uppercase text-gray-500 text-xs font-semibold mb-2">Example request</label>
-            <div class="bg-white border">
+        <template v-if="!busy">
+            <section class="flex justify-content-between mb-5 px-4">
+                <div class="w-full">
+                    <label class="block uppercase text-gray-600 text-xs font-semibold py-2" for="title">Title</label>
+                    <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-2 px-4 leading-tight focus:outline-none focus:border-gray-500"
+                            id="title"
+                            type="text"
+                            v-model="exampleData.title"
+                            autofocus>
+                </div>
+                <div class="ml-auto">
+                    <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold py-2 text-right hover:text-orange-600 text-orange-500">
+                        {{ exampleData.content.request.title }}
+                    </router-link>
+                    <div class="inline-flex pl-3">
+                        <button @click="updateExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l leading-tight focus:outline-none">
+                            Update
+                        </button>
+                        <button @click="deleteExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r leading-tight focus:outline-none">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="w-full">
+                <label class="block uppercase text-gray-600 text-xs font-semibold py-2 px-4 border-t border-gray-200 bg-secondary">Example request</label>
                 <omnibox
-                    class="py-2 px-4"
+                    class="pt-2 px-4 border-t border-gray-200"
                     :methods="exampleData.content.request.info.methods"
                     :url.sync="exampleData.content.request.content.url"
                     :selected-method.sync="exampleData.content.request.content.selectedMethod"
                     :okToSubmit="false" />
 
-                <div class="border-t border-gray-200">
-                    <request-tabs :request.sync="exampleData.content.request" :okToSend="false" />
-                </div>
-            </div>
-        </section>
+                <request-tabs v-bind.sync="exampleData.content.request" :exclude-tabs="['Auth','Docs']" ignore-extra-tabs />
+            </section>
 
-        <section class="w-full mb-5">
-            <label class="block uppercase text-gray-500 text-xs font-semibold mb-2">Example response</label>
-            <div class="bg-white border">
-                <response-tabs :response="exampleData.content.response" :okToSave="false" />
-            </div>
-        </section>
+            <section class="w-full">
+                <label class="block uppercase text-gray-600 text-xs font-semibold py-2 px-4 bg-secondary">Example response</label>
+                <response-tabs class="border-t border-gray-200" v-bind="exampleData.content.response" is-example-data ignore-body-options />
+            </section>
+        </template>
     </div>
 </template>
