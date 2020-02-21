@@ -47,6 +47,8 @@
     <script>
         window.Compass = @json($compassScriptVariables);
     </script>
+    <script src="{{ mix('manifest.js', 'vendor/compass') }}"></script>
+    <script src="{{ mix('vendor.js', 'vendor/compass') }}"></script>
     <script src="{{ mix('app.js', 'vendor/compass') }}"></script>
 </body>
 </html>
