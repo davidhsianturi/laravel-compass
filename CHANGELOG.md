@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.0...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.1...HEAD)
+
+## [v0.4.1 (2019-01-11)](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.0...v0.4.1)
+
+### Fixed
+- Fixed data-table for request header ([@a6bd01a](https://github.com/davidhsianturi/laravel-compass/commit/a6bd01ac27a31575f1130c5a3dfbcd4beb8a3d4a))
 
 ## [v0.4.0 (2019-12-13)](https://github.com/davidhsianturi/laravel-compass/compare/v0.3.0...v0.4.0)
 
