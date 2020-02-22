@@ -9,7 +9,7 @@
 
 <p align="center">
 <kbd>
-<img src="https://res.cloudinary.com/dave24hwj8/image/upload/v1571332039/Screenshot_2019-10-17_at_20.18.43_PM.png">
+<img src="https://res.cloudinary.com/dave24hwj8/image/upload/v1582364285/Screen_Shot_2020-02-22_at_16.20.12_PM.png">
 </kbd>
 </p>
 
@@ -44,12 +44,12 @@ php artisan compass:publish
 
 ## Migration Customization
 
-If you are not going to use Compass' default migrations, you should call the `Compass::ignoreMigrations` method in the `register` method of your `AppServiceProvider`.
+If you are not going to use Compass's default migrations, you should call the `Compass::ignoreMigrations` method in the `register` method of your `AppServiceProvider`.
 You may export the default migrations using the `php artisan vendor:publish --tag=compass-migrations` command.
 
 ## Configuration
 
-After publishing Compass' assets, its primary configuration file will be located at `config/compass.php`
+After publishing Compass's assets, its primary configuration file will be located at `config/compass.php`
 
 ```php
 return [
