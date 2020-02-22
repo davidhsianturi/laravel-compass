@@ -1,6 +1,8 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
+require('laravel-mix-purgecss');
+
 mix
     .options({
         terser: {
@@ -16,5 +18,7 @@ mix
     .setPublicPath('public')
     .js('resources/js/app.js', 'public')
     .sass('resources/sass/app.scss', 'public')
+    .purgeCss()
+    .extract()
     .version()
     .copy('public', '../compasstest/public/vendor/compass');

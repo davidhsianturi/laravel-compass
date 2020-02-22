@@ -13,9 +13,13 @@ const router = new VueRouter({
     base: '/' + Compass.path,
 });
 
-Vue.component('site-header', require('./components/SiteHeader').default);
-Vue.component('sidebar-menu', require('./components/SidebarMenu').default);
 Vue.component('alert', require('./components/Alert').default);
+Vue.component('omnibox', require('./components/Omnibox').default);
+Vue.component('site-header', require('./components/SiteHeader').default);
+Vue.component('request-tabs', require('./components/RequestTabs').default);
+Vue.component('sidebar-menu', require('./components/SidebarMenu').default);
+Vue.component('content-space', require('./components/ContentSpace').default);
+Vue.component('response-tabs', require('./components/ResponseTabs').default);
 
 Vue.mixin(Base);
 

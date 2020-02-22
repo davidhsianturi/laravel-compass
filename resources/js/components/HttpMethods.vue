@@ -1,26 +1,13 @@
 <script>
+import { HTTP_REQUEST_METHODS } from "../constants";
 
 export default {
     props: ['request'],
 
-    data () {
-        return {
-            methods: [
-                {name: "GET", color: "text-green-500"},
-                {name: "POST", color: "text-orange-400"},
-                {name: "DELETE", color: "text-red-600"},
-                {name: "PUT", color: "text-blue-500"},
-                {name: "PATCH", color: "text-blue-400"},
-                {name: "OPTIONS", color: "text-grey-500"}
-            ]
-        }
-    },
-
     computed: {
         method() {
-            const selectedMethod = this.request.content.selectedMethod || this.request.info.methods[0]
-
-            return this.methods.filter(method => method.name === selectedMethod)[0]
+            const selectedMethod = this.request.content.selectedMethod || this.request.info.methods[0];
+            return HTTP_REQUEST_METHODS.filter(method => method.name === selectedMethod)[0];
         }
     }
 }

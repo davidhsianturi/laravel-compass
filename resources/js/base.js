@@ -116,19 +116,6 @@ export default {
         },
 
         /**
-         * Truncate the given string.
-         *
-         * src: https://gist.github.com/DylanAttal/13716cfd9272e92a544ddddde221eab1
-         */
-        truncateString(str, num) {
-            if (str.length <= num) {
-                return str
-            }
-
-            return str.slice(0, num) + '...'
-        },
-
-        /**
          * Normalize header 'Content-Type' into selected request body option.
          *
          * @param {String} contentType

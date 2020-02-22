@@ -33,6 +33,113 @@ export const REQUEST_BODY_OPTIONS = [{
     options: REQUEST_BODY_RAW_OPTIONS
 }];
 
+export const HTTP_REQUEST_METHODS = [{
+        name: 'GET',
+        color: 'text-green-500'
+    },
+    {
+        name: 'POST',
+        color: 'text-blue-500'
+    },
+    {
+        name: 'DELETE',
+        color: 'text-red-500'
+    },
+    {
+        name: 'PUT',
+        color: 'text-purple-500'
+    },
+    {
+        name: 'PATCH',
+        color: 'text-blue-500'
+    }
+];
+
+// forbidden header name is not included to the lists.
+// sourced from:
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers
+// https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name
+export const HTTP_HEADER_FIELDS = {
+    KEYS: [
+        'Accept',
+        'Authorization',
+        'Accept-Language',
+        'Content-MD5',
+        'Cache-Control',
+        'Content-Transfer-Encoding',
+        'Cookie',
+        'Content-Type',
+        'From',
+        'if-Match',
+        'if-Modified-Since',
+        'If-None-Match',
+        'If-Range',
+        'If-Unmodified-Since',
+        'Max-Forwards',
+        'Pragma',
+        'Range',
+        'User-Agent',
+        'Warning',
+        'X-Do-Not-Track',
+        'X-Requested-With',
+        'x-api-key'
+    ],
+    VALUES: [
+        "application/atom+xml",
+        "application/ecmascript",
+        "application/json",
+        "application/javascript",
+        "application/octet-stream",
+        "application/ogg",
+        "application/pdf",
+        "application/postscript",
+        "application/rdf+xml",
+        "application/rss+xml",
+        "application/font-woff",
+        "application/x-yaml",
+        "application/xhtml+xml",
+        "application/xop+xml",
+        "application/xml",
+        "application/xop+xml",
+        "application/zip",
+        "application/gzip",
+        "application/x-www-form-urlencoded",
+        "audio/basic",
+        "audio/L24",
+        "audio/mp4",
+        "audio/mpeg",
+        "audio/ogg",
+        "audio/vorbis",
+        "audio/vnd.rn-realaudio",
+        "audio/vnd.wave",
+        "audio/webm",
+        "image/gif",
+        "image/jpg",
+        "image/jpeg",
+        "image/pjpeg",
+        "image/png",
+        "image/svg+xml",
+        "image/tiff",
+        "message/http",
+        "message/imdn+xml",
+        "message/partial",
+        "message/rfc822",
+        "multipart/mixed",
+        "multipart/alternative",
+        "multipart/related",
+        "multipart/form-data",
+        "multipart/signed",
+        "multipart/encrypted",
+        "text/cmd",
+        "text/css",
+        "text/csv",
+        "text/html",
+        "text/plain",
+        "text/vcard",
+        "text/xml"
+    ]
+};
+
 // Sourced from https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
 export const RESPONSE_CODE_DESCRIPTIONS = {
     // 100s
