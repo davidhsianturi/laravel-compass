@@ -1,8 +1,18 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.1...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.5.0...HEAD)
 
-## [v0.4.1 (2019-01-11)](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.0...v0.4.1)
+## [v0.5.0 (2020-02-22)](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.1...v0.5.0)
+
+### Added
+- Add response preview ([#57](https://github.com/davidhsianturi/laravel-compass/pull/57))
+- Add auth tab components ([#59](https://github.com/davidhsianturi/laravel-compass/pull/59))
+- Add default header ([@cadbac8](https://github.com/davidhsianturi/laravel-compass/commit/cadbac825efe8008ce212b1deefb4643b939383c))
+
+### Changed
+- Tidy up the front-end ([#60](https://github.com/davidhsianturi/laravel-compass/pull/60))
+
+## [v0.4.1 (2020-01-11)](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.0...v0.4.1)
 
 ### Fixed
 - Fixed data-table for request header ([@a6bd01a](https://github.com/davidhsianturi/laravel-compass/commit/a6bd01ac27a31575f1130c5a3dfbcd4beb8a3d4a))
