@@ -7,5 +7,5 @@ export default {
 </script>
 
 <template>
-    <content-space description="Laravel Compass v0.4.1" />
+    <content-space />
 </template>
