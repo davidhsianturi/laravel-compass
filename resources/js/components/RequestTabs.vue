@@ -4,6 +4,7 @@ import Auth from './request/AuthTab';
 import Body from './request/BodyTab';
 import Docs from './request/DocsTab';
 import Route from './request/RouteTab';
+import Params from './request/ParamsTab';
 import Headers from './request/HeadersTab';
 
 export default {
@@ -14,6 +15,7 @@ export default {
         Body,
         Docs,
         Route,
+        Params,
         Headers,
         Dropdown
     },
@@ -31,8 +33,8 @@ export default {
 
     data() {
         return {
-            currentTab: 'Headers',
-            defaultTabs: ['Headers', 'Body', 'Auth', 'Route', 'Docs']
+            currentTab: 'Params',
+            defaultTabs: ['Params', 'Headers', 'Body', 'Auth', 'Route', 'Docs']
         }
     },
 

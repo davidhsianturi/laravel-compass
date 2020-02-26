@@ -23,10 +23,11 @@ export default {
                 content: {
                     url: '',
                     body: [],
+                    params: [],
                     headers: [],
-                    selectedMethod: '',
-                    authType: ''
-                },
+                    authType: '',
+                    selectedMethod: ''
+                }
             },
             responseMeta: null,
             responseErrors: null,
@@ -94,6 +95,7 @@ export default {
             this.requestData.content.body = data.content.body || '';
             this.requestData.content.url = data.content.url || data.info.uri;
             this.requestData.content.authType = data.content.authType || 'None';
+            this.requestData.content.params = data.content.params || this.newFormRequests();
             this.requestData.content.headers = data.content.headers || this.newFormRequests();
             this.requestData.content.selectedMethod = data.content.selectedMethod || data.info.methods[0];
         },
