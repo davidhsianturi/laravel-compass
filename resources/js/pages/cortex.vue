@@ -148,6 +148,13 @@ export default {
         'requestData.title'(val) {
             this.$root.requestTitle = val;
             this.$root.requestIsExample = false;
+        },
+        'requestData.content.params': {
+            deep: true,
+            handler(val) {
+                let uri = this.encodeParams(val, this.requestData.content.url);
+                this.requestData.content.url = uri.endsWith('=') ? uri.slice(0, -1) : uri;
+            }
         }
     }
 }
@@ -160,6 +167,7 @@ export default {
                 :methods="requestData.info.methods"
                 :url.sync="requestData.content.url"
                 :selected-method.sync="requestData.content.selectedMethod"
+                :params.sync="requestData.content.params"
                 @endpoint-ready="sendRequest" />
         </section>
 

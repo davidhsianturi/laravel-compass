@@ -3,25 +3,40 @@ export default {
     props: {
         methods: {
             type: Array,
-            required: true,
+            required: true
         },
         url: {
             type: String,
-            required: true,
+            required: true
         },
         selectedMethod: {
             type: String,
-            required: true,
+            required: true
         },
         okToSubmit: {
             type: Boolean,
-            default: true,
+            default: true
+        },
+        params: {
+            type: Array,
+            required: true
+        }
+    },
+
+    computed: {
+        queryParams: {
+            get() { return this.params },
+            set(val) { this.$emit('update:params', val) }
         }
     },
 
     methods: {
         endpointReady() {
             this.$emit('endpoint-ready');
+        },
+        onInputUri(val) {
+            this.$emit('update:url', val);
+            this.queryParams = this.decodeParams(val);
         }
     }
 }
@@ -50,7 +65,7 @@ export default {
             class="appearance-none block w-full bg-white text-gray-700 border border-l-0 border-gray-400 py-2 px-2 leading-tight rounded rounded-l-none focus:outline-none focus:border-gray-500"
             type="text"
             :value="url"
-            @input="$emit('update:url', $event.target.value)">
+            @input="onInputUri($event.target.value)">
 
         <button
             class="block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
