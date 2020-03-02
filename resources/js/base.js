@@ -135,6 +135,36 @@ export default {
             }
 
             return bodyOption
+        },
+
+        /**
+         * Encode parameter entries to query string.
+         *
+         * @param {Array} entries
+         * @param {String} uri
+         */
+        encodeParams(entries, uri) {
+            let query = this.toFormUrlEncoded(entries);
+            let url = new URL(Compass.app.base_url.concat('/', uri));
+            url.search = query;
+            let newUri = url.pathname + url.search;
+
+            return decodeURI(newUri).slice(1);
+        },
+
+        /**
+         * Decode query string to parameter entries.
+         *
+         * @param {String} query
+         */
+        decodeParams(query) {
+            let newEntry = this.newFormRequests();
+            let url = new URL(Compass.app.base_url.concat('/', query));
+            let entries = [...url.searchParams.entries()].map(item => (
+                { ...newEntry[0], included: true, new: false, key: item[0], value: item[1] }
+            ));
+
+            return [...entries, ...newEntry];
         }
     }
 };
