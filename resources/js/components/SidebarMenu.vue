@@ -20,6 +20,7 @@ export default {
 
     mounted() {
         this.loadRequests();
+        this.spotlightWithKey();
     },
 
     methods: {
@@ -36,6 +37,14 @@ export default {
         },
         openSpotlight() {
             this.$root.spotlight.open = true;
+        },
+        spotlightWithKey() {
+            document.onkeyup = e => {
+                if (e.ctrlKey && e.code == 'Space') {
+                    e.preventDefault();
+                    this.openSpotlight();
+                }
+            }
         }
     }
 }
