@@ -19,7 +19,7 @@ export default {
         },
         params: {
             type: Array,
-            required: true
+            default: () => []
         }
     },
 
@@ -36,7 +36,9 @@ export default {
         },
         onInputUri(val) {
             this.$emit('update:url', val);
-            this.queryParams = this.decodeParams(val);
+            if (this.params.length > 0) {
+                this.queryParams = this.decodeParams(val);
+            }
         }
     }
 }

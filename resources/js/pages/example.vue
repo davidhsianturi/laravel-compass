@@ -24,7 +24,6 @@ export default {
                 this.alertSuccess('An example data successfully updated!', 3000);
             });
         },
-
         deleteExample() {
             axios.delete('/' + Compass.path + '/response/' + this.id).then(response => {
                 this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
@@ -82,7 +81,7 @@ export default {
                     :selected-method.sync="exampleData.content.request.content.selectedMethod"
                     :okToSubmit="false" />
 
-                <request-tabs v-bind.sync="exampleData.content.request" :exclude-tabs="['Auth','Docs']" ignore-extra-tabs />
+                <request-tabs v-bind.sync="exampleData.content.request" :exclude-tabs="['Params', 'Auth','Docs']" ignore-extra-tabs />
             </section>
 
             <section class="w-full">

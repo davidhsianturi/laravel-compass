@@ -33,7 +33,7 @@ export default {
 
     data() {
         return {
-            currentTab: 'Params',
+            currentTab: '',
             defaultTabs: ['Params', 'Headers', 'Body', 'Auth', 'Route', 'Docs']
         }
     },
@@ -46,6 +46,10 @@ export default {
             const tabs = this.ignoreAuth ? [...['Auth'], ...this.excludeTabs] : this.excludeTabs;
             return this.defaultTabs.filter(tab => !tabs.includes(tab));
         }
+    },
+
+    mounted() {
+        this.currentTab = this.tabs[0];
     }
 }
 </script>
