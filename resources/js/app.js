@@ -15,6 +15,7 @@ const router = new VueRouter({
 
 Vue.component('alert', require('./components/Alert').default);
 Vue.component('omnibox', require('./components/Omnibox').default);
+Vue.component('spotlight', require('./components/Spotlight').default);
 Vue.component('site-header', require('./components/SiteHeader').default);
 Vue.component('request-tabs', require('./components/RequestTabs').default);
 Vue.component('sidebar-menu', require('./components/SidebarMenu').default);
@@ -38,6 +39,9 @@ new Vue({
                 message: '',
                 autoClose: 0,
             },
+            spotlight: {
+                open: false
+            }
         };
     },
 });
