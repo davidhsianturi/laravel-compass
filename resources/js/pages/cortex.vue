@@ -110,7 +110,7 @@ export default {
             let contentType = this.requestData.content.headers.find(header => header.key === 'Content-Type')
             contentType = contentType ? contentType.value : null
 
-            this.http({
+            this.$http({
                 baseURL: this.baseUrl,
                 url: this.requestData.content.url,
                 method: this.requestData.content.selectedMethod,

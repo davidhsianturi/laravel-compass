@@ -44,7 +44,7 @@ export default {
         },
         async getEndpoints() {
             try {
-                const { data } = await this.http('/' + Compass.path + '/request');
+                const { data } = await this.$http.get('/' + Compass.path + '/request');
                 const endpoints = await data.data.list.map(item => ({
                     id: item.id,
                     title: item.title,

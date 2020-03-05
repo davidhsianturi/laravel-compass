@@ -4,7 +4,7 @@ import Routes from './routes';
 import VueRouter from 'vue-router';
 import axios from './axios-instance';
 
-Vue.prototype.http = axios;
+Vue.prototype.$http = axios;
 Vue.use(VueRouter);
 
 const router = new VueRouter({
