@@ -18,7 +18,7 @@ export default {
 
 <template>
     <header class="sm:flex sm:items-center sm:justify-between md:bg-white md:flex-shrink-0">
-        <div class="flex justify-between md:border-r border-gray-200 sm:shadow-none px-4 py-3 md:w-72 md:py-3">
+        <div class="flex justify-between md:border-r border-secondary sm:shadow-none px-4 py-3 md:w-72 md:py-3">
             <div class="flex inline-block">
                 <svg class="h-8 w-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
                     <circle fill="#F4900C" cx="18" cy="18" r="18" />
@@ -47,7 +47,7 @@ export default {
 
         <nav :class="{'hidden': !navIsOpen, 'block': navIsOpen}" class="sm:flex sm:items-center sm:px-4 md:flex-1 md:justify-between">
             <div class="hidden md:block md:relative md:max-w-xs md:w-full">
-                <a v-if="this.$root.requestTitle===Compass.app.base_url" :href="Compass.app.base_url" target="_blank" class="pr-4 font-mono font-semibold text-orange-700 rounded p-2 hover:bg-orange-200">
+                <a v-if="this.$root.requestTitle===Compass.app.base_url" :href="Compass.app.base_url" target="_blank" class="py-2 px-4 font-mono text-sm font-semibold text-primary rounded-full" style="background-color: rgba(247, 88, 88, 0.15)">
                     {{Compass.app.base_url}}
                 </a>
                 <h3 class="text-gray-700 font-semibold" v-else>
@@ -57,7 +57,7 @@ export default {
 
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex sm:border-b-0 sm:py-0 sm:px-0">
-                    <h3 class="block py-1 rounded font-bold text-gray-700 border-b-4 border-gray-300 sm:text-sm sm:px-2 uppercase">
+                    <h3 class="block py-1 rounded font-bold text-gray-700 sm:text-sm sm:px-2 uppercase">
                         {{Compass.app.name}}
                     </h3>
                 </div>

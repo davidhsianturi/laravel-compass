@@ -52,7 +52,7 @@ export default {
 </script>
 
 <template>
-    <section class="border-gray-200 border-r md:w-72">
+    <section class="md:w-72 border-secondary border-r">
         <div class="flex justify-between px-4 py-2 -mb-px">
             <div class="relative max-w-xs w-full">
                 <h3 class="font-semibold text-gray-700">Requests</h3>
@@ -79,15 +79,15 @@ export default {
 
         <div :class="{'hidden': !isOpen, 'block': isOpen}" class="md:block md:h-full md:flex md:flex-col">
             <div>
-                <ul class="flex border-b border-gray-200">
+                <ul class="flex border-b border-secondary">
                     <li class="mr-3">
-                        <a :class="{'-mb-px border-gray-200 text-gray-800 border-l border-t border-r rounded-t': currentTab=='list'}"
+                        <a :class="{'-mb-px border-secondary text-gray-800 border-l border-t border-r rounded-t': currentTab=='list'}"
                             class="bg-white inline-block font-semibold py-2 px-4 text-gray-600 hover:text-gray-800"
                             href="#"
                             @click.prevent="currentTab='list'">List</a>
                     </li>
                     <li class="mr-3">
-                        <a :class="{'-mb-px border-gray-200 text-gray-800 border-l border-t border-r rounded-t': currentTab=='group'}"
+                        <a :class="{'-mb-px border-secondary text-gray-800 border-l border-t border-r rounded-t': currentTab=='group'}"
                             class="bg-white inline-block font-semibold py-2 px-4 text-gray-600 hover:text-gray-800"
                             href="#"
                             @click.prevent="currentTab='group'">Group</a>
@@ -105,7 +105,7 @@ export default {
                 <div v-if="ready && requests.list.length > 0" class="px-4 py-3 md:w-full">
                     <ul v-if="currentTab=='list'">
                         <li class="sm:mb-2 truncate" v-for="request in requests.list" :key="request.id">
-                            <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
+                            <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-primary" class="text-md px-2 -mx-2 py-1 hover:text-primary text-gray-600">
                                 <http-methods :request="request" />
                                 <span class="ml-2">{{ request.title }}</span>
                             </router-link>
@@ -114,12 +114,12 @@ export default {
 
                     <div v-if="currentTab=='group'">
                         <details class="sm:mb-2 cursor-pointer" v-for="(resources, name) in requests.group" :key="name">
-                            <summary class="px-2 -mx-2 py-1 hover:text-orange-600 focus:text-orange-600 text-gray-600 font-medium capitalize">
+                            <summary class="px-2 -mx-2 py-1 hover:text-primary focus:text-primary text-gray-600 font-medium capitalize">
                                 {{name}}
                             </summary>
                             <ul class="ml-4">
                                 <li class="sm:mb-2 truncate" v-for="request in resources" :key="request.id">
-                                    <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
+                                    <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-primary" class="text-md px-2 -mx-2 py-1 hover:text-primary text-gray-600">
                                         <http-methods :request="request" />
                                         <span class="ml-2">{{ request.title }}</span>
                                     </router-link>

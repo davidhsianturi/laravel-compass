@@ -26,7 +26,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="border-t border-secondary">
         <ul class="flex inline-block ml-4 text-xs text-gray-600">
             <li class="-mb-px mr-4 py-3" v-for="(type, i) in types" :key="i">
                 <input
@@ -39,6 +39,6 @@ export default {
             </li>
         </ul>
 
-        <component :is="currentType" :auth-key="$attrs.authKey" class="border-t border-gray-200" />
+        <component :is="currentType" :auth-key="$attrs.authKey" class="border-t border-secondary" />
     </div>
 </template>

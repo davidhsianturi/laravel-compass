@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-    <div class="px-4 py-3 border-b border-gray-200">
+    <div class="px-4 py-3 border-t border-b border-secondary">
         <input
             class="text-gray-700 font-semibold text-xl appearance-none focus:outline-none w-full"
             type="text"

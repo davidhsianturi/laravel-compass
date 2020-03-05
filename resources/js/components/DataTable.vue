@@ -65,11 +65,11 @@ export default {
 <template>
     <table class="w-full text-left table-collapse table-fixed">
         <thead>
-            <tr class="bg-gray-100">
-                <th class="p-4 border-b border-gray-200 text-xs font-semibold text-gray-700 w-4"></th>
-                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Key</th>
-                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-1/4">Value</th>
-                <th class="p-2 border-b border-gray-200 text-xs font-semibold text-gray-700 w-auto">Description</th>
+            <tr class="text-xs font-semibold text-gray-700 bg-secondary">
+                <th class="p-4 w-4"></th>
+                <th class="p-2 w-1/4">Key</th>
+                <th class="p-2 w-1/4">Value</th>
+                <th class="p-2 w-auto">Description</th>
             </tr>
         </thead>
         <tbody class="align-middle">
@@ -79,11 +79,11 @@ export default {
                 @mouseout="activateElmnt(null)">
 
                 <!-- Checkbox -->
-                <td class="border-b border-gray-200 text-xs text-gray-800 text-center">
+                <td class="border-b border-secondary text-xs text-gray-800 text-center">
                     <input type="checkbox" v-model="col.included" :class="col.new ? 'hidden' : ''">
                 </td>
                 <!-- Key -->
-                <td class="p-0 border-b border-gray-200 text-xs text-gray-800" :class="optionable ? 'relative' : ''">
+                <td class="p-0 border-b border-secondary text-xs text-gray-800" :class="optionable ? 'relative' : ''">
                     <input
                         v-show="src!=='header'"
                         type="text"
@@ -106,7 +106,7 @@ export default {
                     <header-fields v-show="src==='header'" list="keys" v-model="col.key" @input="handleInput(row, col)" />
                 </td>
                 <!-- Value -->
-                <td class="p-0 border-b border-gray-200 text-xs text-gray-800">
+                <td class="p-0 border-b border-secondary text-xs text-gray-800">
                     <input
                         v-show="col.type==='text' && src!=='header'"
                         type="text"
@@ -118,7 +118,7 @@ export default {
                     <header-fields v-show="src==='header'" list="values" v-model="col.value" />
                 </td>
                 <!-- Description -->
-                <td class="pl-2 border-b border-gray-200 text-xs text-gray-800 relative">
+                <td class="pl-2 border-b border-secondary text-xs text-gray-800 relative">
                     <input
                         type="text"
                         class="appearance-none focus:outline-none w-full bg-transparent"

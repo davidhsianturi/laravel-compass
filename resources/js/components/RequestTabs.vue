@@ -56,7 +56,7 @@ export default {
 
 <template>
     <div>
-        <div class="flex justify-content-between border-b border-gray-200">
+        <div class="flex justify-content-between">
             <ul class="flex inline-block">
                 <li class="-mb-px mr-1" v-for="(tab, i) in tabs" :key="i">
                     <a :class="{'text-gray-800 border-primary border-b': currentTab==tab}"

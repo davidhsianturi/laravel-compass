@@ -107,7 +107,7 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="border-t border-secondary">
         <ul class="flex inline-block ml-4 text-xs text-gray-600">
             <li class="-mb-px mr-4 py-3" v-for="(option, index) in bodyOptions" :key="index">
                 <input
@@ -121,7 +121,7 @@ export default {
             </li>
             <li v-if="isCurrentBody(bodyKeys.RAW)" class="-mb-px mr-4 py-3">
                 <select
-                    class="border-0 text-primary focus:outline-none"
+                    class="border-0 bg-secondary text-primary focus:outline-none"
                     v-model="currentBody.rawOption"
                     @change="onSelectedBody({key: bodyKeys.RAW})">
                     <option
@@ -135,7 +135,7 @@ export default {
             </li>
         </ul>
 
-        <div class="border-t border-gray-200">
+        <div class="border-t border-secondary">
             <data-table v-if="isCurrentBody(bodyKeys.FORM_DATA)"
                         :src="bodyKeys.FORM_DATA"
                         :content="bodyForm[currentBody.value]"
@@ -144,11 +144,11 @@ export default {
                         :src="bodyKeys.FORM_URL_ENCODED"
                         :content="bodyForm[currentBody.value]" />
             <code-editor v-else-if="isCurrentBody(bodyKeys.RAW)"
-                        class="border-b border-gray-200"
+                        class="border-b border-secondary"
                         :mode="headerContentType"
                         :code.sync="bodyForm[currentBody.value]" />
 
-            <div v-else class="px-3 py-2 text-center border-b border-gray-200">
+            <div v-else class="px-3 py-2 text-center border-b border-secondary">
                 <span class="text-xs text-gray-500">This request does not have a body</span>
             </div>
         </div>
