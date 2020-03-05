@@ -1,16 +1,14 @@
 <script>
-import axios from 'axios';
 import HttpMethods from './HttpMethods'
 
 export default {
-    props: [],
-
     components: {
         HttpMethods
     },
 
     data() {
         return {
+            errors: null,
             requests: [],
             ready: false,
             isOpen: false,
@@ -29,11 +27,14 @@ export default {
         },
         loadRequests() {
             this.ready = false;
-
-            axios.get('/' + Compass.path + '/request').then(response => {
-                this.requests = response.data.data;
-                this.ready = true;
-            });
+            this.$http
+                .get('/' + Compass.path + '/request')
+                .then(response => {
+                    this.requests = response.data.data;
+                    this.ready = true;
+                }).catch(error => {
+                    this.errors = error.response;
+                });
         },
         openSpotlight() {
             this.$root.spotlight.open = true;

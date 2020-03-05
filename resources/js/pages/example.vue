@@ -1,34 +1,46 @@
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
             busy: true,
+            errors: null,
             exampleData: {},
             id: this.$route.params.id
         }
     },
 
     mounted() {
-        axios.get('/' + Compass.path + '/response/' + this.id).then(response => {
-            this.exampleData = response.data;
-            this.busy = false;
-        });
+        this.$http
+            .get('/' + Compass.path + '/response/' + this.id)
+            .then(response => {
+                this.exampleData = response.data;
+                this.busy = false;
+            })
+            .catch(error => {
+                this.errors = error.response;
+            });
     },
 
     methods: {
         updateExample() {
-            axios.post('/' + Compass.path + '/response', this.exampleData).then(response => {
-                this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
-                this.alertSuccess('An example data successfully updated!', 3000);
-            });
+            this.$http
+                .post('/' + Compass.path + '/response', this.exampleData)
+                .then(response => {
+                    this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
+                    this.alertSuccess('An example data successfully updated!', 3000);
+                }).catch(error => {
+                    this.errors = error.response;
+                });
         },
         deleteExample() {
-            axios.delete('/' + Compass.path + '/response/' + this.id).then(response => {
-                this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
-                this.alertSuccess('An example data successfully deleted!', 3000);
-            });
+            this.$http
+                .delete('/' + Compass.path + '/response/' + this.id)
+                .then(response => {
+                    this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
+                    this.alertSuccess('An example data successfully deleted!', 3000);
+                }).catch(error => {
+                    this.errors = error.response;
+                });
         },
     },
 

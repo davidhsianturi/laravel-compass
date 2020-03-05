@@ -1,6 +1,4 @@
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -76,10 +74,15 @@ export default {
 
     methods: {
         getRequest() {
-            axios.get('/' + Compass.path + '/request/' + this.id).then(response => {
-                this.fillRequest(response.data);
-                this.requestReady = true;
-            });
+            this.requestReady = false;
+            this.$http
+                .get('/' + Compass.path + '/request/' + this.id)
+                .then(response => {
+                    this.fillRequest(response.data);
+                    this.requestReady = true;
+                }).catch(error => {
+                    this.responseErrors = error.response;
+                });
         },
         fillRequest(data) {
             this.requestData.id = data.id;
@@ -100,11 +103,13 @@ export default {
             this.requestData.content.selectedMethod = data.content.selectedMethod || data.info.methods[0];
         },
         saveRequest()  {
-            axios.post('/' + Compass.path + '/request', this.requestData).then(response => {
-                this.alertSuccess('Request data successfully saved!', 3000);
-            }).catch(error => {
-                this.requestErrors = error.response;
-            });
+            this.$http
+                .post('/' + Compass.path + '/request', this.requestData)
+                .then(response => {
+                    this.alertSuccess('Request data successfully saved!', 3000);
+                }).catch(error => {
+                    this.requestErrors = error.response
+                });
         },
         sendRequest() {
             let contentType = this.requestData.content.headers.find(header => header.key === 'Content-Type')
@@ -136,11 +141,13 @@ export default {
             this.responseReady = true;
         },
         saveResponse() {
-            axios.post('/' + Compass.path + '/response', this.responseData).then(response => {
-                this.$router.push({name: 'example', params: {id: response.data.uuid}});
-            }).catch(error => {
-                this.responseErrors = error.response;
-            });
+            this.$http
+                .post('/' + Compass.path + '/response', this.responseData)
+                .then(response => {
+                    this.$router.push({ name: 'example', params: { id: response.data.uuid } });
+                }).catch(error => {
+                    this.responseErrors = error.response;
+                });
         }
     },
 

@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import selectOptions from 'vue-multiselect';
 
 export default {
