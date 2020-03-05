@@ -2,8 +2,10 @@
 @tailwind components;
 
 /* purgecss start ignore */
-@import "multiselect";
+@import "modal";
+@import "spotlight";
 @import "codemirror";
+@import "multiselect";
 /* purgecss end ignore */
 
 @tailwind utilities;

@@ -19,7 +19,9 @@ export default {
                 <circle fill="#fff" cx="18" cy="18.008" r="3.055" />
                 <circle fill="#f3f3f3" cx="18" cy="18.008" r="1.648" /></svg>
 
-            <p class="text-center text-gray-500 text-lg">{{ description }}</p>
+            <slot>
+                <p class="text-center text-gray-600">{{ description }}</p>
+            </slot>
         </div>
     </section>
 </template>

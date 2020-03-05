@@ -1,0 +1,34 @@
+.modal-mask {
+    background: rgba(94, 63, 59, 0.1);
+    transition: opacity .3s ease;
+}
+
+.modal-container {
+    transition: all .3s ease;
+}
+
+.modal-enter {
+    opacity: 0;
+}
+
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+    transform: scale(1.1);
+}
+
+.fade-enter-active {
+    transition: opacity .5s;
+}
+
+.fade-leave-active {
+    transition: opacity 0s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}

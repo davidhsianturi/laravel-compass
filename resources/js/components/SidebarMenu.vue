@@ -20,13 +20,13 @@ export default {
 
     mounted() {
         this.loadRequests();
+        this.spotlightWithKey();
     },
 
     methods: {
         toggle() {
             this.isOpen = !this.isOpen
         },
-
         loadRequests() {
             this.ready = false;
 
@@ -35,6 +35,17 @@ export default {
                 this.ready = true;
             });
         },
+        openSpotlight() {
+            this.$root.spotlight.open = true;
+        },
+        spotlightWithKey() {
+            document.onkeyup = e => {
+                if (e.ctrlKey && e.code == 'Space') {
+                    e.preventDefault();
+                    this.openSpotlight();
+                }
+            }
+        }
     }
 }
 </script>
@@ -46,7 +57,12 @@ export default {
                 <h3 class="font-semibold text-gray-700">Requests</h3>
             </div>
             <div class="inline-flex items-center">
-                <a href="#" class="ml-3" @click.prevent="loadRequests" title="refresh">
+                <a href="#" @click.prevent="openSpotlight()" title="spotlight search">
+                    <svg class="h-4 w-4 fill-current text-gray-300 hover:text-gray-500" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.6 11.2c.037.028.073.059.107.093l3 3a1 1 0 1 1-1.414 1.414l-3-3a1.009 1.009 0 0 1-.093-.107 7 7 0 1 1 1.4-1.4zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z" fill-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#" class="ml-4" @click.prevent="loadRequests" title="refresh">
                     <svg class="h-5 w-5 fill-current text-gray-300 hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3zm4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54l1.41-1.41zM10 20l-4-4 4-4v8zm0-12V0l4 4-4 4z" />
                     </svg>

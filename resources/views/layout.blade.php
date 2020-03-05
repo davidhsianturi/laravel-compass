@@ -16,6 +16,8 @@
             :message="alert.message"
             :auto-close="alert.autoClose"></alert>
 
+        <spotlight v-if="spotlight.open"></spotlight>
+
         <site-header></site-header>
 
         <div class="md:flex-1 md:flex md:overflow-y-hidden">
