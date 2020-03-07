@@ -46,10 +46,10 @@ export default {
             <span :class="color">{{status}}</span>
         </template>
         <template v-slot:lists>
-            <div class="mt-2 mr-4 bg-white border border-gray-200 rounded rounded-t-none w-64 py-2 shadow-xl">
-                <div class="px-3 py-1 mt-2">
-                    <span class="text-base text-gray-700 font-medium">{{status}}</span>
-                    <p class="text-gray-700 text-xs mt-1">{{description}}</p>
+            <div class="mt-2 mr-4 bg-white rounded w-64 shadow">
+                <div class="p-3 text-left">
+                    <h3 class="text-gray-900 text-sm">{{status}}</h3>
+                    <p class="text-gray-500 text-xs">{{description}}</p>
                 </div>
             </div>
         </template>

@@ -35,15 +35,16 @@ export default {
 <template>
     <div>
         <div v-if="showBodyOptions" class="w-full px-3 py-2 inline-flex">
-            <a :class="{'text-gray-800': currentBodyOption=='pretty'}"
-                class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-l hover:text-gray-800"
-                href="#"
-                @click.prevent="currentBodyOption='pretty'">Pretty</a>
-
-            <a :class="{'text-gray-800': currentBodyOption=='preview'}"
-                class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-r hover:text-gray-800"
-                href="#"
-                @click.prevent="currentBodyOption='preview'">Preview</a>
+            <button
+                :class="{'bg-gray-300 text-gray-800': currentBodyOption=='pretty'}"
+                class="py-1 px-4 text-xs bg-gray-200 text-gray-600 rounded-l hover:bg-gray-300 hover:text-gray-800 focus:outline-none"
+                type="button"
+                @click.prevent="currentBodyOption='pretty'">Pretty</button>
+            <button
+                :class="{'bg-gray-300 text-gray-800': currentBodyOption=='preview'}"
+                class="py-1 px-4 text-xs bg-gray-200 text-gray-600 rounded-r hover:bg-gray-300 hover:text-gray-800 focus:outline-none"
+                type="button"
+                @click.prevent="currentBodyOption='preview'">Preview</button>
         </div>
 
         <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />

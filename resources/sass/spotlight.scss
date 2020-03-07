@@ -14,8 +14,7 @@
 }
 
 .spotlight-search-contents {
-    @apply flex flex-col rounded-lg;
-    box-shadow: 0 15px 35px 0 rgba(95, 60, 60, .1);
+    @apply flex flex-col rounded-lg shadow;
 }
 
 .spotlight-search-results {

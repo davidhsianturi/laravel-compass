@@ -43,7 +43,7 @@ export const HTTP_REQUEST_METHODS = [{
     },
     {
         name: 'DELETE',
-        color: 'text-red-500'
+        color: 'text-red-600'
     },
     {
         name: 'PUT',

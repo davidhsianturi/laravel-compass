@@ -8,7 +8,7 @@ export default {
 
 <template>
     <content-space>
-        <div class="flex items-center text-center text-gray-600">
+        <div class="flex items-center text-center text-gray-500">
             Press
             <kbd class="mx-2 inline-block align-middle text-xs font-mono border pointer-events-none border-gray-200 rounded shadow-sm" style="padding: 3px 5px;">
                 ctrl

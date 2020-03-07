@@ -73,7 +73,7 @@ export default {
         </div>
 
         <button
-            class="block sm:w-auto sm:inline-block bg-primary hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
+            class="block sm:w-auto sm:inline-block bg-primary hover:bg-primary-dark focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
             type="button"
             v-if="okToSubmit"
             @click="endpointReady">SEND</button>
