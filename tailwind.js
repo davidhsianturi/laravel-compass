@@ -16,7 +16,7 @@ module.exports = {
     },
     variants: {
         tableLayout: ['responsive', 'hover', 'focus'],
-        listStylePosition: ['responsive', 'hover', 'focus'],
+        borderColor: ['responsive', 'hover', 'focus', 'focus-within']
     },
     plugins: []
 }

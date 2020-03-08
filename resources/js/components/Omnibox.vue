@@ -46,28 +46,31 @@ export default {
 
 <template>
     <div class="flex justify-between">
-        <div class="relative">
-            <select
-                class="appearance-none block bg-white border border-gray-400 border-r-0 text-gray-700 py-2 px-4 pr-8 rounded rounded-r-none leading-tight focus:outline-none focus:border-gray-500"
-                @change="$emit('update:selected-method', $event.target.value)">
+        <div class="w-full inline-flex items-center font-mono border py-1 border-gray-400 rounded focus-within:border-gray-500">
+            <div class="relative">
+                <select
+                    class="appearance-none bg-white text-sm font-semibold text-gray-700 pl-5 pr-2 rounded leading-tight outline-none"
+                    @change="$emit('update:selected-method', $event.target.value)">
 
-                <option
-                    v-for="(method, index) in methods"
-                    :key="index"
-                    :selected="selectedMethod == method ? true : false">
-                    {{method}}
-                </option>
-            </select>
-            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    <option
+                        v-for="(method, index) in methods"
+                        :key="index"
+                        :selected="selectedMethod == method ? true : false">
+                        {{method}}
+                    </option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-500">
+                    <svg class="stroke-current" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"  style="width: 10px;height: 10px;">
+                        <path d="M11.591 9.992a1 1 0 1 1 1.416 1.415l-4.3 4.3a1 1 0 0 1-1.414 0l-4.3-4.3A1 1 0 0 1 4.41 9.992L8 13.583zm0-3.984L8 2.417 4.409 6.008a1 1 0 1 1-1.416-1.415l4.3-4.3a1 1 0 0 1 1.414 0l4.3 4.3a1 1 0 1 1-1.416 1.415z" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
             </div>
+            <input
+                class="appearance-none text-sm w-full bg-white text-gray-800 leading-tight outline-none rounded"
+                type="text"
+                :value="url"
+                @input="onInputUri($event.target.value)">
         </div>
-
-        <input
-            class="appearance-none block w-full bg-white text-gray-700 border border-l-0 border-gray-400 py-2 px-2 leading-tight rounded rounded-l-none focus:outline-none focus:border-gray-500"
-            type="text"
-            :value="url"
-            @input="onInputUri($event.target.value)">
 
         <button
             class="block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
