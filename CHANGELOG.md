@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.5.0...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.6.0...HEAD)
+
+## [v0.6.0 (2020-03-08)](https://github.com/davidhsianturi/laravel-compass/compare/v0.5.1...v0.6.0)
+
+### Added
+- New request tab to manage query parameters ([#64 ](https://github.com/davidhsianturi/laravel-compass/pull/64))
+- Add spotlight search to quickly find the endpoints ([#66 ](https://github.com/davidhsianturi/laravel-compass/pull/66))
 
 ## [v0.5.0 (2020-02-22)](https://github.com/davidhsianturi/laravel-compass/compare/v0.4.1...v0.5.0)
 
