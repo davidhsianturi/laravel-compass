@@ -1,7 +1,7 @@
 <p align="center"><img src="https://res.cloudinary.com/dave24hwj8/image/upload/v1570257749/laravel-compass-logo.svg"></p>
 
 <p align="center">
-<a href="https://travis-ci.org/davidhsianturi/laravel-compass"><img src="https://travis-ci.org/davidhsianturi/laravel-compass.svg?branch=master" alt="Build Status"></a>
+<a href="https://github.com/davidhsianturi/laravel-compass/actions"><img src="https://github.com/davidhsianturi/laravel-compass/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/license.svg" alt="License"></a>
