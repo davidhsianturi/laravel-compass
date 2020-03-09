@@ -20,6 +20,14 @@ jobs:
             php: 7.1
           - laravel: ^7.0
             php: 7.1
+          - laravel: ^7.0
+            php: 7.2.1
+          - laravel: ^7.0
+            php: 7.2.2
+          - laravel: ^7.0
+            php: 7.2.3
+          - laravel: ^7.0
+            php: 7.2.4
     name: P${{ matrix.php }} - L${{ matrix.laravel }}
 
     steps:
