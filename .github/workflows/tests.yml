@@ -14,7 +14,7 @@ jobs:
       fail-fast: true
       matrix:
         php: [7.1, 7.2, 7.3]
-        laravel: [5.8.*, ^6.0, ^7.0]
+        laravel: [^6.0, ^7.0]
         exclude:
           - laravel: ^6.0
             php: 7.1
