@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-    <span :class="'w-full inline-block max-w-xxs text-xs font-bold uppercase ' + method.color">
+    <span :class="'w-full inline-block max-w-xxs text-xs uppercase ' + method.color">
         {{ method.name }}
     </span>
 </template>

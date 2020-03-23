@@ -6,7 +6,7 @@
 
 .spotlight-search-bar {
     @apply flex-grow-0 flex-shrink-0;
-    caret-color: #e79334;
+    caret-color: #f75858;
 }
 
 .spotlight-search-input {
@@ -14,8 +14,7 @@
 }
 
 .spotlight-search-contents {
-    @apply flex flex-col rounded-lg;
-    box-shadow: 0 15px 35px 0 rgba(94, 64, 59, .1);
+    @apply flex flex-col rounded-lg shadow;
 }
 
 .spotlight-search-results {

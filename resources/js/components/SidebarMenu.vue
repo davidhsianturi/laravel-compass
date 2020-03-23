@@ -52,83 +52,74 @@ export default {
 </script>
 
 <template>
-    <section class="border-gray-200 border-r md:w-72">
-        <div class="flex justify-between px-4 py-2 -mb-px">
-            <div class="relative max-w-xs w-full">
-                <h3 class="font-semibold text-gray-700">Requests</h3>
+    <section class="lg:w-64 border-secondary border-r">
+        <div class="hidden lg:flex items-center justify-between px-3 mt-1 mb-3">
+            <div class="w-full inline-flex">
+                <button
+                    :class="{'bg-primary-light font-semibold': currentTab=='list'}"
+                    class="w-full py-1 text-xs bg-white text-primary rounded-l-lg border border-primary-light border-r-0 hover:bg-primary-light focus:outline-none"
+                    type="button"
+                    @click.prevent="currentTab='list'">List</button>
+                <button
+                    :class="{'bg-primary-light font-semibold': currentTab=='group'}"
+                    class="w-full py-1 text-xs bg-white text-primary rounded-r-lg border border-primary-light border-l-0 hover:bg-primary-light focus:outline-none"
+                    type="button"
+                    @click.prevent="currentTab='group'">Group</button>
             </div>
-            <div class="inline-flex items-center">
-                <a href="#" @click.prevent="openSpotlight()" title="spotlight search">
-                    <svg class="h-4 w-4 fill-current text-gray-300 hover:text-gray-500" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.6 11.2c.037.028.073.059.107.093l3 3a1 1 0 1 1-1.414 1.414l-3-3a1.009 1.009 0 0 1-.093-.107 7 7 0 1 1 1.4-1.4zM7 12A5 5 0 1 0 7 2a5 5 0 0 0 0 10z" fill-rule="evenodd"></path>
-                    </svg>
-                </a>
-                <a href="#" class="ml-4" @click.prevent="loadRequests" title="refresh">
+            <div class="inline-flex">
+                <a href="#" class="ml-3" @click.prevent="loadRequests" title="refresh">
                     <svg class="h-5 w-5 fill-current text-gray-300 hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3zm4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54l1.41-1.41zM10 20l-4-4 4-4v8zm0-12V0l4 4-4 4z" />
                     </svg>
                 </a>
-                <a href="#" class="ml-4 md:hidden" @click.prevent="toggle">
-                    <svg class="h-5 w-5 fill-current text-gray-300 hover:text-gray-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path v-if="isOpen" fill-rule="evenodd" clip-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
-                        <path v-if="!isOpen" d="M3 6a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1zm3 6a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1zm4 5a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-4z" />
-                    </svg>
-                </a>
             </div>
         </div>
-
-        <div :class="{'hidden': !isOpen, 'block': isOpen}" class="md:block md:h-full md:flex md:flex-col">
-            <div>
-                <ul class="flex border-b border-gray-200">
-                    <li class="mr-3">
-                        <a :class="{'-mb-px border-gray-200 text-gray-800 border-l border-t border-r rounded-t': currentTab=='list'}"
-                            class="bg-white inline-block font-semibold py-2 px-4 text-gray-600 hover:text-gray-800"
-                            href="#"
-                            @click.prevent="currentTab='list'">List</a>
-                    </li>
-                    <li class="mr-3">
-                        <a :class="{'-mb-px border-gray-200 text-gray-800 border-l border-t border-r rounded-t': currentTab=='group'}"
-                            class="bg-white inline-block font-semibold py-2 px-4 text-gray-600 hover:text-gray-800"
-                            href="#"
-                            @click.prevent="currentTab='group'">Group</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="sm:flex md:block md:overflow-y-auto">
-                <div v-if="!ready" class="px-4 py-3 text-center">
-                    <p class="text-gray-600">...</p>
+        <div :class="{'hidden': !isOpen, 'block': isOpen}" class="lg:block lg:h-full lg:flex lg:flex-col lg:justify-between">
+            <div class="sm:flex lg:block lg:overflow-y-auto">
+                <div class="text-sm text-center text-gray-500">
+                    <span v-if="!ready">...</span>
+                    <span v-if="ready && requests.list.length == 0">No data were found</span>
                 </div>
-                <div v-if="ready && requests.list.length == 0" class="px-4 py-3 text-center">
-                    <p class="text-gray-600">No data were found</p>
-                </div>
-
-                <div v-if="ready && requests.list.length > 0" class="px-4 py-3 md:w-full">
+                <div v-if="ready && requests.list.length > 0" class="px-4 lg:w-full">
                     <ul v-if="currentTab=='list'">
-                        <li class="sm:mb-2 truncate" v-for="request in requests.list" :key="request.id">
-                            <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
+                        <li class="sm:mb-1 truncate text-gray-600" v-for="request in requests.list" :key="request.id">
+                            <router-link
+                                :to="{name:'cortex', params:{id: request.id}}"
+                                active-class="text-primary"
+                                class="text-sm text-gray-600 hover:text-primary">
+
                                 <http-methods :request="request" />
                                 <span class="ml-2">{{ request.title }}</span>
                             </router-link>
                         </li>
                     </ul>
-
-                    <div v-if="currentTab=='group'">
-                        <details class="sm:mb-2 cursor-pointer" v-for="(resources, name) in requests.group" :key="name">
-                            <summary class="px-2 -mx-2 py-1 hover:text-orange-600 focus:text-orange-600 text-gray-600 font-medium capitalize">
+                    <template v-if="currentTab=='group'">
+                        <details class="sm:mb-1 cursor-pointer" v-for="(resources, name) in requests.group" :key="name">
+                            <summary class="py-1 text-sm text-gray-600 font-semibold capitalize hover:text-primary focus:text-primary focus:outline-none">
                                 {{name}}
                             </summary>
                             <ul class="ml-4">
-                                <li class="sm:mb-2 truncate" v-for="request in resources" :key="request.id">
-                                    <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-orange-600" class="text-md px-2 -mx-2 py-1 hover:text-orange-600 text-gray-600">
+                                <li class="sm:mb-1 truncate" v-for="request in resources" :key="request.id">
+                                    <router-link :to="{name:'cortex', params:{id: request.id}}" active-class="text-primary" class="text-sm text-gray-600 hover:text-primary">
                                         <http-methods :request="request" />
                                         <span class="ml-2">{{ request.title }}</span>
                                     </router-link>
                                 </li>
                             </ul>
                         </details>
-                    </div>
+                    </template>
                 </div>
+            </div>
+            <div class="flex items-center justify-between px-3 py-6">
+                <span class="shadow"></span>
             </div>
         </div>
     </section>
 </template>
+
+<style scoped>
+.py-1 {
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+}
+</style>

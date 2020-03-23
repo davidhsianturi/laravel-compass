@@ -34,20 +34,21 @@ export default {
 
 <template>
     <div>
-        <div v-if="showBodyOptions" class="w-full px-3 py-2 inline-flex">
-            <a :class="{'text-gray-800': currentBodyOption=='pretty'}"
-                class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-l hover:text-gray-800"
-                href="#"
-                @click.prevent="currentBodyOption='pretty'">Pretty</a>
-
-            <a :class="{'text-gray-800': currentBodyOption=='preview'}"
-                class="text-xs py-2 px-4 bg-gray-300 text-gray-600 rounded-r hover:text-gray-800"
-                href="#"
-                @click.prevent="currentBodyOption='preview'">Preview</a>
+        <div v-if="showBodyOptions" class="flex justify-end px-3 py-2">
+            <button
+                :class="{'bg-primary-light font-semibold': currentBodyOption=='pretty'}"
+                class="py-1 px-4 text-xs bg-white text-primary rounded-l-lg border border-primary-light border-r-0 hover:bg-primary-light focus:outline-none"
+                type="button"
+                @click.prevent="currentBodyOption='pretty'">Pretty</button>
+            <button
+                :class="{'bg-primary-light font-semibold': currentBodyOption=='preview'}"
+                class="py-1 px-4 text-xs bg-white text-primary rounded-r-lg border border-primary-light border-l-0 hover:bg-primary-light hover:bg-primary-light focus:outline-none"
+                type="button"
+                @click.prevent="currentBodyOption='preview'">Preview</button>
         </div>
 
         <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />
-        <iframe v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" class="w-full min-h-screen" />
+        <iframe class="w-full h-full" v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" />
     </div>
 </template>
 

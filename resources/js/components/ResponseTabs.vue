@@ -38,7 +38,7 @@ export default {
 
 <template>
     <div>
-        <div class="flex justify-content-between border-b border-gray-200">
+        <div class="flex justify-content-between border-b border-secondary">
             <ul class="flex inline-block">
                 <li class="-mb-px mr-1" v-for="(tab, i) in tabs" :key="i">
                     <a :class="{'text-gray-800 border-primary border-b': currentTab==tab}"
@@ -48,13 +48,13 @@ export default {
                 </li>
             </ul>
 
-            <div class="ml-auto px-3">
+            <div class="flex items-center ml-auto px-3">
                 <http-status :response="$attrs" />
                 <template v-if="!isExampleData">
                     <http-response-time :response="$attrs" />
                     <http-response-size :response="$attrs" />
-                    <div class="inline-block text-gray-300">|</div>
-                    <button @click="$emit('response-data-ready')" class="inline-block py-2 px-1 text-sm text-primary focus:outline-none">
+                    <div class="inline-block text-secondary">|</div>
+                    <button @click="$emit('response-data-ready')" class="inline-block py-2 px-1 text-xs text-primary focus:outline-none">
                         Save response as example
                     </button>
                 </template>

@@ -1,9 +1,19 @@
 module.exports = {
     theme: {
+        boxShadow: {
+            default: '0 15px 35px 0 rgba(94, 59, 59, .1)'
+        },
         extend: {
             colors: {
-                'primary': '#e79334',
-                'secondary': '#fafafa',
+                primary: {
+                    default: '#f75858',
+                    light: '#fbe8e7',
+                    dark: '#f64949'
+                },
+                secondary: {
+                    default: '#f5f5fa'
+                },
+                light: '#fff7f1'
             },
             spacing: {
                 '72': '18rem',

@@ -35,23 +35,23 @@ export const REQUEST_BODY_OPTIONS = [{
 
 export const HTTP_REQUEST_METHODS = [{
         name: 'GET',
-        color: 'text-green-500'
+        color: 'text-green-700'
     },
     {
         name: 'POST',
-        color: 'text-blue-500'
+        color: 'text-blue-700'
     },
     {
         name: 'DELETE',
-        color: 'text-red-500'
+        color: 'text-red-700'
     },
     {
         name: 'PUT',
-        color: 'text-purple-500'
+        color: 'text-purple-700'
     },
     {
         name: 'PATCH',
-        color: 'text-blue-500'
+        color: 'text-blue-700'
     }
 ];
 

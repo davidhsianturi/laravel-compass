@@ -1,9 +1,10 @@
 @tailwind base;
 @tailwind components;
 
-/* purgecss start ignore */
+@import "base";
 @import "modal";
 @import "spotlight";
+/* purgecss start ignore */
 @import "codemirror";
 @import "multiselect";
 /* purgecss end ignore */

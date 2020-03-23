@@ -220,7 +220,7 @@ export default {
                                 </div>
                                 <div class="flex items-center">
                                     Press
-                                    <kbd class="font-mono mx-2 border border-gray-200 rounded shadow-sm inline-block align-middle font-semibold text-gray-600" style="padding: 3px 5px;">
+                                    <kbd class="mx-2 shadow-sm font-semibold text-gray-600">
                                         esc
                                     </kbd>
                                     to exit

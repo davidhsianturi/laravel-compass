@@ -68,12 +68,14 @@ export default {
             <input
                 class="appearance-none text-sm w-full bg-white text-gray-800 leading-tight outline-none rounded"
                 type="text"
+                autocomplete="off"
+                spellcheck="false"
                 :value="url"
                 @input="onInputUri($event.target.value)">
         </div>
 
         <button
-            class="block sm:w-auto sm:inline-block bg-orange-400 hover:bg-orange-500 focus:outline-none font-bold text-white ml-2 py-2 px-4 rounded text-sm"
+            class="block text-xs bg-primary font-bold text-white ml-2 py-2 px-4 rounded sm:w-auto sm:inline-block hover:bg-primary-dark focus:outline-none"
             type="button"
             v-if="okToSubmit"
             @click="endpointReady">SEND</button>
