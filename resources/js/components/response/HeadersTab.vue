@@ -20,7 +20,7 @@ export default {
         </thead>
         <tbody class="align-baseline">
             <tr v-for="(value, key) in response.headers" :key="key">
-                <td class="px-4 border-b border-secondary text-xs text-gray-800 text-right"></td>
+                <td class="px-4 border-b border-secondary text-xs text-gray-800"></td>
                 <td class="p-2 border-b border-secondary text-xs text-gray-800">{{key}}</td>
                 <td class="p-2 border-b border-secondary text-xs text-gray-800">{{value}}</td>
             </tr>

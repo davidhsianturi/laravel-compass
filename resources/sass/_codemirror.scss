@@ -4,3 +4,7 @@
 .CodeMirror-gutters {
     @apply border-r-0 bg-white;
 }
+
+.CodeMirror-activeline-background {
+    background: #fff7f1;
+}

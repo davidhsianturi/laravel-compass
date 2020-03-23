@@ -63,7 +63,7 @@ export default {
             <section class="flex justify-content-between pb-4 px-4">
                 <div class="w-full">
                     <label class="block uppercase text-gray-600 text-xs font-semibold py-2" for="title">Title</label>
-                    <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-400 rounded py-2 px-4 leading-tight focus:outline-none focus:border-gray-500"
+                    <input class="appearance-none text-xs font-semibold block w-full bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:border-gray-500"
                             id="title"
                             type="text"
                             v-model="exampleData.title"
@@ -71,35 +71,38 @@ export default {
                 </div>
                 <div class="ml-auto">
                     <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold py-2 text-right text-primary">
-                        {{ exampleData.content.request.title }}
+                        {{ exampleData.content.request.title }}  &rarr;
                     </router-link>
-                    <div class="inline-flex pl-3">
-                        <button @click="updateExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-l leading-tight focus:outline-none">
+                    <div class="inline-flex ml-3">
+                        <button type="button" @click="updateExample" class="text-xs bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 leading-normal rounded-l focus:outline-none">
                             Update
                         </button>
-                        <button @click="deleteExample" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r leading-tight focus:outline-none">
+                        <button type="button" @click="deleteExample" class="text-xs bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 rounded-r leading-normal focus:outline-none">
                             Delete
                         </button>
                     </div>
                 </div>
             </section>
 
-            <section class="w-full pb-4">
-                <div class="px-4">
-                    <label class="block uppercase text-gray-600 text-xs mb-2 font-semibold">Example request</label>
+            <section class="w-full px-4 pb-6">
+                <label class="block uppercase text-gray-600 text-xs mb-2 font-semibold">Example request</label>
+                <div class="bg-white shadow rounded-md border border-secondary border-b-0">
                     <omnibox
+                        class="px-4 pt-3"
                         :methods="exampleData.content.request.info.methods"
                         :url.sync="exampleData.content.request.content.url"
                         :selected-method.sync="exampleData.content.request.content.selectedMethod"
                         :okToSubmit="false" />
-                </div>
 
-                <request-tabs v-bind.sync="exampleData.content.request" :exclude-tabs="['Params', 'Auth','Docs']" ignore-extra-tabs />
+                    <request-tabs v-bind.sync="exampleData.content.request" :exclude-tabs="['Params', 'Auth','Docs']" ignore-extra-tabs />
+                </div>
             </section>
 
-            <section class="w-full">
-                <label class="block uppercase text-gray-600 text-xs font-semibold mb-4 px-4">Example response</label>
-                <response-tabs class="border-t border-secondary" v-bind="exampleData.content.response" is-example-data ignore-body-options />
+            <section class="w-full px-4">
+                <label class="block uppercase text-gray-600 text-xs mb-2 font-semibold">Example response</label>
+                <div class="bg-white shadow rounded-md border border-secondary border-b-0">
+                    <response-tabs v-bind="exampleData.content.response" is-example-data ignore-body-options />
+                </div>
             </section>
         </template>
     </div>

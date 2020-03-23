@@ -9,7 +9,7 @@
     <link href="{{ mix('app.css', 'vendor/compass') }}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="compass" class="min-h-screen bg-white antialiased md:flex md:flex-col md:h-screen">
+    <div id="compass" class="min-h-screen bg-white antialiased lg:flex lg:flex-col lg:h-screen">
         <alert v-if="alert.mode"
             :mode="alert.mode"
             :type="alert.type"
@@ -20,10 +20,10 @@
 
         <site-header></site-header>
 
-        <div class="md:flex-1 md:flex md:overflow-y-hidden">
+        <div class="lg:flex-1 lg:flex lg:overflow-y-hidden">
             <sidebar-menu></sidebar-menu>
 
-            <main class="md:flex-1 md:overflow-x-hidden">
+            <main class="lg:flex-1 lg:overflow-x-hidden">
                 @if (! $assetsAreCurrent)
                     <div class="bg-blue-100 text-blue-900 px-4 py-3 mb-3" role="alert">
                         <div class="flex">

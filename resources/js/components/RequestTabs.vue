@@ -82,7 +82,7 @@ export default {
                         </div>
                     </template>
                     <template v-slot:lists>
-                        <div class="mt-2 mr-4 bg-white rounded w-48 shadow">
+                        <div class="mr-4 bg-white rounded w-48 shadow">
                             <div v-if="$attrs.examples.length == 0" class="p-5 text-center">
                                 <h3 class="text-gray-900 text-sm">No examples added</h3>
                                 <p class="text-gray-500 text-xs mt-3">Save responses and associated requests as Examples.</p>
