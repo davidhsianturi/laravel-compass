@@ -98,7 +98,7 @@ final class Compass
     }
 
     /**
-     * Group the routes with the first word in route URI.
+     * Group the routes with a base URI.
      *
      * @param  \Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]  $routes
      * @return \Illuminate\Support\Collection|\Davidhsianturi\Compass\RouteResult[]
@@ -130,6 +130,7 @@ final class Compass
                 'base_url' => config('app.url'),
                 'env' => App::environment(),
             ],
+            'authenticator' => config('compass.authenticator.enabled'),
         ];
     }
 
