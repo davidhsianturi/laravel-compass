@@ -66,6 +66,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Compass Authenticator
+    |--------------------------------------------------------------------------
+    |
+    | This options allow you to get all the "credentials" of users that you can
+    | use to perform auth requests through the UI. when "enabled" set to "true"
+    | you should adjust the authentication guard driver for your application to
+    | support "token" or "sanctum".
+    |
+    */
+
+    'authenticator' => [
+        'enabled' => false,
+        'guard' => 'api',
+        'identifier' => 'email',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | API Documentation Builder
     |--------------------------------------------------------------------------
     |
