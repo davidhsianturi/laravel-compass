@@ -59,7 +59,7 @@ class TokenAuth implements AuthenticatorRepository
                         $identifier = $user->$identifier ?? 'anonymous';
 
                         $user->forceFill([
-                            $token => hash('sha256', $plainTextToken = Str::random(80))
+                            $token => hash('sha256', $plainTextToken = Str::random(80)),
                         ])->save();
 
                         return new CredentialResult($identifier, $plainTextToken);

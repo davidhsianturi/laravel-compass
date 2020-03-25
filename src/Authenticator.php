@@ -57,7 +57,7 @@ class Authenticator extends Manager
         return collect([
             'guard' => $guard,
             'provider' => $this->container['config']['auth.providers.'.$guard['provider']],
-            'identifier' => $config['identifier']
+            'identifier' => $config['identifier'],
         ]);
     }
 }
