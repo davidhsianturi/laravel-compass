@@ -48,7 +48,7 @@ export default {
         </div>
 
         <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />
-        <iframe class="w-full h-full" v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" />
+        <iframe class="w-full min-h-screen" v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" />
     </div>
 </template>
 
