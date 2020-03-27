@@ -38,6 +38,8 @@ new Vue({
                 type: null,
                 message: '',
                 autoClose: 0,
+                confirmationCancel: null,
+                confirmationProceed: null,
             },
             spotlight: {
                 open: false

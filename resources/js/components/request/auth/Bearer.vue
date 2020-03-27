@@ -20,6 +20,12 @@ export default {
         }
     },
 
+    computed: {
+        useAuthenticator() {
+            return Compass.authenticator;
+        }
+    },
+
     mounted() {
         this.loadAuths();
         this.loadSelectedAuth();
@@ -28,11 +34,21 @@ export default {
     methods: {
         loadAuths() {
             let auths = this.getItem('auths');
-            if (auths) this.auths = auths;
+            auths ? this.auths = auths : this.loadCredentials();
         },
         loadSelectedAuth() {
             let selectedAuth = this.getItem(this.authKey);
             if (selectedAuth) this.selectedAuth = selectedAuth;
+        },
+        loadCredentials() {
+            if (! this.useAuthenticator) return;
+
+            this.$http.get('/' + Compass.path + '/credentials').then(response => {
+                this.auths = response.data.data;
+                this.saveAuth();
+            }).catch(error => {
+                this.alertError(error.response.data.message);
+            });
         },
         saveAuth(val) {
             let newAuth = val ? [val] : [];
@@ -83,6 +99,13 @@ export default {
             } catch (e) {
                 console.log(e);
             }
+        },
+        refreshItems() {
+            this.alertConfirm('You are going to replace the existing Bearer tokens with the new entries. continue to process?', () => {
+                this.loadCredentials();
+                this.selectedAuth = null;
+                this.removeItem(this.authKey);
+            });
         }
     },
 
@@ -104,14 +127,20 @@ export default {
     <table class="w-full text-left table-collapse">
         <thead>
             <tr class="text-xs font-semibold text-gray-700 bg-secondary">
-                <th class="w-auto"></th>
+                <th class="p-4 w-auto"></th>
                 <th class="p-2 w-1/3">Name</th>
-                <th class="p-2 b w-2/3">Token</th>
+                <th class="p-2 w-2/3">Token</th>
             </tr>
         </thead>
-        <tbody class="align-baseline">
+        <tbody class="align-middle">
             <tr>
-                <td class="px-4 border-b border-secondary text-xs text-gray-800 text-right"></td>
+                <td class="p-2 border-b border-secondary text-xs text-gray-800">
+                    <a v-if="useAuthenticator" href="#" @click.prevent="refreshItems" title="refresh">
+                        <svg class="h-4 w-4 fill-current text-gray-300 hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M10 3v2a5 5 0 0 0-3.54 8.54l-1.41 1.41A7 7 0 0 1 10 3zm4.95 2.05A7 7 0 0 1 10 17v-2a5 5 0 0 0 3.54-8.54l1.41-1.41zM10 20l-4-4 4-4v8zm0-12V0l4 4-4 4z" />
+                        </svg>
+                    </a>
+                </td>
                 <td class="p-0 border-b border-secondary text-xs text-gray-800">
                     <select-options
                         class="hide-arrow-icon"

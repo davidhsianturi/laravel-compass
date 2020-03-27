@@ -27,6 +27,28 @@ export default {
         },
 
         /**
+         * Show a confirmation dialog.
+         */
+        alertConfirm(message, success, failure) {
+            this.$root.alert.mode = 'dialog';
+            this.$root.alert.type = 'confirmation';
+            this.$root.alert.message = message;
+            this.$root.alert.autoClose = false;
+            this.$root.alert.confirmationCancel = failure;
+            this.$root.alert.confirmationProceed = success;
+        },
+
+        /**
+         * Show an error message.
+         */
+        alertError(message) {
+            this.$root.alert.mode = 'dialog';
+            this.$root.alert.type = 'error';
+            this.$root.alert.message = message;
+            this.$root.alert.autoClose = false;
+        },
+
+        /**
          * The default entries for form request body.
          */
         newFormRequests() {
