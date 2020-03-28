@@ -7,6 +7,15 @@
     transition: all .3s ease;
 }
 
+.modal-contents {
+    @apply flex flex-col rounded-lg shadow;
+}
+
+.modal-items {
+    @apply w-full overflow-x-auto overflow-y-scroll z-10 bg-white border-t;
+    max-height: 400px;
+}
+
 .modal-enter {
     opacity: 0;
 }

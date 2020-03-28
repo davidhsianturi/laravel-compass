@@ -14,7 +14,9 @@
             :mode="alert.mode"
             :type="alert.type"
             :message="alert.message"
-            :auto-close="alert.autoClose"></alert>
+            :auto-close="alert.autoClose"
+            :confirmation-cancel="alert.confirmationCancel"
+            :confirmation-proceed="alert.confirmationProceed"></alert>
 
         <spotlight v-if="spotlight.open"></spotlight>
 

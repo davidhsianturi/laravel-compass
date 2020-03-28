@@ -8,3 +8,11 @@
 .CodeMirror-activeline-background {
     background: #fff7f1;
 }
+
+.CodeMirror-foldmarker {
+    color: #f75858;
+    text-shadow: #f37f79 1px 1px 2px, #fbe8e7 -1px -1px 2px, #f37f79 1px -1px 2px, #fbe8e7 -1px 1px 2px;
+    font-family: arial;
+    line-height: 0.3;
+    cursor: pointer;
+}

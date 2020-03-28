@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
+use Davidhsianturi\Compass\Contracts\AuthenticatorRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
 
@@ -104,6 +105,7 @@ class CompassServiceProvider extends ServiceProvider
 
         $this->registerStorageDriver();
         $this->registerTemplateBuilder();
+        $this->registerAuthenticator();
 
         $this->commands([
             Console\InstallCommand::class,
@@ -171,5 +173,27 @@ class CompassServiceProvider extends ServiceProvider
         $this->app->singleton(
             ApiDocsRepository::class, SlateBuilder::class
         );
+    }
+
+    /**
+     * Register the package authenticator.
+     *
+     * @return void
+     */
+    protected function registerAuthenticator()
+    {
+        if (! app()->environment('self-testing') && ! config('compass.authenticator.enabled')) {
+            return;
+        }
+
+        $this->app->singleton(Authenticator::class, function ($app) {
+            return new Authenticator($app);
+        });
+
+        $this->app->singleton('compass.authenticator', function ($app) {
+            return $app[Authenticator::class]->driver();
+        });
+
+        $this->app->alias('compass.authenticator', AuthenticatorRepository::class);
     }
 }

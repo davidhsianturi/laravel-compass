@@ -112,6 +112,8 @@ export default {
                 });
         },
         sendRequest() {
+            this.responseReady = false;
+
             let contentType = this.requestData.content.headers.find(header => header.key === 'Content-Type')
             contentType = contentType ? contentType.value : null
 
@@ -183,7 +185,7 @@ export default {
         </section>
 
         <template v-if="!responseReady">
-            <content-space description="Hit send to get a response" />
+            <content-space :description="responseMeta ? 'Please wait...' : 'Hit send to get a response'" />
         </template>
 
         <section v-if="responseReady">
