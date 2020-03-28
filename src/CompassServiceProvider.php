@@ -4,9 +4,10 @@ namespace Davidhsianturi\Compass;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
 use Davidhsianturi\Compass\Contracts\ResponseRepository;
+use Davidhsianturi\Compass\Contracts\DocumenterRepository;
+use Davidhsianturi\Compass\Documenter\DocumentarianProvider;
 use Davidhsianturi\Compass\Contracts\AuthenticatorRepository;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 use Davidhsianturi\Compass\Storage\DatabaseResponseRepository;
@@ -83,8 +84,8 @@ class CompassServiceProvider extends ServiceProvider
             ], 'compass-assets');
 
             $this->publishes([
-                __DIR__.'/../resources/views/documentarian' => resource_path('views/vendor/compass/documentarian'),
-            ], 'compass-documentarian');
+                __DIR__.'/../resources/views/documenter' => resource_path('views/vendor/compass/documenter'),
+            ], 'compass-documenter');
 
             $this->publishes([
                 __DIR__.'/../config/compass.php' => config_path('compass.php'),
@@ -104,8 +105,8 @@ class CompassServiceProvider extends ServiceProvider
         );
 
         $this->registerStorageDriver();
-        $this->registerTemplateBuilder();
         $this->registerAuthenticator();
+        $this->registerDocumenterProvider();
 
         $this->commands([
             Console\InstallCommand::class,
@@ -150,28 +151,28 @@ class CompassServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package template builder.
+     * Register the package's documenter provider.
      *
      * @return void
      */
-    protected function registerTemplateBuilder()
+    protected function registerDocumenterProvider()
     {
-        $builder = config('compass.builder');
+        $documenter = config('compass.documenter');
 
-        if (method_exists($this, $method = 'register'.ucfirst($builder).'Builder')) {
+        if (method_exists($this, $method = 'register'.ucfirst($documenter).'Provider')) {
             return $this->$method();
         }
     }
 
     /**
-     * Register the package slate builder.
+     * Register the package documentarian provider.
      *
      * @return void
      */
-    protected function registerSlateBuilder()
+    protected function registerDocumentarianProvider()
     {
         $this->app->singleton(
-            ApiDocsRepository::class, SlateBuilder::class
+            DocumenterRepository::class, DocumentarianProvider::class
         );
     }
 

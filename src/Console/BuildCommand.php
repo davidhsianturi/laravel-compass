@@ -3,7 +3,7 @@
 namespace Davidhsianturi\Compass\Console;
 
 use Illuminate\Console\Command;
-use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
+use Davidhsianturi\Compass\Contracts\DocumenterRepository;
 
 class BuildCommand extends Command
 {
@@ -19,17 +19,17 @@ class BuildCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Build your API documentation from existing Laravel routes.';
+    protected $description = 'Build an API documentation from existing Laravel routes';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle(ApiDocsRepository $documentation)
+    public function handle(DocumenterRepository $docs)
     {
-        $documentation->build();
+        $docs->build();
 
-        $this->info('DONE!');
+        $this->info('Building complete.');
     }
 }

@@ -38,7 +38,7 @@ class PublishCommand extends Command
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'compass-documentarian',
+            '--tag' => 'compass-documenter',
             '--force' => $this->option('force'),
         ]);
     }

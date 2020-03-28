@@ -84,21 +84,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | API Documentation Builder
+    | Compass Documenter Provider
     |--------------------------------------------------------------------------
     |
-    | Compass will write and build contents in Documentarian markdown files
-    | and as a generator to generate the API documentation which is a
-    | PHP port of the popular Slate API documentation tool.
-    |
-    | @see https://github.com/mpociot/documentarian
+    | This configuration option determines the documenter provider that will be
+    | used to create a beautiful API documentation. In addition, you may set
+    | any custom options as needed by the particular provider you choose.
     |
     */
 
-    'builder' => 'slate',
+    'documenter' => 'documentarian',
 
-    'template' => [
-        'slate' => [
+    'provider' => [
+        'documentarian' => [
             'output' => 'public/docs',
             'example_requests' => [
                 'bash',

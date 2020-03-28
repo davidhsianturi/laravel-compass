@@ -6,7 +6,7 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
-class DocsTestCase extends TestCase
+class DocumenterHelper extends TestCase
 {
     protected function tearDown(): void
     {
