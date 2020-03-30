@@ -57,6 +57,12 @@ class DocumentarianProviderTest extends DocumenterHelper
         $routes = $this->repository->get();
 
         return $routes->map(function ($route) {
+            $route->content = [
+                'selectedMethod' => $route->info['methods'][0],
+                'url' => $route->info['uri'],
+                'headers' => [],
+            ];
+
             return factory(RouteModel::class)->create([
                 'route_hash' => $route->id,
                 'title' => 'Get example',
