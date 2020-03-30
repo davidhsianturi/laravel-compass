@@ -27,20 +27,22 @@ export default {
                 .post('/' + Compass.path + '/response', this.exampleData)
                 .then(response => {
                     this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
-                    this.alertSuccess('An example data successfully updated!', 3000);
+                    this.alertSuccess('An example data successfully updated!', 2000);
                 }).catch(error => {
                     this.errors = error.response;
                 });
         },
         deleteExample() {
-            this.$http
-                .delete('/' + Compass.path + '/response/' + this.id)
-                .then(response => {
-                    this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
-                    this.alertSuccess('An example data successfully deleted!', 3000);
-                }).catch(error => {
-                    this.errors = error.response;
-                });
+            this.alertConfirm('This can not be undone and it will be removed from storage. Continue to process?', () => {
+                this.$http
+                    .delete('/' + Compass.path + '/response/' + this.id)
+                    .then(response => {
+                        this.$router.push({name: 'cortex', params:{id: this.exampleData.content.request.id}});
+                        this.alertSuccess('An example data successfully deleted!', 2000);
+                    }).catch(error => {
+                        this.errors = error.response;
+                    });
+            });
         },
     },
 
