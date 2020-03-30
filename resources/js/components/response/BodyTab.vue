@@ -51,9 +51,3 @@ export default {
         <iframe class="w-full min-h-screen" v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" />
     </div>
 </template>
-
-<style lang="scss" scoped>
-::v-deep .CodeMirror {
-    height: 100vh;
-}
-</style>
