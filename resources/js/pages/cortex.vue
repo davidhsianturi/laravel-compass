@@ -132,9 +132,11 @@ export default {
         fillResponse(data) {
             this.responseMeta = data;
 
+            const {examples, ...request} = this.requestData;
+
             this.responseData.route_hash = this.id;
             this.responseData.title = this.requestData.title;
-            this.responseData.content.request = this.requestData;
+            this.responseData.content.request = request;
             this.responseData.content.response.data = data ? data.data : '';
             this.responseData.content.response.headers = data ? data.headers : '';
             this.responseData.content.response.status = data ? data.status : '';
