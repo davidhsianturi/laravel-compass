@@ -62,7 +62,7 @@ export default {
         </template>
 
         <template v-if="!busy">
-            <section class="flex justify-content-between pb-4 px-4">
+            <section class="flex justify-between pb-4 px-4">
                 <div class="w-full">
                     <label class="block uppercase text-gray-600 text-xs font-semibold py-2" for="title">Title</label>
                     <input class="appearance-none text-xs font-semibold block w-full bg-white text-gray-700 border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:border-gray-500"
@@ -72,8 +72,8 @@ export default {
                             autofocus>
                 </div>
                 <div class="ml-auto">
-                    <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase text-xs font-semibold py-2 text-right text-primary">
-                        {{ exampleData.content.request.title }}  &rarr;
+                    <router-link :to="{name:'cortex', params:{id: exampleData.content.request.id}}" class="block uppercase truncate text-xs font-semibold py-2 text-right text-primary">
+                        {{ exampleData.content.request.title }} &rarr;
                     </router-link>
                     <div class="inline-flex ml-3">
                         <button type="button" @click="updateExample" class="text-xs bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-2 px-4 leading-normal rounded-l focus:outline-none">
@@ -87,7 +87,7 @@ export default {
             </section>
 
             <section class="w-full px-4 pb-6">
-                <label class="block uppercase text-gray-600 text-xs mb-2 font-semibold">Example request</label>
+                <label class="block uppercase tracking-wide text-gray-600 text-xs mb-2 font-semibold">Example request</label>
                 <div class="bg-white shadow rounded-md border border-secondary border-b-0">
                     <omnibox
                         class="px-4 pt-3"
@@ -101,7 +101,7 @@ export default {
             </section>
 
             <section class="w-full px-4">
-                <label class="block uppercase text-gray-600 text-xs mb-2 font-semibold">Example response</label>
+                <label class="block uppercase tracking-wide text-gray-600 text-xs mb-2 font-semibold">Example response</label>
                 <div class="bg-white shadow rounded-md border border-secondary border-b-0">
                     <response-tabs v-bind="exampleData.content.response" is-example-data ignore-body-options />
                 </div>
