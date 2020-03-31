@@ -60,7 +60,7 @@ class DocumentarianProviderTest extends DocumenterHelper
             $route->content = [
                 'selectedMethod' => $route->info['methods'][0],
                 'url' => $route->info['uri'],
-                'headers' => []
+                'headers' => [],
             ];
 
             return factory(RouteModel::class)->create([
