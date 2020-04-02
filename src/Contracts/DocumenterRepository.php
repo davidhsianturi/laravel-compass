@@ -2,17 +2,17 @@
 
 namespace Davidhsianturi\Compass\Contracts;
 
-interface ApiDocsRepository
+interface DocumenterRepository
 {
     /**
-     * Build API documentation from storage.
+     * Build documentation resources from storage.
      *
      * @return false|null
      */
     public function build();
 
     /**
-     * Rebuild API documentation from markdown file.
+     * Rebuild documentation resources from existing markdown files.
      *
      * @return false|null
      */

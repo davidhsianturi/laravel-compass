@@ -10,7 +10,7 @@
 > {{$example->title}} :
 
 @foreach($settings['languages'] as $language)
-@include("compass::documentarian.partials.example-requests.$language")
+@include("compass::documenter.documentarian.partials.example-requests.$language")
 
 @endforeach
 
@@ -31,10 +31,10 @@
 `{{$method}} {{$route->info['uri']}}`
 @endforeach
 
-@if (array_key_exists('body', $route->content))
-@foreach ($route->content['body'] as $param)
+@if (array_key_exists('params', $route->content))
+@foreach ($route->content['params'] as $param)
 @if ($param['included'])
-#### Parameters
+#### Query Parameters
 
 Key | Description
 --------- | -----------

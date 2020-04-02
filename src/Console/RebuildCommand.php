@@ -3,7 +3,7 @@
 namespace Davidhsianturi\Compass\Console;
 
 use Illuminate\Console\Command;
-use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
+use Davidhsianturi\Compass\Contracts\DocumenterRepository;
 
 class RebuildCommand extends Command
 {
@@ -19,21 +19,21 @@ class RebuildCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Rebuild your API documentation from your markdown file.';
+    protected $description = 'Rebuild API documentation from existing markdown files';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle(ApiDocsRepository $documentation)
+    public function handle(DocumenterRepository $docs)
     {
-        if ($documentation->rebuild() === false) {
-            $this->error('There is no existing markdown files to rebuild! Try to run compass:build first!');
+        if ($docs->rebuild() === false) {
+            $this->error('There is no existing markdown files to rebuild, Try to run compass:build first.');
 
             return;
         }
 
-        $this->info('DONE!');
+        $this->info('Rebuilding complete.');
     }
 }

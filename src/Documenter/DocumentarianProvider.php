@@ -1,12 +1,13 @@
 <?php
 
-namespace Davidhsianturi\Compass;
+namespace Davidhsianturi\Compass\Documenter;
 
+use Davidhsianturi\Compass\Compass;
 use Mpociot\Documentarian\Documentarian;
-use Davidhsianturi\Compass\Contracts\ApiDocsRepository;
 use Davidhsianturi\Compass\Contracts\RequestRepository;
+use Davidhsianturi\Compass\Contracts\DocumenterRepository;
 
-final class SlateBuilder implements ApiDocsRepository
+class DocumentarianProvider implements DocumenterRepository
 {
     /**
      * @var \Mpociot\Documentarian\Documentarian
@@ -16,22 +17,23 @@ final class SlateBuilder implements ApiDocsRepository
     /**
      * @var \Davidhsianturi\Compass\Contracts\RequestRepository
      */
-    protected $routes;
+    protected $resources;
 
     /**
-     * Create a new slate builder instance.
+     * Create a new documentarian provider instance.
      *
      * @param  \Mpociot\Documentarian\Documentarian  $generator
-     * @param  \Davidhsianturi\Compass\Contracts\RequestRepository  $routes
+     * @param  \Davidhsianturi\Compass\Contracts\RequestRepository  $resources
+     * @return void
      */
-    public function __construct(Documentarian $generator, RequestRepository $routes)
+    public function __construct(Documentarian $generator, RequestRepository $resources)
     {
         $this->generator = $generator;
-        $this->routes = $routes;
+        $this->resources = $resources;
     }
 
     /**
-     * Build API documentation from storage.
+     * Build documentation resources from storage.
      *
      * @return false|null
      */
@@ -40,9 +42,9 @@ final class SlateBuilder implements ApiDocsRepository
         $contents = $this->viewContents();
         $settings = $this->markdownConfig();
 
-        // Build the routes output.
+        // Build routes output.
         $routesOutput = Compass::getAppRoutes()->map(function ($route) use ($settings, $contents) {
-            $route = $this->routes->find($route['route_hash']);
+            $route = $this->resources->find($route['route_hash']);
 
             collect($route->examples)->each(function ($example) {
                 $example->content = json_decode($example->content);
@@ -58,7 +60,6 @@ final class SlateBuilder implements ApiDocsRepository
         })->values();
 
         $parsedRoutesOutput = Compass::groupingRoutes($routesOutput);
-
         $infoText = view($contents['info']);
         $frontmatter = view($contents['frontmatter'])->with('settings', $settings);
 
@@ -74,7 +75,7 @@ final class SlateBuilder implements ApiDocsRepository
     }
 
     /**
-     * Rebuild API documentation from markdown file.
+     * Rebuild documentation resources from existing markdown files.
      *
      * @return false|null
      */
@@ -108,7 +109,7 @@ final class SlateBuilder implements ApiDocsRepository
             $this->generator->create($markdownFiles['path']);
         }
 
-        $contents = view('compass::documentarian.layout')
+        $contents = view('compass::documenter.documentarian.layout')
             ->with('appendMd', $appendFileContents)
             ->with('prependMd', $prependFileContents)
             ->with('parsedRoutes', $parsedRoutesOutput)
@@ -126,7 +127,7 @@ final class SlateBuilder implements ApiDocsRepository
      */
     protected function markdownFiles()
     {
-        $outputPath = config('compass.template.slate.output');
+        $outputPath = config('compass.provider.documentarian.output');
 
         return [
             'path' => $outputPath,
@@ -145,7 +146,7 @@ final class SlateBuilder implements ApiDocsRepository
     protected function markdownConfig()
     {
         return [
-            'languages' => config('compass.template.slate.example_requests'),
+            'languages' => config('compass.provider.documentarian.example_requests'),
         ];
     }
 
@@ -156,7 +157,7 @@ final class SlateBuilder implements ApiDocsRepository
      */
     protected function viewContents()
     {
-        $documentarian = 'compass::documentarian.';
+        $documentarian = 'compass::documenter.documentarian.';
 
         return [
             'layout' => $documentarian.'layout',

@@ -3,17 +3,17 @@
 namespace Davidhsianturi\Compass\Tests\Compass;
 
 use Davidhsianturi\Compass\Storage\RouteModel;
-use Davidhsianturi\Compass\Tests\DocsTestCase;
+use Davidhsianturi\Compass\Tests\DocumenterHelper;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
 
-class SlateBuilderTest extends DocsTestCase
+class DocumentarianProviderTest extends DocumenterHelper
 {
     use RefreshDatabase;
 
     protected $repository;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -57,6 +57,12 @@ class SlateBuilderTest extends DocsTestCase
         $routes = $this->repository->get();
 
         return $routes->map(function ($route) {
+            $route->content = [
+                'selectedMethod' => $route->info['methods'][0],
+                'url' => $route->info['uri'],
+                'headers' => [],
+            ];
+
             return factory(RouteModel::class)->create([
                 'route_hash' => $route->id,
                 'title' => 'Get example',
