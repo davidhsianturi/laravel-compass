@@ -1,6 +1,19 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v0.6.0...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.0...HEAD)
+
+## [v1.0.0 (2020-04-03)](https://github.com/davidhsianturi/laravel-compass/compare/v0.6.0...v1.0.0)
+
+### Added
+- Authenticator for auth requests ([#76](https://github.com/davidhsianturi/laravel-compass/pull/76))
+- Laravel 7 support ([#71](https://github.com/davidhsianturi/laravel-compass/pull/71))
+
+### Changed
+- Revamped the UI ([#73](https://github.com/davidhsianturi/laravel-compass/pull/73))
+- Change `ApiDocsRepository` to `DocumenterRepository` ([#79](https://github.com/davidhsianturi/laravel-compass/pull/79))
+
+### Removed
+- Dropped support for Laravel 5.8
 
 ## [v0.6.0 (2020-03-08)](https://github.com/davidhsianturi/laravel-compass/compare/v0.5.1...v0.6.0)
 
