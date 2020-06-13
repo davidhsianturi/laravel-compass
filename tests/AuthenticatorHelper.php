@@ -44,7 +44,10 @@ class AuthenticatorHelper extends TestCase
      */
     protected function factorySanctumUser()
     {
-        $this->app->get('config')->set('compass.authenticator.guard', 'sanctum');
+        $config = $this->app->get('config');
+        $config->set('compass.authenticator.guard', 'sanctum');
+        $config->set('auth.guards.sanctum.provider', 'users');
+
         $this->artisan('migrate', ['--database' => 'testbench'])->run();
 
         return tap(factory(UserTest::class)->create(), function ($user) {
