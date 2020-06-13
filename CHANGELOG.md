@@ -1,6 +1,11 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.0...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.1...HEAD)
+
+## [v1.0.1 (2020-06-13)](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.0...v1.0.1)
+
+### Fixed
+- Testing fixes ([@4fb6ecc ](https://github.com/davidhsianturi/laravel-compass/commit/dd16971cb407500c3b65fdd58b04168b34f4f2a5))
 
 ## [v1.0.0 (2020-04-03)](https://github.com/davidhsianturi/laravel-compass/compare/v0.6.0...v1.0.0)
 
