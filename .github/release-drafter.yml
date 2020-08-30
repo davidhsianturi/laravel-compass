@@ -16,7 +16,7 @@ categories:
   - title: '📦 Dependencies'
     labels:
       - 'dependencies'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: '- $TITLE (#$NUMBER)'
 template: |
   ## Changes
 
