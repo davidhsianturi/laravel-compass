@@ -36,10 +36,13 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip
+          tools: composer:v2
           coverage: none
 
       - name: Install dependencies
-        run: composer require "illuminate/contracts=${{ matrix.laravel }}" --prefer-dist --no-interaction --no-suggest
+        run: |
+          composer require "illuminate/contracts=${{ matrix.laravel }}" --no-update
+          composer update --prefer-dist --no-interaction --no-suggest
 
       - name: Execute tests
         run: vendor/bin/phpunit --verbose
