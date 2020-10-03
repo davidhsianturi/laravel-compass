@@ -23,6 +23,7 @@
         "mpociot/documentarian": "dev-master"
     },
     "require-dev": {
+        "laravel/legacy-factories": "^1.0.5",
         "laravel/sanctum": "^2.0",
         "orchestra/testbench": "^4.0|^5.0|^6.0"
     },
