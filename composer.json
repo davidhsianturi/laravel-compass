@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "illuminate/console": "^6.0|^7.0|^8.0",
         "illuminate/routing": "^6.0|^7.0|^8.0",
         "illuminate/support": "^6.0|^7.0|^8.0",
