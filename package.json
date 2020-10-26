@@ -13,7 +13,7 @@
         "axios": "^0.20",
         "cross-env": "^7.0",
         "laravel-mix": "^5.0.7",
-        "resolve-url-loader": "^3.1.1",
+        "resolve-url-loader": "^3.1.2",
         "tailwindcss": "^1.9.4",
         "sass": "^1.27.0",
         "sass-loader": "^10.0.2",
