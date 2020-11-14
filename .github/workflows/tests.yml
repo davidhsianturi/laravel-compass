@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   tests:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.3, 7.4]
+        php: [7.3, 7.4, 8.0]
         laravel: [^6.0, ^7.0, ^8.0]
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }}
