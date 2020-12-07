@@ -15,7 +15,7 @@
         "laravel-mix": "^5.0.9",
         "resolve-url-loader": "^3.1.2",
         "tailwindcss": "^1.9.4",
-        "sass": "^1.29.0",
+        "sass": "^1.30.0",
         "sass-loader": "^10.1.0",
         "vue": "^2.6.12",
         "vue-codemirror": "^4.0.6",
