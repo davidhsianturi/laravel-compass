@@ -2,9 +2,9 @@
 
 <p align="center">
 <a href="https://github.com/davidhsianturi/laravel-compass/actions"><img src="https://github.com/davidhsianturi/laravel-compass/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://poser.pugx.org/davidhsianturi/laravel-compass/license.svg" alt="License"></a>
+<a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://img.shields.io/packagist/dt/davidhsianturi/laravel-compass" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://img.shields.io/packagist/v/davidhsianturi/laravel-compass" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/davidhsianturi/laravel-compass"><img src="https://img.shields.io/packagist/l/davidhsianturi/laravel-compass" alt="License"></a>
 </p>
 
 <p align="center">

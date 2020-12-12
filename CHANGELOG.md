@@ -1,6 +1,34 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.1...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.1.0...HEAD)
+
+## [v1.1.0 (2020-10-05)](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.1...v1.1.0)
+
+## Changes
+
+- Add Laravel 8 support ([#103](https://github.com/davidhsianturi/laravel-compass/pull/103))
+- Update Tailwind config file ([#100](https://github.com/davidhsianturi/laravel-compass/pull/100))
+- Adding release drafter action ([#84](https://github.com/davidhsianturi/laravel-compass/pull/84))
+
+## 📦 Dependencies
+
+- Bump vue-router from 3.4.3 to 3.4.5 ([#104](https://github.com/davidhsianturi/laravel-compass/pull/104))
+- Bump tailwindcss from 1.8.9 to 1.8.10 ([#102](https://github.com/davidhsianturi/laravel-compass/pull/102))
+- Bump sass from 1.26.10 to 1.26.11 ([#101](https://github.com/davidhsianturi/laravel-compass/pull/101))
+- Bump tailwindcss from 1.8.4 to 1.8.9 ([#98](https://github.com/davidhsianturi/laravel-compass/pull/98))
+- Bump http-proxy from 1.18.0 to 1.18.1 ([#96](https://github.com/davidhsianturi/laravel-compass/pull/96))
+- Bump tailwindcss from 1.7.6 to 1.8.4 ([#94](https://github.com/davidhsianturi/laravel-compass/pull/94))
+- Bump sass-loader from 8.0.2 to 10.0.2 ([#95](https://github.com/davidhsianturi/laravel-compass/pull/95))
+- Bump laravel-mix from 5.0.4 to 5.0.5 ([#93](https://github.com/davidhsianturi/laravel-compass/pull/93))
+- Bump axios from 0.19.2 to 0.20.0 ([#92](https://github.com/davidhsianturi/laravel-compass/pull/92))
+- Bump vue and vue-template-compiler ([#91](https://github.com/davidhsianturi/laravel-compass/pull/91))
+- Bump tailwindcss from 1.2.0 to 1.7.6 ([#87](https://github.com/davidhsianturi/laravel-compass/pull/87))
+- Bump sass-loader from 8.0.2 to 10.0.1 ([#88](https://github.com/davidhsianturi/laravel-compass/pull/88))
+- Bump vue-router from 3.1.6 to 3.4.3 ([#89](https://github.com/davidhsianturi/laravel-compass/pull/89))
+- Bump sass from 1.26.3 to 1.26.10 ([#90](https://github.com/davidhsianturi/laravel-compass/pull/90))
+- Bump laravel-mix-purgecss from 5.0.0-rc.1 to 5.0.0 ([#86](https://github.com/davidhsianturi/laravel-compass/pull/86))
+- Bump elliptic from 6.5.2 to 6.5.3 ([#85](https://github.com/davidhsianturi/laravel-compass/pull/85))
+- Bump lodash from 4.17.15 to 4.17.19 ([#83](https://github.com/davidhsianturi/laravel-compass/pull/83))
 
 ## [v1.0.1 (2020-06-13)](https://github.com/davidhsianturi/laravel-compass/compare/v1.0.0...v1.0.1)
 
