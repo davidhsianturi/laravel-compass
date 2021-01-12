@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.1.1...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.2.0...HEAD)
+
+## [v1.2.0 (2021-01-12)](https://github.com/davidhsianturi/laravel-compass/compare/v1.1.1...v1.2.0)
+
+## Changes
+
+- Make the example response body editable ([#123](https://github.com/davidhsianturi/laravel-compass/pull/123))
 
 ## [v1.1.1 (2020-12-12)](https://github.com/davidhsianturi/laravel-compass/compare/v1.1.0...v1.1.1)
 
