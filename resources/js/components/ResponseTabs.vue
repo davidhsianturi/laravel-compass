@@ -39,7 +39,7 @@ export default {
 <template>
     <div>
         <div class="flex justify-content-between border-b border-secondary">
-            <ul class="flex inline-block">
+            <ul class="flex">
                 <li class="-mb-px mr-1" v-for="(tab, i) in tabs" :key="i">
                     <a :class="{'text-gray-800 border-primary border-b': currentTab==tab}"
                         class="inline-block text-sm capitalize py-2 px-4 text-gray-600 hover:text-gray-800"
@@ -62,7 +62,7 @@ export default {
         </div>
 
         <keep-alive>
-            <component :is="currentTab" :response="$attrs" :show-body-options="showBodyOptions" />
+            <component :is="currentTab" v-bind="$attrs" v-on="$listeners" :show-body-options="showBodyOptions" />
         </keep-alive>
     </div>
 </template>
