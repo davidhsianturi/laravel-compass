@@ -1,11 +1,6 @@
 <script>
 export default {
-    props: {
-        response: {
-            type: Object,
-            required: true
-        }
-    }
+    inheritAttrs: false
 }
 </script>
 
@@ -19,7 +14,7 @@ export default {
             </tr>
         </thead>
         <tbody class="align-baseline">
-            <tr v-for="(value, key) in response.headers" :key="key">
+            <tr v-for="(value, key) in $attrs.headers" :key="key">
                 <td class="px-4 border-b border-secondary text-xs text-gray-800"></td>
                 <td class="p-2 border-b border-secondary text-xs text-gray-800">{{key}}</td>
                 <td class="p-2 border-b border-secondary text-xs text-gray-800">{{value}}</td>
