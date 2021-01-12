@@ -2,15 +2,13 @@
 import CodeEditor from '../CodeEditor';
 
 export default {
+    inheritAttrs: false,
+
     components: {
         CodeEditor
     },
 
     props: {
-        response: {
-            type: Object,
-            required: true
-        },
         showBodyOptions: {
             type: Boolean,
             default: true
@@ -18,15 +16,21 @@ export default {
     },
 
     computed: {
-        code() {
-            let data = this.response.data;
-            return typeof data === 'string' ? data : JSON.stringify(data, null, '\t');
+        responseBody: {
+            get() {
+                let data = this.$attrs.data;
+                return typeof data === 'string' ? data : JSON.stringify(data, null, '\t');
+            },
+            set(val) {
+                this.$emit('update:data', val);
+            }
         }
     },
 
     data() {
         return {
-            currentBodyOption: 'pretty'
+            currentBodyOption: 'pretty',
+            editorMode: this.$attrs.headers['content-type']
         }
     }
 }
@@ -42,12 +46,21 @@ export default {
                 @click.prevent="currentBodyOption='pretty'">Pretty</button>
             <button
                 :class="{'bg-primary-light font-semibold': currentBodyOption=='preview'}"
-                class="py-1 px-4 text-xs bg-white text-primary rounded-r-lg border border-primary-light border-l-0 hover:bg-primary-light hover:bg-primary-light focus:outline-none"
+                class="py-1 px-4 text-xs bg-white text-primary rounded-r-lg border border-primary-light border-l-0 hover:bg-primary-light focus:outline-none"
                 type="button"
                 @click.prevent="currentBodyOption='preview'">Preview</button>
         </div>
 
-        <code-editor v-if="currentBodyOption=='pretty'" :code="code" mode="application/json" readOnly />
-        <iframe class="w-full min-h-screen" v-if="currentBodyOption=='preview'" :srcdoc="code" frameborder="0" />
+        <code-editor
+            v-if="currentBodyOption=='pretty'"
+            :code.sync="responseBody"
+            :mode="editorMode"
+            :readOnly="showBodyOptions" />
+
+        <iframe
+            v-if="currentBodyOption=='preview'"
+            :srcdoc="responseBody"
+            frameborder="0"
+            class="w-full min-h-screen"  />
     </div>
 </template>

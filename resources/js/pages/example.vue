@@ -103,7 +103,7 @@ export default {
             <section class="w-full px-4">
                 <label class="block uppercase tracking-wide text-gray-600 text-xs mb-2 font-semibold">Example response</label>
                 <div class="bg-white shadow rounded-md border border-secondary border-b-0">
-                    <response-tabs v-bind="exampleData.content.response" is-example-data ignore-body-options />
+                    <response-tabs v-bind.sync="exampleData.content.response" is-example-data />
                 </div>
             </section>
         </template>
