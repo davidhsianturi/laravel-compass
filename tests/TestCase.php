@@ -93,4 +93,15 @@ class TestCase extends Orchestra
             });
         });
     }
+
+    protected function registerVariableRoute()
+    {
+        RouteFacade::prefix('api/v1')->group(function () {
+            RouteFacade::group(['domain' => '{account}.tld.test'], function () {
+                RouteFacade::get('/test', function () {
+                    return 'test';
+                })->name('vardomain');
+            });
+        });
+    }
 }

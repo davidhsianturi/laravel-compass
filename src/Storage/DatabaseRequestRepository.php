@@ -108,7 +108,9 @@ class DatabaseRequestRepository implements RequestRepository
             $route['description'],
             $route['content'],
             [
-                'domain' => $route['domain'],
+                'domain' => $this->hasVariableFragment($route['domain'])
+                    ? request()->getHost()
+                    : $route['domain'],
                 'methods' => $route['methods'],
                 'uri' => $route['uri'],
                 'name' => $route['name'],
@@ -143,5 +145,18 @@ class DatabaseRequestRepository implements RequestRepository
     protected function table($table)
     {
         return DB::connection($this->connection)->table($table);
+    }
+
+    /**
+     * Determines if a given domain has any dynamic fragment.
+     *
+     * @param  string|null  $domain
+     * @return bool
+     */
+    private function hasVariableFragment(?string $domain)
+    {
+        return collect(explode('.', $domain))->filter(function ($fragment) {
+            return Str::startsWith($fragment, '{') && Str::endsWith($fragment,'}');
+        })->count() > 0;
     }
 }

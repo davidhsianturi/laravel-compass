@@ -7,6 +7,7 @@ use Davidhsianturi\Compass\Tests\TestCase;
 use Davidhsianturi\Compass\Storage\RouteModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
+use Illuminate\Support\Facades\URL;
 
 class RoutesRequestTest extends TestCase
 {
@@ -52,6 +53,19 @@ class RoutesRequestTest extends TestCase
         $this->getJson(route('compass.request.show', $route['id']))
             ->assertSuccessful()
             ->assertExactJson($route);
+    }
+
+    public function test_show_route_request_fallbacks_to_host_for_variable_domain()
+    {
+        $host = 'test.tld.test';
+        URL::forceRootUrl('http://' . $host);
+        $this->registerVariableRoute();
+
+        $route = $this->repository->get()->first()->jsonSerialize();
+
+        $this->getJson(route('compass.request.show', $route['id']))
+            ->assertSuccessful()
+            ->assertJsonFragment(['domain' => $host]);
     }
 
     public function test_store_the_route_request_to_storage()
