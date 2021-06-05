@@ -156,7 +156,7 @@ class DatabaseRequestRepository implements RequestRepository
     private function hasVariableFragment(?string $domain)
     {
         return collect(explode('.', $domain))->filter(function ($fragment) {
-            return Str::startsWith($fragment, '{') && Str::endsWith($fragment,'}');
+            return Str::startsWith($fragment, '{') && Str::endsWith($fragment, '}');
         })->count() > 0;
     }
 }

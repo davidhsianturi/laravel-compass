@@ -3,11 +3,11 @@
 namespace Davidhsianturi\Compass\Tests\Http;
 
 use Davidhsianturi\Compass\Compass;
+use Illuminate\Support\Facades\URL;
 use Davidhsianturi\Compass\Tests\TestCase;
 use Davidhsianturi\Compass\Storage\RouteModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Davidhsianturi\Compass\Storage\DatabaseRequestRepository;
-use Illuminate\Support\Facades\URL;
 
 class RoutesRequestTest extends TestCase
 {
@@ -58,7 +58,7 @@ class RoutesRequestTest extends TestCase
     public function test_show_route_request_fallbacks_to_host_for_variable_domain()
     {
         $host = 'test.tld.test';
-        URL::forceRootUrl('http://' . $host);
+        URL::forceRootUrl('http://'.$host);
         $this->registerVariableRoute();
 
         $route = $this->repository->get()->first()->jsonSerialize();
