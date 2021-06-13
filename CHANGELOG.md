@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.2.0...HEAD)
+## [Unreleased](https://github.com/davidhsianturi/laravel-compass/compare/v1.2.1...HEAD)
+
+## [v1.2.1 (2021-06-13)](https://github.com/davidhsianturi/laravel-compass/compare/v1.2.0...v1.2.1)
+
+## Changes
+
+- Allow host as a fallback domain when using variable domain ([#162](https://github.com/davidhsianturi/laravel-compass/pull/162))
 
 ## [v1.2.0 (2021-01-12)](https://github.com/davidhsianturi/laravel-compass/compare/v1.1.1...v1.2.0)
 
