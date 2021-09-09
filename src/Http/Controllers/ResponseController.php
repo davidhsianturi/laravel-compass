@@ -26,7 +26,7 @@ class ResponseController
     /**
      * Store the response as example.
      *
-     * @return  \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store()
     {
