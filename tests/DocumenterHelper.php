@@ -44,7 +44,7 @@ class DocumenterHelper extends TestCase
      * @source laravel-apidoc-generator
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/tests/TestHelpers.php#L36
      *
-     * @param  string $path
+     * @param  string  $path
      * @return string
      */
     protected function getFileContents($path)
