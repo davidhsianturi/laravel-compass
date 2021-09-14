@@ -23,7 +23,9 @@ class DocumenterHelper extends TestCase
     /**
      * Assert that two files content have the same value
      * .
+     *
      * @source laravel-apidoc-generator
+     *
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/tests/TestHelpers.php#L22
      *
      * @param  string  $pathToExpected
@@ -42,6 +44,7 @@ class DocumenterHelper extends TestCase
      * Get the contents of a file in a cross-platform-compatible way.
      *
      * @source laravel-apidoc-generator
+     *
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/tests/TestHelpers.php#L36
      *
      * @param  string  $path
@@ -56,6 +59,7 @@ class DocumenterHelper extends TestCase
      * Delete API Documentation folder.
      *
      * @source laravel-apidoc-generator
+     *
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/src/Tools/Utils.php#L87
      *
      * @param  string  $dir
@@ -72,6 +76,7 @@ class DocumenterHelper extends TestCase
      * Assert that a string contains another string, ignoring all whitespace.
      *
      * @source laravel-apidoc-generator
+     *
      * @link https://github.com/mpociot/laravel-apidoc-generator/blob/0ed20a0c253d27ebfbee3cea001f6101c70e2ee0/tests/TestHelpers.php#L47
      *
      * @param  $needle
