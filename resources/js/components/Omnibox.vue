@@ -78,6 +78,7 @@ export default {
             class="block text-xs bg-primary font-bold text-white ml-2 py-2 px-4 rounded sm:w-auto sm:inline-block hover:bg-primary-dark focus:outline-none"
             type="button"
             v-if="okToSubmit"
+            v-on:keyup.enter="endpointReady"
             @click="endpointReady">SEND</button>
     </div>
 </template>
