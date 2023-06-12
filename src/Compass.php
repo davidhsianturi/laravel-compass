@@ -69,7 +69,7 @@ class Compass
     {
         $routeRules = config('compass.routes');
 
-        if ((Str::is($routeRules['exclude'], $route['name'])) ||
+        if (Str::is($routeRules['exclude'], $route['name']) ||
              Str::is($routeRules['exclude'], $route['uri']) ||
              ! Str::is($routeRules['domains'], $route['domain']) ||
              ! Str::is($routeRules['prefixes'], $route['uri'])) {
